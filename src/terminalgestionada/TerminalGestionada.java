@@ -26,4 +26,6 @@ public class TerminalGestionada implements FachadaTerminal{
 	public Ubicacion getPosicionGeografica() {
 		return posicionGeografica;
 	}
+
+	
 }
