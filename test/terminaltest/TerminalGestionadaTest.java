@@ -13,7 +13,7 @@ public class TerminalGestionadaTest {
 	
 	@BeforeEach
 	public void setUp() {
-		terminal = new TerminalGestionada();
+		terminal = new TerminalGestionada(null, null, null);
 	}
 	
 	@Test
