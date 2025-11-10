@@ -20,7 +20,6 @@ public class OrdenDeExportacion extends Orden {
 	public OrdenDeExportacion(Viaje viaje, Carga carga, Camion camion) {
 		super(carga, camion);
 		this.viaje = viaje;
-		
 	}
 	
 	
