@@ -155,5 +155,35 @@ public class BuqueTest {
         // 4. VERIFICACIÓN: El estado debe volver a Outbound
         assertEquals(Outbound.class, buque.getFase().getClass());
     }
+    
+    @Test
+    public void test09_BuqueNotificaALaTerminalCuandoEntraEnInbound() {
+ 
+        assertEquals(Outbound.class, buque.getFase().getClass());
+
+        buque.actualizarPosicion(new Ubicacion(49, 0, 1.0));
+        assertEquals(Inbound.class, buque.getFase().getClass()); 
+
+
+        Mockito.verify(terminal, Mockito.times(1)).notificarArriboInminente(buque);
+    }
 	
+    @Test
+    public void test10_BuqueNotificaALaTerminalCuandoPasaDeDepartingAOutbound() {
+        // 1. SETUP: Llevamos el buque a Departing
+        buque.actualizarPosicion(new Ubicacion(49, 0, 1.0)); // Inbound
+        buque.actualizarPosicion(this.posicionTerminal);     // Arrived
+        buque.iniciarTrabajo();                              // Working
+        buque.depart();                                      // Departing
+        assertEquals(Departing.class, buque.getFase().getClass());
+
+        // 2. EJECUCIÓN: El buque se aleja a > 1km
+        buque.actualizarPosicion(new Ubicacion(2, 0, 1.0));
+        assertEquals(Outbound.class, buque.getFase().getClass()); // Verificamos
+
+        // 3. VERIFICACIÓN (¡NUEVO!):
+        // Verificamos que se llamó al método 'notificarPartida' 
+        Mockito.verify(terminal, Mockito.times(1)).notificarPartida(buque);
+    }
+    
 }

@@ -7,11 +7,12 @@ public class Outbound implements EstadoBuque{
 	
 	@Override
     public void actualizarPosicion(Buque buque, Ubicacion nuevaPosicion) {
-        
-        TerminalGestionada terminal = buque.getTerminal();
+        var terminal = buque.getTerminal();
         double distancia = nuevaPosicion.distanciaA(terminal.getPosicionGeografica());
+
         if (distancia < 50) {
             buque.setFase(new Inbound());
+            terminal.notificarArriboInminente(buque);
         }
     }
 

@@ -1,0 +1,21 @@
+package warehouse;
+
+import warehouse.BillOfLading;
+import warehouse.BLCompuesto;
+
+public class Reefer extends Carga {
+    
+	private double consumoKwHora;
+
+    public Reefer(double ancho, double largo, double altura, double pesoTotal, double consumoKwHora, BillOfLading bl) { 
+        super(ancho, largo, altura, pesoTotal, bl); 
+        if (bl instanceof BLCompuesto) {
+            throw new IllegalArgumentException("Un Reefer no puede tener un BL Compuesto");
+        }
+        this.consumoKwHora = consumoKwHora;
+    }
+
+    public double getConsumoKwHora() {
+        return this.consumoKwHora;
+    }
+}
