@@ -1,5 +1,5 @@
 package gestionterrestre.dummies;
 
-public class Carga {
+public class CargaTemporal {
 
 }
