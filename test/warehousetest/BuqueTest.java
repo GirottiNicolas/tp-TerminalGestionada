@@ -15,7 +15,6 @@ import warehouse.Inbound;
 import warehouse.Outbound;
 import warehouse.Working;
 
-
 public class BuqueTest {
 
 	private Buque buque;
