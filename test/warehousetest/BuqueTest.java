@@ -130,6 +130,7 @@ public class BuqueTest {
         buque.actualizarPosicion(this.posicionTerminal);     // Arrived
         assertEquals(Arrived.class, buque.getFase().getClass()); // Verificamos
 
+        
         // 2. EJECUCIÓN: Intentamos dar la orden "depart"
         buque.depart();
 
