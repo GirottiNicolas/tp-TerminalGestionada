@@ -1,8 +1,8 @@
 package gestionterrestre;
 
 public class Ubicacion {
-    int x;
-    int y;
+    public int x;
+    public int y;
 	double metricaUtilizada;
 
     public Ubicacion(int x, int y, double metricaUtilizada) {

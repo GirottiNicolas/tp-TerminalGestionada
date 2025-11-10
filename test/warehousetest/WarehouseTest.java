@@ -1,6 +1,6 @@
 package warehousetest;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,10 +16,7 @@ public class WarehouseTest {
 		warehouse = new Warehouse();
 	}
 	
-	@Test
-	public void test1() {
-		assertTrue(false);
-	}
+	
 	
 	
 }
