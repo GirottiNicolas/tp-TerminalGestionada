@@ -1,19 +1,25 @@
 package gestionterrestre;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Warehouse;
+
+
 
 public class GestionTerrestre {
 
 	List<Cliente> clientes;
 	List<EmpresaTransportista> transportistas;
 	List<OrdenDeExportacion> exportaciones;
+	Warehouse warehouse;
 	
 	public GestionTerrestre() {
 		this.clientes = new ArrayList<Cliente>();
+		this.exportaciones = new ArrayList<OrdenDeExportacion>();
 		this.transportistas = new ArrayList<EmpresaTransportista>();
 	}
 	
@@ -44,7 +50,7 @@ public class GestionTerrestre {
 			throw new RuntimeException("No puedes exportar!");
 		}
 		else {
-			ordenExportacion.asignarTurno(new Date());
+			ordenExportacion.asignarTurno(LocalDateTime.now());
 			exportaciones.add(ordenExportacion);
 		}
 		
@@ -57,6 +63,22 @@ public class GestionTerrestre {
 
 	private boolean esCliente(Cliente cliente) {
 		return clientes.contains(cliente);
+	}
+
+	public void recibirCargaDeTransporte(OrdenDeExportacion ordenExportacion, Camion camion) {
+		this.verificarTransporte(camion, ordenExportacion);
+		this.verificarTurno(ordenExportacion, LocalDateTime.now());
+		
+		// warehouse.registrarCarga(camion.getCarga());
+		
+	}
+	
+	private boolean verificarTurno(OrdenDeExportacion orden, LocalDateTime horarioDelCamion) {
+		return orden.getTurno().equals(horarioDelCamion);
+	}
+
+	private boolean verificarTransporte(Camion camion, OrdenDeExportacion ordenExportacion) {
+		return camion.esCamionDesignado(ordenExportacion.getCamion()) && ordenExportacion.cumpleHorario(LocalDateTime.now());
 	}
 	
 	

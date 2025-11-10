@@ -1,12 +1,16 @@
 package gestionterrestre;
 
+import gestionterrestre.dummies.Carga;
+
 public class Camion {
 	String patente;
 	String chofer;
+	Carga carga;
 	
-	public Camion(String patente, String chofer) {
+	public Camion(String patente, String chofer, Carga carga) {
 		this.patente = patente;
 		this.setChofer(chofer);
+		this.setCargaEnCamion(carga);
 	}
 
 	public void setChofer(String chofer) {
@@ -17,7 +21,19 @@ public class Camion {
 		return patente;
 	}
 	
-	public boolean esCamion(Camion c) {
-		return this.getPatente().equals(c.getPatente());
+	public boolean esCamionDesignado(Camion c) {
+		return this.getPatente().equals(c.getPatente()) && this.getChofer().equals(c.getChofer());
+	}
+
+	private String getChofer() {
+		return chofer;
+	}
+
+	public Carga getCarga() {
+		return carga;
+	}
+	
+	public void setCargaEnCamion(Carga carga) {
+		this.carga = carga;
 	}
 }
