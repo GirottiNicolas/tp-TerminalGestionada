@@ -13,6 +13,7 @@ import gestionterrestre.Cliente;
 import gestionterrestre.EmpresaTransportista;
 import gestionterrestre.GestionTerrestre;
 import gestionterrestre.OrdenDeExportacion;
+import gestionterrestre.OrdenDeImportacion;
 import gestionterrestre.Ubicacion;
 import gestionterrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
@@ -29,14 +30,17 @@ public class GestionTerrestreTest {
 	Cliente cliente;
 	EmpresaTransportista empresaCamionera;
 	OrdenDeExportacion ordenExportacion;
-	Camion camion;
+	Camion camion1;
+	Camion camion2;
 	Viaje viaje;
 	Ubicacion ubicacionDestino;
+	OrdenDeImportacion ordenDeImportacion;
 	
 	
 	@BeforeEach
 	public void setUp() {
-		camion = new Camion("AZ 132 TT", "Javier",null);
+		camion1 = new Camion("AZ 132 TT", "Javier",null);
+		camion2 = new Camion("AZ 132 TT", "Sofia",null);
 		ubicacion = new Ubicacion(1,2,1.0);
 		ubicacionDestino = new Ubicacion(4,8,1.0);
 		terminalDestino = new TerminalGestionada(ubicacion,null,null, null);
@@ -45,7 +49,7 @@ public class GestionTerrestreTest {
 		terminalGestionada = new TerminalGestionada(ubicacionDestino, gestion, null, null);
 		viaje = new Viaje(terminalGestionada);
 		empresaCamionera = new EmpresaTransportista();
-		ordenExportacion = new OrdenDeExportacion(viaje,null,camion);
+		ordenExportacion = new OrdenDeExportacion(viaje,null,camion1);
 	}
 	
 
@@ -80,7 +84,7 @@ public class GestionTerrestreTest {
 	@Test
 	public void exportacionConErrorPorTerminalOrigen() {
 		Viaje viaje = new Viaje(terminalDestino);
-		OrdenDeExportacion orden = new OrdenDeExportacion(viaje, null, camion);
+		OrdenDeExportacion orden = new OrdenDeExportacion(viaje, null, camion1);
 		gestion.agregarCliente(cliente);
 		assertThrows(RuntimeException.class,() -> gestion.exportar(orden, cliente,terminalGestionada));
 	}
@@ -96,7 +100,16 @@ public class GestionTerrestreTest {
 	public void camionEntregaCarga() {
 		gestion.agregarCliente(cliente);
 		gestion.exportar(ordenExportacion, cliente,terminalGestionada);
-		assertDoesNotThrow(() -> gestion.recibirCargaDeTransporte(ordenExportacion,camion));
+		assertDoesNotThrow(() -> gestion.recibirCargaDeTransporte(ordenExportacion,camion1));
+	
+	}
+	
+	
+	@Test
+	public void camionNoPuedeEntregarCarga() {
+		gestion.agregarCliente(cliente);
+		gestion.exportar(ordenExportacion, cliente,terminalGestionada);
+		assertThrows(RuntimeException.class,() -> gestion.recibirCargaDeTransporte(ordenExportacion,camion2));
 	
 	}
 	
@@ -108,6 +121,12 @@ public class GestionTerrestreTest {
 		gestion.agregarCliente(cliente);
 		gestion.exportar(ordenExportacion, cliente,terminalGestionada);
 		assertTrue(ordenExportacion.esOrden(ordenExportacion));
+	}
+	
+	
+	@Test
+	public void importar() {
+		gestion.importar(ordenDeImportacion);
 	}
 	
 	

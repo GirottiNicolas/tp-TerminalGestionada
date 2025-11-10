@@ -15,6 +15,7 @@ public class GestionTerrestre {
 	List<Cliente> clientes;
 	List<EmpresaTransportista> transportistas;
 	List<OrdenDeExportacion> exportaciones;
+	List<OrdenDeImportacion> importaciones;
 	Warehouse warehouse;
 	
 	public GestionTerrestre() {
@@ -22,6 +23,23 @@ public class GestionTerrestre {
 		this.exportaciones = new ArrayList<OrdenDeExportacion>();
 		this.transportistas = new ArrayList<EmpresaTransportista>();
 	}
+	
+	
+	public void exportar(OrdenDeExportacion ordenExportacion, Cliente cliente, TerminalGestionada terminalGestionada) {
+		if (!(this.puedeRealizarExportacion(cliente, ordenExportacion, terminalGestionada))) {
+			throw new RuntimeException("No puedes exportar!");
+		}
+		else {
+			ordenExportacion.asignarTurno(LocalDateTime.now());
+			exportaciones.add(ordenExportacion);
+		}
+	}
+	
+	
+	public void importar(OrdenDeImportacion ordenImportacion) {
+		
+	}
+	
 	
 	public void agregarCliente(Cliente cliente) {
 		clientes.add(cliente);
@@ -45,16 +63,7 @@ public class GestionTerrestre {
 		clientes.remove(cliente);
 	}
 
-	public void exportar(OrdenDeExportacion ordenExportacion, Cliente cliente, TerminalGestionada terminalGestionada) {
-		if (!(this.puedeRealizarExportacion(cliente, ordenExportacion, terminalGestionada))) {
-			throw new RuntimeException("No puedes exportar!");
-		}
-		else {
-			ordenExportacion.asignarTurno(LocalDateTime.now());
-			exportaciones.add(ordenExportacion);
-		}
-		
-	}
+	
 	
 	public boolean puedeRealizarExportacion(Cliente cliente, OrdenDeExportacion orden, TerminalGestionada terminalGestionada) {
 		return this.esCliente(cliente) && orden.parteDeLaTerminal(terminalGestionada);
@@ -73,12 +82,19 @@ public class GestionTerrestre {
 		
 	}
 	
-	private boolean verificarTurno(OrdenDeExportacion orden, LocalDateTime horarioDelCamion) {
-		return orden.getTurno().equals(horarioDelCamion);
+
+	
+	
+	private void verificarTurno(OrdenDeExportacion orden, LocalDateTime horarioDelCamion) {
+		if (!orden.cumpleHorario(LocalDateTime.now())) {
+	        throw new RuntimeException("El camión no cumple con el horario permitido.");
+	    }
 	}
 
-	private boolean verificarTransporte(Camion camion, OrdenDeExportacion ordenExportacion) {
-		return camion.esCamionDesignado(ordenExportacion.getCamion()) && ordenExportacion.cumpleHorario(LocalDateTime.now());
+	private void verificarTransporte(Camion camion, OrdenDeExportacion ordenExportacion) {
+	    if (!camion.esCamionDesignado(ordenExportacion.getCamion())) {
+	        throw new RuntimeException("El camión no es el designado para esta orden de exportación.");
+	    }
 	}
 	
 	
