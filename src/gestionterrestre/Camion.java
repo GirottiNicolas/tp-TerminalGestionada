@@ -1,13 +1,13 @@
 package gestionterrestre;
 
-import gestionterrestre.dummies.CargaTemporal;
+import warehouse.Carga;
 
 public class Camion {
 	String patente;
 	String chofer;
-	CargaTemporal carga;
+	Carga carga;
 	
-	public Camion(String patente, String chofer, CargaTemporal carga) {
+	public Camion(String patente, String chofer, Carga carga) {
 		this.patente = patente;
 		this.setChofer(chofer);
 		this.setCargaEnCamion(carga);
@@ -29,11 +29,11 @@ public class Camion {
 		return chofer;
 	}
 
-	public CargaTemporal getCarga() {
+	public Carga getCarga() {
 		return carga;
 	}
 	
-	public void setCargaEnCamion(CargaTemporal carga) {
+	public void setCargaEnCamion(Carga carga) {
 		this.carga = carga;
 	}
 }

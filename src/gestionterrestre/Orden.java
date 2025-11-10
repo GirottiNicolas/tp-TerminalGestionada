@@ -2,15 +2,15 @@ package gestionterrestre;
 
 import java.time.LocalDateTime;
 
-import gestionterrestre.dummies.CargaTemporal;
+import warehouse.Carga;
 
 
 public abstract class Orden {
-	CargaTemporal carga;
+	Carga carga;
 	Camion camion;
 	LocalDateTime turno = null;
 	
-	public Orden(CargaTemporal carga,Camion camion) {
+	public Orden(Carga carga,Camion camion) {
 		this.carga = carga;
 		this.camion = camion;
 		this.turno = null;
