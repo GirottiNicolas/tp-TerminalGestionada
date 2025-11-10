@@ -2,14 +2,14 @@ package gestionterrestre;
 
 import java.time.LocalDateTime;
 
-import gestionterrestre.dummies.Carga;
+import gestionterrestre.dummies.CargaTemporal;
 
 public class OrdenDeImportacion extends Orden {
 	
 	LocalDateTime turno;
 	
 	
-	public OrdenDeImportacion(Carga carga, Camion camion, LocalDateTime turno) {
+	public OrdenDeImportacion(CargaTemporal carga, Camion camion, LocalDateTime turno) {
 		super(carga, camion);
 		this.turno = turno;
 	}

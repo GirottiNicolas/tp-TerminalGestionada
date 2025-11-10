@@ -3,7 +3,7 @@ package gestionterrestre;
 
 
 import java.time.LocalDateTime;
-import gestionterrestre.dummies.Carga;
+import gestionterrestre.dummies.CargaTemporal;
 import gestionterrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
 
@@ -17,7 +17,7 @@ public class OrdenDeExportacion extends Orden {
 	Viaje viaje;
 	
 	
-	public OrdenDeExportacion(Viaje viaje, Carga carga, Camion camion) {
+	public OrdenDeExportacion(Viaje viaje, CargaTemporal carga, Camion camion) {
 		super(carga, camion);
 		this.viaje = viaje;
 	}
