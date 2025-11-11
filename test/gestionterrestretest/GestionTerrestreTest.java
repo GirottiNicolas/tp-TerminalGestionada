@@ -51,13 +51,14 @@ public class GestionTerrestreTest {
 		warehouse = new Warehouse();
 		camion1 = new Camion("AZ 132 TT", "Javier",null);
 		camion2 = new Camion("AZ 132 TT", "Sofia",null);
-		ubicacion = new Ubicacion(1,2,1.0);
-		ubicacionDestino = new Ubicacion(4,8,1.0);
-		terminalDestino = new TerminalGestionada(ubicacion,null,null, null);
+		ubicacion = new Ubicacion(1,2);
+		ubicacionDestino = new Ubicacion(4,8);
+		
 		cliente = new Cliente("nico@gmail.com");
-		gestion = new GestionTerrestre();
+		gestion = new GestionTerrestre(warehouse);
+		terminalDestino = new TerminalGestionada(ubicacion,gestion,null, warehouse);
 		gestorExportador = new GestorDeExportacion(gestion, warehouse);
-		terminalGestionada = new TerminalGestionada(ubicacionDestino, gestion, null, null);
+		terminalGestionada = new TerminalGestionada(ubicacionDestino, gestion, null, warehouse);
 		viaje = new Viaje(terminalGestionada, terminalDestino,null);
 		viajeImportacion = new Viaje(terminalDestino, terminalGestionada,null);
 		empresaCamionera = new EmpresaTransportista();

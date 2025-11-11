@@ -5,10 +5,10 @@ public class Ubicacion {
     public int y;
 	double metricaUtilizada;
 
-    public Ubicacion(int x, int y, double metricaUtilizada) {
+    public Ubicacion(int x, int y) {
         this.x = x;
         this.y = y;
-        this.metricaUtilizada = metricaUtilizada;
+    
     }
 
     public int getX() { 
@@ -19,13 +19,13 @@ public class Ubicacion {
     }
 
 
-    public double distanciaA(Ubicacion ubicacionDestino) {
+    public double distanciaA(Ubicacion ubicacionDestino,double metricaDeDistancia) {
         int distanciaX = ubicacionDestino.x - this.x;
         int distanciaY = ubicacionDestino.y - this.y;
         
         double distancia = this.aplicarPitagorasA(distanciaX, distanciaY);
         
-        return distancia * metricaUtilizada; 
+        return distancia * metricaDeDistancia; 
     }
     
     public double aplicarPitagorasA(int dx, int dy) {

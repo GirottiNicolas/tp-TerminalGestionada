@@ -28,7 +28,7 @@ public class GestionTerrestre {
 	GestorDeExportacion gestorExportador;
 	GestorDeImportacion gestorImportador;
 	
-	public GestionTerrestre() {
+	public GestionTerrestre(Warehouse warehouse) {
 		this.clientes = new ArrayList<Cliente>();
 		this.exportaciones = new ArrayList<OrdenDeExportacion>();
 		this.importaciones = new ArrayList<OrdenDeImportacion>();

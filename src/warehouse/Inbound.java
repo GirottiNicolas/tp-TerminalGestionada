@@ -8,7 +8,7 @@ public class Inbound implements EstadoBuque{
     public void actualizarPosicion(Buque buque, Ubicacion nuevaPosicion) {
 		
 		var terminal = buque.getTerminal();
-        double distancia = nuevaPosicion.distanciaA(terminal.getPosicionGeografica());
+        double distancia = nuevaPosicion.distanciaA(terminal.getPosicionGeografica(),1.0);
         if (distancia == 0) {
             buque.setFase(new Arrived());
         } else if (distancia >= 50) {
