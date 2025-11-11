@@ -18,6 +18,8 @@ import gestionterrestre.OrdenDeImportacion;
 import gestionterrestre.Ubicacion;
 import gestionterrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Carga;
+import warehouse.Dry;
 import warehouse.Warehouse;
 
 
@@ -35,14 +37,17 @@ public class GestionTerrestreTest {
 	Camion camion1;
 	Camion camion2;
 	Viaje viaje;
+	Viaje viajeImportacion;
 	Ubicacion ubicacionDestino;
 	OrdenDeImportacion ordenDeImportacion;
 	GestorDeExportacion gestorExportador;
 	Warehouse warehouse;
+	Carga carga;
 	
 	
 	@BeforeEach
 	public void setUp() {
+		carga = new Dry(0.0,0.0,0.0,0.0,null);
 		warehouse = new Warehouse();
 		camion1 = new Camion("AZ 132 TT", "Javier",null);
 		camion2 = new Camion("AZ 132 TT", "Sofia",null);
@@ -54,8 +59,10 @@ public class GestionTerrestreTest {
 		gestorExportador = new GestorDeExportacion(gestion, warehouse);
 		terminalGestionada = new TerminalGestionada(ubicacionDestino, gestion, null, null);
 		viaje = new Viaje(terminalGestionada, terminalDestino);
+		viajeImportacion = new Viaje(terminalDestino, terminalGestionada);
 		empresaCamionera = new EmpresaTransportista();
 		ordenExportacion = new OrdenDeExportacion(viaje,null,camion1, cliente);
+		ordenDeImportacion = new OrdenDeImportacion(viajeImportacion, carga,camion1,cliente,null);
 	}
 	
 
@@ -132,7 +139,8 @@ public class GestionTerrestreTest {
 	
 	@Test
 	public void importar() {
-		//gestion.importar(ordenDeImportacion, camion1);
+		gestion.agregarCliente(cliente);
+		assertDoesNotThrow(() -> gestion.importar(ordenDeImportacion, terminalGestionada));
 	}
 	
 	

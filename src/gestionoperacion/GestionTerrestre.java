@@ -1,11 +1,8 @@
 package gestionoperacion;
 
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import gestionterrestre.Camion;
 import gestionterrestre.Cliente;
 import gestionterrestre.EmpresaTransportista;
@@ -13,7 +10,6 @@ import gestionterrestre.Orden;
 import gestionterrestre.OrdenDeExportacion;
 import gestionterrestre.OrdenDeImportacion;
 import terminalgestionada.TerminalGestionada;
-import warehouse.ServicioAlmacenamiento;
 import warehouse.Warehouse;
 
 
@@ -31,6 +27,7 @@ public class GestionTerrestre {
 	public GestionTerrestre() {
 		this.clientes = new ArrayList<Cliente>();
 		this.exportaciones = new ArrayList<OrdenDeExportacion>();
+		this.importaciones = new ArrayList<OrdenDeImportacion>();
 		this.transportistas = new ArrayList<EmpresaTransportista>();
 		this.gestorExportador = new GestorDeExportacion(this, warehouse);
 		this.gestorImportador = new GestorDeImportacion(this,warehouse);
