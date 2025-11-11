@@ -1,8 +1,9 @@
-package gestionterrestre;
+package gestion.terrestre;
 
 import java.time.LocalDateTime;
 
-import gestionterrestre.dummies.Viaje;
+import gestion.interfaces.OrdenDeComercio;
+import gestion.terrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;
 import warehouse.Carga;

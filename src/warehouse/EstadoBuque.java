@@ -1,6 +1,6 @@
 package warehouse;
 
-import gestionterrestre.Ubicacion;
+import gestion.terrestre.Ubicacion;
 
 public interface EstadoBuque {
 	public void actualizarPosicion(Buque buque, Ubicacion nuevaPosicion);

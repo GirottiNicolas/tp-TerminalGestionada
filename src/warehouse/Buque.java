@@ -1,6 +1,6 @@
 package warehouse;
 
-import gestionterrestre.Ubicacion;
+import gestion.terrestre.Ubicacion;
 import terminalgestionada.TerminalGestionada;
 
 public class Buque {

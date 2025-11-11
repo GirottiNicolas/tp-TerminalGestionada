@@ -1,10 +1,10 @@
-package gestionoperacion;
+package gestion;
 
 import java.time.LocalDateTime;
 
-import gestionterrestre.Camion;
-import gestionterrestre.Orden;
-import gestionterrestre.OrdenDeExportacion;
+import gestion.terrestre.Camion;
+import gestion.terrestre.Orden;
+import gestion.terrestre.OrdenDeExportacion;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Warehouse;
 

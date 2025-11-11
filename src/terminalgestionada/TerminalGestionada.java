@@ -1,7 +1,7 @@
 package terminalgestionada;
 
-import gestionoperacion.GestionTerrestre;
-import gestionterrestre.Ubicacion;
+import gestion.GestionTerrestre;
+import gestion.terrestre.Ubicacion;
 import logistica.Logistica;
 import warehouse.Buque;
 import warehouse.Warehouse;

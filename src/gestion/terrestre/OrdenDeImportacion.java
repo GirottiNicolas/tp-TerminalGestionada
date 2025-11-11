@@ -1,8 +1,8 @@
-package gestionterrestre;
+package gestion.terrestre;
 
 import java.time.LocalDateTime;
 
-import gestionterrestre.dummies.Viaje;
+import gestion.terrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Carga;
 
@@ -17,8 +17,6 @@ public class OrdenDeImportacion extends Orden {
 	}
 
 
-	
-	
 	public TerminalGestionada getDestinoDeImportacion() {
 		return viaje.getDestinoViaje();
 	}

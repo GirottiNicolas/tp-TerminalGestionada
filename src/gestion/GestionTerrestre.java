@@ -1,4 +1,4 @@
-package gestionoperacion;
+package gestion;
 
 
 import java.time.LocalDateTime;
@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import gestionterrestre.Camion;
-import gestionterrestre.Cliente;
-import gestionterrestre.EmpresaTransportista;
-import gestionterrestre.Orden;
-import gestionterrestre.OrdenDeComercio;
-import gestionterrestre.OrdenDeExportacion;
-import gestionterrestre.OrdenDeImportacion;
+import gestion.interfaces.OrdenDeComercio;
+import gestion.terrestre.Camion;
+import gestion.terrestre.Cliente;
+import gestion.terrestre.EmpresaTransportista;
+import gestion.terrestre.Orden;
+import gestion.terrestre.OrdenDeExportacion;
+import gestion.terrestre.OrdenDeImportacion;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;
 import warehouse.Warehouse;
@@ -102,8 +102,6 @@ public class GestionTerrestre {
 
 	
 	
-	
-	
 	private void enviarMail(Cliente cliente) {
 		System.out.println("Destinatario: "+ cliente.getEmail() + "Asunto: Ya tienes un turno, para tu orden de comercio" );
 		
@@ -113,6 +111,12 @@ public class GestionTerrestre {
 		this.notificar(exportaciones, buque);
 	}
 
+	
+
+	public void notificarShippers(Buque buque) {
+		this.notificar(importaciones, buque);	
+	}
+	
 	private void notificar(List<OrdenDeComercio> ordenes, Buque buque) {
 		ordenes.stream().
 				filter(orden -> buque.esElBuque(orden.getBuqueDeViaje()))
@@ -121,10 +125,6 @@ public class GestionTerrestre {
 					orden.asignarTurno(LocalDateTime.now()); // Cambiar por el tiempo calculado del viaje
 				});
 		
-	}
-
-	public void notificarShippers(Buque buque) {
-		this.notificar(importaciones, buque);	
 	}
 	
 	

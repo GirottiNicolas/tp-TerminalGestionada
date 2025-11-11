@@ -1,4 +1,4 @@
-package gestionterrestre;
+package gestion.terrestre;
 
 public class Ubicacion {
     public int x;

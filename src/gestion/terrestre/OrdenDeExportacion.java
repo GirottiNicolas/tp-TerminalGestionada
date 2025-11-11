@@ -1,6 +1,6 @@
-package gestionterrestre;
+package gestion.terrestre;
 
-import gestionterrestre.dummies.Viaje;
+import gestion.terrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Carga;
 

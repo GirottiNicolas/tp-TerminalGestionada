@@ -1,4 +1,4 @@
-package gestionterrestre;
+package gestion.terrestre;
 
 import warehouse.Carga;
 

@@ -1,6 +1,6 @@
-package gestionterrestre;
+package gestion.interfaces;
 
-import gestionterrestre.dummies.ViajeI;
+import gestion.terrestre.dummies.ViajeI;
 
 public interface OrdenDeComercio extends OrdenI,TurnoI, ViajeI {
 		

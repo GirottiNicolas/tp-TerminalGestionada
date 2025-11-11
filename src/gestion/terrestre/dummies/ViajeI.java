@@ -1,4 +1,4 @@
-package gestionterrestre.dummies;
+package gestion.terrestre.dummies;
 
 import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;

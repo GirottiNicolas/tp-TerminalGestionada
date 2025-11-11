@@ -7,16 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import gestionoperacion.GestionTerrestre;
-import gestionoperacion.GestorDeExportacion;
-import gestionoperacion.GestorDeImportacion;
-import gestionterrestre.Camion;
-import gestionterrestre.Cliente;
-import gestionterrestre.EmpresaTransportista;
-import gestionterrestre.OrdenDeExportacion;
-import gestionterrestre.OrdenDeImportacion;
-import gestionterrestre.Ubicacion;
-import gestionterrestre.dummies.Viaje;
+import gestion.GestionTerrestre;
+import gestion.GestorDeExportacion;
+import gestion.GestorDeImportacion;
+import gestion.terrestre.Camion;
+import gestion.terrestre.Cliente;
+import gestion.terrestre.EmpresaTransportista;
+import gestion.terrestre.OrdenDeExportacion;
+import gestion.terrestre.OrdenDeImportacion;
+import gestion.terrestre.Ubicacion;
+import gestion.terrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;
 import warehouse.Carga;
@@ -104,7 +104,7 @@ public class GestorImportadorTest {
 		public void retiroDeCargaExitosa() {
 			gestion.agregarCliente(cliente);
 			gestion.importar(ordenDeImportacion, terminalGestionada);
-			gestion.notificarClientes(buque);
+			gestion.notificarShippers(buque);
 			assertDoesNotThrow(() -> gestion.retirarCargaDeImportador(camion1, ordenDeImportacion));
 		}
 		
