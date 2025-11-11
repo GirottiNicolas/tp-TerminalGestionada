@@ -25,27 +25,22 @@ public class GestionTerrestre {
 	List<OrdenDeImportacion> importaciones;
 	Warehouse warehouse;
 	GestorDeExportacion gestorExportador;
+	GestorDeImportacion gestorImportador;
 	
 	public GestionTerrestre() {
 		this.clientes = new ArrayList<Cliente>();
 		this.exportaciones = new ArrayList<OrdenDeExportacion>();
 		this.transportistas = new ArrayList<EmpresaTransportista>();
 		this.gestorExportador = new GestorDeExportacion(this);
+		this.gestorImportador = new GestorDeImportacion(this);
 	}
 	
 	public void exportar(Orden ordenExportacion, TerminalGestionada terminalGestionada) {
 		gestorExportador.ejecutarOperacion(ordenExportacion,terminalGestionada);
 	}
 	
-		
-	
-	public void importar(OrdenDeImportacion ordenImportacion,TerminalGestionada terminal) {
-		if (!(this.puedeRealizarImportacion(ordenImportacion, terminal))) {
-			throw new RuntimeException("No puedes importar!");
-		}
-		else {
-			
-		}
+	public void importar(Orden ordenImportacion,TerminalGestionada terminal) {
+		gestorImportador.ejecutarOperacion(ordenImportacion, terminal);
 		
 	}
 	
@@ -54,12 +49,12 @@ public class GestionTerrestre {
 	}
 	
 	
-	private boolean puedeRealizarImportacion(OrdenDeImportacion ordenImportacion, TerminalGestionada terminal) {
-		return this.esCliente(ordenImportacion.getCliente()) && terminal.esLaTerminal(ordenImportacion.getDestinoDeImportacion())  ;
+	public void retirarCargaDeImportador(Camion camion, Orden orden) {
+		gestorImportador.retiroDeCarga(orden, camion);
 	}
+	
 
-
-	private void verificarHorarioDeRetiro(Orden orden) {
+	protected void verificarHorarioDeRetiro(Orden orden) {
 		if(!orden.cumpleHorario(LocalDateTime.now(), 24)) {
 			//warehouse.aplicarServicio("Almacenamiento Excedente", orden.getCarga());
 		}

@@ -56,4 +56,8 @@ public abstract class Orden {
 		return viaje.getOrigenViaje();
 	}
 	
+	public TerminalGestionada destino() {
+		return viaje.getDestinoViaje();
+	}
+	
 }

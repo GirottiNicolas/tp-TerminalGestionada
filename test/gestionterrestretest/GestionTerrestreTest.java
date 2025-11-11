@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import gestionoperacion.GestionTerrestre;
+import gestionoperacion.GestorDeExportacion;
 import gestionterrestre.Camion;
 import gestionterrestre.Cliente;
 import gestionterrestre.EmpresaTransportista;
@@ -35,6 +36,7 @@ public class GestionTerrestreTest {
 	Viaje viaje;
 	Ubicacion ubicacionDestino;
 	OrdenDeImportacion ordenDeImportacion;
+	GestorDeExportacion gestorExportador;
 	
 	
 	@BeforeEach
@@ -46,6 +48,7 @@ public class GestionTerrestreTest {
 		terminalDestino = new TerminalGestionada(ubicacion,null,null, null);
 		cliente = new Cliente("nico@gmail.com");
 		gestion = new GestionTerrestre();
+		gestorExportador = new GestorDeExportacion(gestion);
 		terminalGestionada = new TerminalGestionada(ubicacionDestino, gestion, null, null);
 		viaje = new Viaje(terminalGestionada, terminalDestino);
 		empresaCamionera = new EmpresaTransportista();
@@ -100,7 +103,7 @@ public class GestionTerrestreTest {
 	public void camionEntregaCarga() {
 		gestion.agregarCliente(cliente);
 		gestion.exportar(ordenExportacion,terminalGestionada);
-		assertDoesNotThrow(() -> gestion.recibirCargaDeTransporte(ordenExportacion,camion1));
+		assertDoesNotThrow(() -> gestorExportador.recibirCargaDeTransporte(ordenExportacion,camion1));
 	
 	}
 	
@@ -109,7 +112,7 @@ public class GestionTerrestreTest {
 	public void camionNoPuedeEntregarCarga() {
 		gestion.agregarCliente(cliente);
 		gestion.exportar(ordenExportacion,terminalGestionada);
-		assertThrows(RuntimeException.class,() -> gestion.recibirCargaDeTransporte(ordenExportacion,camion2));
+		assertThrows(RuntimeException.class,() -> gestorExportador.recibirCargaDeTransporte(ordenExportacion,camion2));
 	
 	}
 	
