@@ -2,24 +2,35 @@ package gestionterrestre;
 
 import java.time.LocalDateTime;
 
+import gestionterrestre.dummies.Viaje;
+import terminalgestionada.TerminalGestionada;
 import warehouse.Carga;
 
 
 public abstract class Orden {
 	Carga carga;
 	Camion camion;
+	Cliente cliente;
 	LocalDateTime turno = null;
+	Viaje viaje;
 	
-	public Orden(Carga carga,Camion camion) {
+	public Orden(Viaje viaje,Carga carga,Camion camion, Cliente cliente) {
 		this.carga = carga;
 		this.camion = camion;
+		this.cliente = cliente;
 		this.turno = null;
+		this.viaje = viaje;
+		
 	}
 
-	public abstract boolean cumpleHorario(LocalDateTime now);
+	public abstract boolean cumpleHorario(LocalDateTime now, int limiteDeTiempo);
 
 	public Camion getCamion() {
 		return camion;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
 	
 	public boolean esOrden(Orden orden) {
@@ -35,6 +46,14 @@ public abstract class Orden {
 	
 	public void asignarTurno(LocalDateTime date) {
 		turno = date;
+	}
+	
+	public Viaje getViaje() {
+		return viaje;
+	}
+	
+	public TerminalGestionada origen() {
+		return viaje.getOrigenViaje();
 	}
 	
 }

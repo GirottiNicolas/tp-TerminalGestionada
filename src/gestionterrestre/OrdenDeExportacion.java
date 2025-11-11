@@ -14,22 +14,21 @@ public class OrdenDeExportacion extends Orden {
 	// Las ordenes de exportaciones poseen un LocalDateTime unico.
 	// que las identifica de forma univoca
 	
-	Viaje viaje;
+
 	
-	
-	public OrdenDeExportacion(Viaje viaje, Carga carga, Camion camion) {
-		super(carga, camion);
-		this.viaje = viaje;
+	public OrdenDeExportacion(Viaje viaje, Carga carga, Camion camion, Cliente cliente) {
+		super(viaje,carga, camion, cliente);
+		
 	}
 	
 	
 	@Override
-	public boolean cumpleHorario(LocalDateTime now) {
+	public boolean cumpleHorario(LocalDateTime now, int limiteDeTiempo) {
 	    LocalDateTime turno = this.getTurno();
 
 	    long diferenciaHoras = Math.abs(java.time.Duration.between(turno, now).toHours());
 
-	    return diferenciaHoras <= 3;
+	    return diferenciaHoras <= limiteDeTiempo;
 	}
 	
 	
@@ -37,7 +36,8 @@ public class OrdenDeExportacion extends Orden {
 		return terminalGestionada.esLaTerminal(viaje.getOrigenViaje());
 	}
 	
-
+	
+	
 
 
 }
