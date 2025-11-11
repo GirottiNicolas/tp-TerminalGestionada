@@ -6,6 +6,7 @@ import gestionterrestre.Camion;
 import gestionterrestre.Orden;
 import gestionterrestre.OrdenDeImportacion;
 import terminalgestionada.TerminalGestionada;
+import warehouse.ServicioAlmacenamiento;
 import warehouse.Warehouse;
 
 public class GestorDeImportacion extends GestorDeOperacion{
@@ -34,9 +35,19 @@ public class GestorDeImportacion extends GestorDeOperacion{
 		gestionTerrestre.agregarAImportaciones((OrdenDeImportacion) orden);
 	}
 	
-	public void retiroDeCarga(Orden orden, Camion camion) {
+	public void retiroDeCarga(OrdenDeImportacion orden, Camion camion) {
 		this.verificarTransporte(camion, orden);
-		gestionTerrestre.verificarHorarioDeRetiro(orden);
+		this.verificarHorarioDeRetiro(orden);
+		orden.setFechaRetiroEfectivo(LocalDateTime.now());
+		camion.asignarCarga(orden.getCarga());
+		warehouse.retirarCarga(orden.getCarga());
+	}
+	
+	
+	private void verificarHorarioDeRetiro(Orden orden) {
+		if(!orden.cumpleHorario(LocalDateTime.now(), 24)) {
+			warehouse.aplicarServicio(new ServicioAlmacenamiento((OrdenDeImportacion) orden, 300.0), orden.getCarga());
+		}
 	}
 
 }

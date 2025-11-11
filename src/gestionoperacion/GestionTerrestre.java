@@ -44,30 +44,14 @@ public class GestionTerrestre {
 		gestorImportador.ejecutarOperacion(ordenImportacion, terminal);
 		
 	}
-	
-	
-	
-	
-	public void retirarCargaDeImportador(Camion camion, Orden orden) {
+		
+	public void retirarCargaDeImportador(Camion camion, OrdenDeImportacion orden) {
 		gestorImportador.retiroDeCarga(orden, camion);
 	}
 	
 
-	protected void verificarHorarioDeRetiro(Orden orden) {
-		if(!orden.cumpleHorario(LocalDateTime.now(), 24)) {
-			warehouse.aplicarServicio(new ServicioAlmacenamiento((OrdenDeImportacion) orden, 300.0), orden.getCarga());
-		}
-	}
-	
-	
-	protected void verificarTurno(OrdenDeExportacion orden, LocalDateTime horarioDelCamion) {
-		if (!orden.cumpleHorario(LocalDateTime.now(), 3)) {
-	        throw new RuntimeException("El camión no cumple con el horario permitido.");
-	    }
-	}
-
-	protected void verificarTransporte(Camion camion, Orden orden) {
-		gestorExportador.verificarTransporte(camion,orden);
+	protected void recibirCarga(Camion camion, OrdenDeExportacion orden) {
+		gestorExportador.recibirCargaDeTransporte(orden,camion);
 	}
 	
 	public boolean esCliente(Cliente cliente) {

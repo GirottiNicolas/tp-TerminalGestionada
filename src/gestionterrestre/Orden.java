@@ -24,7 +24,13 @@ public abstract class Orden {
 		
 	}
 
-	public abstract boolean cumpleHorario(LocalDateTime now, int limiteDeTiempo);
+	public boolean cumpleHorario(LocalDateTime now, int limiteDeTiempo) {
+	    LocalDateTime turno = this.getTurno();
+
+	    long diferenciaHoras = Math.abs(java.time.Duration.between(turno, now).toHours());
+
+	    return diferenciaHoras <= limiteDeTiempo;
+	}
 
 	public Camion getCamion() {
 		return camion;

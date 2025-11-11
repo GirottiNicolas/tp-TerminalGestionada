@@ -9,7 +9,7 @@ import warehouse.Carga;
 public class OrdenDeImportacion extends Orden {
 	
 	LocalDateTime turno;
-	
+	LocalDateTime fechaDeRetiro;
 	
 	public OrdenDeImportacion(Viaje viaje,Carga carga, Camion camion, Cliente cliente,LocalDateTime turno) {
 		super(viaje, carga, camion,cliente);
@@ -17,11 +17,7 @@ public class OrdenDeImportacion extends Orden {
 	}
 
 
-	@Override
-	public boolean cumpleHorario(LocalDateTime now, int limiteDeTiempo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 	
 	public TerminalGestionada getDestinoDeImportacion() {
 		return viaje.getDestinoViaje();
@@ -32,9 +28,17 @@ public class OrdenDeImportacion extends Orden {
         return null; 
     }
 
-	// Agregado por nico
+	
     public LocalDateTime getFechaRetiroEfectivo() {
-        return null;
+        return fechaDeRetiro;
     }
+
+
+	public void setFechaRetiroEfectivo(LocalDateTime fechaDeRetiro) {
+		this.fechaDeRetiro = fechaDeRetiro;
+		
+	}
+
+	
 	
 }

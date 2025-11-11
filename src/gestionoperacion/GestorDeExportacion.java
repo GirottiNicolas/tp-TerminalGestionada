@@ -36,10 +36,14 @@ public class GestorDeExportacion extends GestorDeOperacion{
 	
 	public void recibirCargaDeTransporte(OrdenDeExportacion ordenExportacion, Camion camion) {
 		this.verificarTransporte(camion, ordenExportacion);
-		gestionTerrestre.verificarTurno(ordenExportacion, LocalDateTime.now());
+		this.verificarTurno(ordenExportacion, LocalDateTime.now());
 		warehouse.registrarCarga(camion.getCarga());
 	}
 	
-	
+	protected void verificarTurno(OrdenDeExportacion orden, LocalDateTime horarioDelCamion) {
+		if (!orden.cumpleHorario(LocalDateTime.now(), 3)) {
+	        throw new RuntimeException("El camión no cumple con el horario permitido.");
+	    }
+	}
 	
 }

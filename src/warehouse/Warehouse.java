@@ -27,5 +27,10 @@ public class Warehouse {
             throw new IllegalArgumentException("La carga no se encuentra en el warehouse.");
         }
     }
+    
+    
+    public void retirarCarga(Carga carga) {
+    	cargasAlmacenadas.remove(carga);
+    }
 	
 }

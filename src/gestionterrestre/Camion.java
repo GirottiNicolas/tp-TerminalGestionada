@@ -36,4 +36,9 @@ public class Camion {
 	public void setCargaEnCamion(Carga carga) {
 		this.carga = carga;
 	}
+	
+	public void asignarCarga(Carga carga) {
+		this.carga = carga;
+	}
+		
 }
