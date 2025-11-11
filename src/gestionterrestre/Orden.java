@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import gestionterrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Buque;
 import warehouse.Carga;
 
 
@@ -60,4 +61,8 @@ public abstract class Orden {
 		return viaje.getDestinoViaje();
 	}
 	
+	
+	public Buque getBuqueDeViaje() {
+		return viaje.getBuque();
+	}
 }

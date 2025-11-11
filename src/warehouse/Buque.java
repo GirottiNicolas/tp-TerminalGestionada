@@ -44,5 +44,11 @@ public class Buque {
 	public void depart() {
 		this.fase.depart(this);
 	}
+	
+	
+	// :)
+	public boolean esElBuque(Buque buque) {
+		return false;
+	}
     
 }

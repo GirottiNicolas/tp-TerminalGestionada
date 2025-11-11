@@ -1,6 +1,8 @@
 package gestionterrestre.dummies;
 
+
 import terminalgestionada.TerminalGestionada;
+import warehouse.Buque;
 
 public class Viaje {
 	TerminalGestionada origen;
@@ -19,6 +21,12 @@ public class Viaje {
 	
 	public TerminalGestionada getDestinoViaje() {
 		return destino;
+	}
+
+
+	public Buque getBuque() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
