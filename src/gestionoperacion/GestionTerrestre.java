@@ -10,6 +10,7 @@ import gestionterrestre.Camion;
 import gestionterrestre.Cliente;
 import gestionterrestre.EmpresaTransportista;
 import gestionterrestre.Orden;
+import gestionterrestre.OrdenDeComercio;
 import gestionterrestre.OrdenDeExportacion;
 import gestionterrestre.OrdenDeImportacion;
 import terminalgestionada.TerminalGestionada;
@@ -22,16 +23,16 @@ public class GestionTerrestre {
 
 	List<Cliente> clientes;
 	List<EmpresaTransportista> transportistas;
-	List<OrdenDeExportacion> exportaciones;
-	List<OrdenDeImportacion> importaciones;
+	List<OrdenDeComercio> exportaciones;
+	List<OrdenDeComercio> importaciones;
 	Warehouse warehouse;
 	GestorDeExportacion gestorExportador;
 	GestorDeImportacion gestorImportador;
 	
 	public GestionTerrestre(Warehouse warehouse) {
 		this.clientes = new ArrayList<Cliente>();
-		this.exportaciones = new ArrayList<OrdenDeExportacion>();
-		this.importaciones = new ArrayList<OrdenDeImportacion>();
+		this.exportaciones = new ArrayList<OrdenDeComercio>();
+		this.importaciones = new ArrayList<OrdenDeComercio>();
 		this.transportistas = new ArrayList<EmpresaTransportista>();
 		this.gestorExportador = new GestorDeExportacion(this, warehouse);
 		this.gestorImportador = new GestorDeImportacion(this,warehouse);
@@ -90,7 +91,7 @@ public class GestionTerrestre {
 		exportaciones.add(orden);
 	}
 	
-	private List<Orden> ordenesDeComercioExterior() {
+	private List<OrdenDeComercio> ordenesDeComercioExterior() {
 		return Stream.concat(exportaciones.stream(), importaciones.stream())
 		          .toList();
 	}
@@ -99,21 +100,31 @@ public class GestionTerrestre {
 		return this.ordenesDeComercioExterior().contains(orden);
 	}
 
-	public void notificarClientes(Buque buque) {
-		this.ordenesDeComercioExterior().stream().
-							// Filtrar aquellas ordenes interesadas por el buque dado
-							filter(orden -> buque.esElBuque(orden.getBuqueDeViaje()))
-							// Realizar la notificacion a cada uno de los clientes de dichas ordenes
-							.forEach(orden -> {
-									this.enviarMail( orden.getCliente());
-									orden.asignarTurno(LocalDateTime.now()); // Cambiar por el tiempo calculado del viaje
-							});
-		
-	}
-
+	
+	
+	
+	
 	private void enviarMail(Cliente cliente) {
 		System.out.println("Destinatario: "+ cliente.getEmail() + "Asunto: Ya tienes un turno, para tu orden de comercio" );
 		
+	}
+
+	public void notificarConsignees(Buque buque) {
+		this.notificar(exportaciones, buque);
+	}
+
+	private void notificar(List<OrdenDeComercio> ordenes, Buque buque) {
+		ordenes.stream().
+				filter(orden -> buque.esElBuque(orden.getBuqueDeViaje()))
+				.forEach(orden -> {
+					this.enviarMail( orden.getCliente());
+					orden.asignarTurno(LocalDateTime.now()); // Cambiar por el tiempo calculado del viaje
+				});
+		
+	}
+
+	public void notificarShippers(Buque buque) {
+		this.notificar(importaciones, buque);	
 	}
 	
 	

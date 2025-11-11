@@ -29,12 +29,12 @@ public class TerminalGestionada implements FachadaTerminal{
 	}
 
 	public void notificarArriboInminente(Buque buque) {
-        // La terminal se encarga de la lógica de enviar emails a los clientes cuando el buque esta por llegar
-		gestionTerrestre.notificarClientes(buque);
+		gestionTerrestre.notificarConsignees(buque);
 	}
 	
 	public void notificarPartida(Buque buque) {
         // La terminal se encarga de la lógica de enviar emails a los shippers cuando sale un buque con carga de la terminal
-    }
+		gestionTerrestre.notificarShippers(buque);
+	}
 	
 }
