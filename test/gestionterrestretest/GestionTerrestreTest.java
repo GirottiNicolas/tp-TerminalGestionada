@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import gestion.GestionTerrestre;
 import gestion.GestorDeExportacion;
+import gestion.ordenes.OrdenDeExportacion;
+import gestion.ordenes.OrdenDeImportacion;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
-import gestion.terrestre.OrdenDeExportacion;
-import gestion.terrestre.OrdenDeImportacion;
 import gestion.terrestre.Ubicacion;
 import gestion.terrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;

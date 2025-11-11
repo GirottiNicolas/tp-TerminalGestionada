@@ -1,8 +1,8 @@
 package gestion.interfaces;
 
+import gestion.ordenes.Orden;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
-import gestion.terrestre.Orden;
 import warehouse.Carga;
 
 public interface OrdenI {

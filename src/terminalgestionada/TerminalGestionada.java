@@ -1,7 +1,14 @@
 package terminalgestionada;
 
 import gestion.GestionTerrestre;
+
+import gestion.ordenes.OrdenDeExportacion;
+import gestion.ordenes.OrdenDeImportacion;
+import gestion.terrestre.Cliente;
+import gestion.terrestre.EmpresaTransportista;
 import gestion.terrestre.Ubicacion;
+import gestion.terrestre.dummies.Circuito;
+import gestion.terrestre.dummies.Naviera;
 import logistica.Logistica;
 import warehouse.Buque;
 import warehouse.Warehouse;
@@ -19,15 +26,54 @@ public class TerminalGestionada implements FachadaTerminal{
 		this.gestionTerrestre = gestionTerrestre;
 		this.posicionGeografica = posicionGeografica;
 	}
-
-	public boolean esLaTerminal(TerminalGestionada origenViaje) {
-		return posicionGeografica.esLaUbicacion(origenViaje.getPosicionGeografica());
+	
+	@Override
+	public boolean esLaTerminal(TerminalGestionada terminal) {
+		return posicionGeografica.esLaUbicacion(terminal.getPosicionGeografica());
 	}
-
+	
+	@Override
 	public Ubicacion getPosicionGeografica() {
 		return posicionGeografica;
 	}
 
+	
+	@Override
+	public Circuito mejorCircuito() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void registrarNaviera(Naviera naviera) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void importar(OrdenDeImportacion orden) {
+		gestionTerrestre.importar(orden, this);
+		
+	}
+
+	@Override
+	public void exportar(OrdenDeExportacion orden) {
+		gestionTerrestre.exportar(orden, this);
+		
+	}
+
+	@Override
+	public void registrarEmpresaTransportista(EmpresaTransportista empresa) {
+		gestionTerrestre.registrarEmpresaTransporte(empresa);
+		
+	}
+	
+	@Override
+	public void agregarCliente(Cliente cliente) {
+		gestionTerrestre.agregarCliente(cliente);
+		
+	}
+	
 	public void notificarArriboInminente(Buque buque) {
 		gestionTerrestre.notificarConsignees(buque);
 	}

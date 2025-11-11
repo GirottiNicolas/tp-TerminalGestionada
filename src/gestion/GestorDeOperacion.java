@@ -1,7 +1,7 @@
 package gestion;
 
+import gestion.ordenes.Orden;
 import gestion.terrestre.Camion;
-import gestion.terrestre.Orden;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Warehouse;
 

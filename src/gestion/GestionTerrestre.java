@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import gestion.interfaces.OrdenDeComercio;
+import gestion.ordenes.Orden;
+import gestion.ordenes.OrdenDeExportacion;
+import gestion.ordenes.OrdenDeImportacion;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
-import gestion.terrestre.Orden;
-import gestion.terrestre.OrdenDeExportacion;
-import gestion.terrestre.OrdenDeImportacion;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;
 import warehouse.Warehouse;

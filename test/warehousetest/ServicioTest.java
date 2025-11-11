@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import gestion.terrestre.OrdenDeImportacion;
+import gestion.ordenes.OrdenDeImportacion;
 import warehouse.IServicio;
 import warehouse.ServicioLavado;
 import warehouse.ServicioPesado;
