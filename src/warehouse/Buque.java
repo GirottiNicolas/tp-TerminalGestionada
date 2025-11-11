@@ -46,7 +46,7 @@ public class Buque {
 	}
 	
 	public boolean esElBuque(Buque buque) {
-		return buque.getTerminal() == this.terminal && buque.getUbicacion() == this.posicion && buque.getFase() == this.fase; 
+		 return buque.getUbicacion().esLaUbicacion(buque.getUbicacion());
  	}
     
 }

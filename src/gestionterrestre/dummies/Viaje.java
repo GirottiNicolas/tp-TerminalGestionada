@@ -7,11 +7,13 @@ import warehouse.Buque;
 public class Viaje {
 	TerminalGestionada origen;
 	TerminalGestionada destino;
+	Buque buque;
 	
 	
-	public Viaje(TerminalGestionada origen, TerminalGestionada destino) {
+	public Viaje(TerminalGestionada origen, TerminalGestionada destino, Buque buque) {
 		this.origen = origen;
 		this.destino = destino;
+		this.buque = buque;
 	}
 	
 	
@@ -25,8 +27,7 @@ public class Viaje {
 
 
 	public Buque getBuque() {
-		// TODO Auto-generated method stub
-		return null;
+		return buque;
 	}
 	
 }

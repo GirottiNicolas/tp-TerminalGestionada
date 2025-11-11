@@ -1,6 +1,7 @@
 package gestionoperacion;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -12,6 +13,7 @@ import gestionterrestre.Orden;
 import gestionterrestre.OrdenDeExportacion;
 import gestionterrestre.OrdenDeImportacion;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Buque;
 import warehouse.Warehouse;
 
 
@@ -95,6 +97,23 @@ public class GestionTerrestre {
 	
 	public boolean tieneOrden(Orden orden) {
 		return this.ordenesDeComercioExterior().contains(orden);
+	}
+
+	public void notificarClientes(Buque buque) {
+		this.ordenesDeComercioExterior().stream().
+							// Filtrar aquellas ordenes interesadas por el buque dado
+							filter(orden -> buque.esElBuque(orden.getBuqueDeViaje()))
+							// Realizar la notificacion a cada uno de los clientes de dichas ordenes
+							.forEach(orden -> {
+									this.enviarMail( orden.getCliente());
+									orden.asignarTurno(LocalDateTime.now()); // Cambiar por el tiempo calculado del viaje
+							});
+		
+	}
+
+	private void enviarMail(Cliente cliente) {
+		System.out.println("Destinatario: "+ cliente.getEmail() + "Asunto: Ya tienes un turno, para tu orden de comercio" );
+		
 	}
 	
 	

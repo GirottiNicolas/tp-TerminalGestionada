@@ -58,8 +58,8 @@ public class GestionTerrestreTest {
 		gestion = new GestionTerrestre();
 		gestorExportador = new GestorDeExportacion(gestion, warehouse);
 		terminalGestionada = new TerminalGestionada(ubicacionDestino, gestion, null, null);
-		viaje = new Viaje(terminalGestionada, terminalDestino);
-		viajeImportacion = new Viaje(terminalDestino, terminalGestionada);
+		viaje = new Viaje(terminalGestionada, terminalDestino,null);
+		viajeImportacion = new Viaje(terminalDestino, terminalGestionada,null);
 		empresaCamionera = new EmpresaTransportista();
 		ordenExportacion = new OrdenDeExportacion(viaje,null,camion1, cliente);
 		ordenDeImportacion = new OrdenDeImportacion(viajeImportacion, carga,camion1,cliente,null);
@@ -96,7 +96,7 @@ public class GestionTerrestreTest {
 	
 	@Test
 	public void exportacionConErrorPorTerminalOrigen() {
-		Viaje viaje = new Viaje(terminalDestino,terminalGestionada);
+		Viaje viaje = new Viaje(terminalDestino,terminalGestionada,null);
 		OrdenDeExportacion orden = new OrdenDeExportacion(viaje, null, camion1,null);
 		gestion.agregarCliente(cliente);
 		assertThrows(RuntimeException.class,() -> gestion.exportar(orden, terminalGestionada));

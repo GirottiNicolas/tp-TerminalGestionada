@@ -18,6 +18,7 @@ import gestionterrestre.OrdenDeImportacion;
 import gestionterrestre.Ubicacion;
 import gestionterrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Buque;
 import warehouse.Carga;
 import warehouse.Dry;
 import warehouse.Warehouse;
@@ -42,6 +43,7 @@ public class GestorImportadorTest {
 		GestorDeImportacion gestorImportador;
 		Warehouse warehouse;
 		Carga carga;
+		Buque buque;
 		
 		
 		@BeforeEach
@@ -57,8 +59,8 @@ public class GestorImportadorTest {
 			gestion = new GestionTerrestre();
 			gestorExportador = new GestorDeExportacion(gestion, warehouse);
 			terminalGestionada = new TerminalGestionada(ubicacionDestino, gestion, null, null);
-			viaje = new Viaje(terminalGestionada, terminalDestino);
-			viajeImportacion = new Viaje(terminalDestino, terminalGestionada);
+			viaje = new Viaje(terminalGestionada, terminalDestino,buque);
+			viajeImportacion = new Viaje(terminalDestino, terminalGestionada,buque);
 			empresaCamionera = new EmpresaTransportista();
 			ordenExportacion = new OrdenDeExportacion(viaje,null,camion1, cliente);
 			ordenDeImportacion = new OrdenDeImportacion(viajeImportacion, carga,camion1,cliente,null);
@@ -95,7 +97,13 @@ public class GestorImportadorTest {
 			assertThrows(RuntimeException.class,() -> gestion.retirarCargaDeImportador(camion1, ordenDeImportacion));
 		}
 		
-		
+		@Test
+		public void retiroDeCargaExitosa() {
+			gestion.agregarCliente(cliente);
+			gestion.importar(ordenDeImportacion, terminalGestionada);
+			gestion.notificarClientes(buque);
+			assertDoesNotThrow(() -> gestion.retirarCargaDeImportador(camion1, ordenDeImportacion));
+		}
 		
 		
 		
