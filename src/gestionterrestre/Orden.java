@@ -25,13 +25,26 @@ public abstract class Orden {
 	}
 
 	public boolean cumpleHorario(LocalDateTime now, int limiteDeTiempo) {
+		this.verificarTurno();
 	    LocalDateTime turno = this.getTurno();
 
 	    long diferenciaHoras = Math.abs(java.time.Duration.between(turno, now).toHours());
 
 	    return diferenciaHoras <= limiteDeTiempo;
 	}
-
+	
+	
+	public void verificarTurno() {
+		if(!this.tieneTurnoAsignado()) {
+			throw new RuntimeException("No tienes un turno asignado!");
+		}
+	}
+	
+	
+	public boolean tieneTurnoAsignado() {
+		return this.getTurno() != null;
+	}
+	
 	public Camion getCamion() {
 		return camion;
 	}

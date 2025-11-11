@@ -76,16 +76,24 @@ public class GestorImportadorTest {
 		public void procesarImportacion() {
 			gestion.agregarCliente(cliente);
 			assertDoesNotThrow(() -> gestion.importar(ordenDeImportacion, terminalGestionada));
-			
+			assertTrue(gestion.tieneOrden(ordenDeImportacion));
 		}
 		
 		
 		@Test
 		public void importacionFallidaYaQueNoEsCliente() {
-			assertThrows(RuntimeException.class, () -> gestion.importar(ordenDeImportacion, terminalGestionada));
-			
+			assertThrows(RuntimeException.class, () -> gestion.importar(ordenDeImportacion, terminalGestionada));	
 		}
 		
+		
+		@Test
+		public void retiroDeCargaFallidaPorFaltaDeTurno() {
+			gestion.agregarCliente(cliente);
+			gestion.importar(ordenDeImportacion, terminalGestionada);
+			
+			// No puede retirar la carga ya que no fue notificado con un turno
+			assertThrows(RuntimeException.class,() -> gestion.retirarCargaDeImportador(camion1, ordenDeImportacion));
+		}
 		
 		
 		

@@ -3,6 +3,8 @@ package gestionoperacion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
+
 import gestionterrestre.Camion;
 import gestionterrestre.Cliente;
 import gestionterrestre.EmpresaTransportista;
@@ -86,6 +88,14 @@ public class GestionTerrestre {
 		exportaciones.add(orden);
 	}
 	
+	private List<Orden> ordenesDeComercioExterior() {
+		return Stream.concat(exportaciones.stream(), importaciones.stream())
+		          .toList();
+	}
+	
+	public boolean tieneOrden(Orden orden) {
+		return this.ordenesDeComercioExterior().contains(orden);
+	}
 	
 	
 
