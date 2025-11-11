@@ -45,10 +45,8 @@ public class Buque {
 		this.fase.depart(this);
 	}
 	
-	
-	// :)
 	public boolean esElBuque(Buque buque) {
-		return false;
-	}
+		return buque.getTerminal() == this.terminal && buque.getUbicacion() == this.posicion && buque.getFase() == this.fase; 
+ 	}
     
 }
