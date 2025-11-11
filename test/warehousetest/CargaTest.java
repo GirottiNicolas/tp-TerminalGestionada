@@ -12,6 +12,7 @@ import warehouse.Tanque;
 import warehouse.BillOfLading;
 import warehouse.BLCompuesto;
 import warehouse.BLSimple;
+import warehouse.IServicio;
 
 public class CargaTest {
 
@@ -92,6 +93,17 @@ public class CargaTest {
 
         assertEquals(blCompuesto, containerDry.getBillOfLading());
         // No se lanza ninguna excepción 
+    }
+    
+    @Test
+    public void test10_UnaCargaPuedeRegistrarServicios() {
+
+        IServicio servicioMock = Mockito.mock(IServicio.class);
+
+        assertTrue(containerDry.getServiciosAplicados().isEmpty());
+        containerDry.agregarServicio(servicioMock);
+
+        assertTrue(containerDry.getServiciosAplicados().contains(servicioMock));
     }
     
 }

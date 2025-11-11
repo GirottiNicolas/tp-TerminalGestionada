@@ -1,7 +1,6 @@
 package warehouse;
 
 import gestionterrestre.Ubicacion;
-import terminalgestionada.TerminalGestionada;
 
 public class Outbound implements EstadoBuque{
 	

@@ -1,8 +1,5 @@
 package warehouse;
 
-import warehouse.BillOfLading;
-import warehouse.BLCompuesto;
-
 public class Reefer extends Carga {
     
 	private double consumoKwHora;
