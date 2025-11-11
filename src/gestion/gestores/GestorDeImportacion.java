@@ -1,4 +1,4 @@
-package gestion;
+package gestion.gestores;
 
 import java.time.LocalDateTime;
 

@@ -1,7 +1,6 @@
 package terminalgestionada;
 
-import gestion.GestionTerrestre;
-
+import gestion.gestores.GestionTerrestre;
 import gestion.ordenes.OrdenDeExportacion;
 import gestion.ordenes.OrdenDeImportacion;
 import gestion.terrestre.Cliente;

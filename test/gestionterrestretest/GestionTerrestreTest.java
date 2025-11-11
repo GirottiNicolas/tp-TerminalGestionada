@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import gestion.GestionTerrestre;
-import gestion.GestorDeExportacion;
+import gestion.gestores.GestionTerrestre;
+import gestion.gestores.GestorDeExportacion;
 import gestion.ordenes.OrdenDeExportacion;
 import gestion.ordenes.OrdenDeImportacion;
 import gestion.terrestre.Camion;

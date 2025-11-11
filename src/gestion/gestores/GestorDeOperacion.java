@@ -1,4 +1,4 @@
-package gestion;
+package gestion.gestores;
 
 import gestion.ordenes.Orden;
 import gestion.terrestre.Camion;
