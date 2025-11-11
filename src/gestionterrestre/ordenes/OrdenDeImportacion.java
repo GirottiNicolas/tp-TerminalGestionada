@@ -1,9 +1,11 @@
-package gestionterrestre;
+package gestionterrestre.ordenes;
 
 import java.time.LocalDateTime;
 
 import gestionterrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
+import transporte.Camion;
+import transporte.Cliente;
 import warehouse.Carga;
 
 public class OrdenDeImportacion extends Orden {

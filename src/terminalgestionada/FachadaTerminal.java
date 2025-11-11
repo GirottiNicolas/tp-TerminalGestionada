@@ -1,6 +1,6 @@
 package terminalgestionada;
 
-import gestionterrestre.Ubicacion;
+import transporte.Ubicacion;
 
 
 public interface FachadaTerminal {

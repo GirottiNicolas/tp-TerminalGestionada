@@ -2,16 +2,16 @@ package gestionoperacion;
 
 import java.time.LocalDateTime;
 
-import gestionterrestre.Camion;
-import gestionterrestre.Orden;
-import gestionterrestre.OrdenDeExportacion;
+import gestionterrestre.ordenes.Orden;
+import gestionterrestre.ordenes.OrdenDeExportacion;
 import terminalgestionada.TerminalGestionada;
+import transporte.Camion;
 import warehouse.Warehouse;
 
 public class GestorDeExportacion extends GestorDeOperacion{
 
-	public GestorDeExportacion(GestionTerrestre gestionTerrestre, Warehouse warehouse) {
-		super(gestionTerrestre,warehouse);
+	public GestorDeExportacion(GestionComercioExterior gestorComercio, Warehouse warehouse) {
+		super(gestorComercio,warehouse);
 	
 	}
 
@@ -24,7 +24,7 @@ public class GestorDeExportacion extends GestorDeOperacion{
 	@Override
 	protected void procesarOrden(Orden orden) {
 		orden.asignarTurno(LocalDateTime.now());
-		gestionTerrestre.agregarAExportaciones((OrdenDeExportacion) orden);
+		gestorComercio.agregarAExportaciones((OrdenDeExportacion) orden);
 		
 	}
 

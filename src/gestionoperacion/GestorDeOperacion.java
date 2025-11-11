@@ -1,17 +1,17 @@
 package gestionoperacion;
 
-import gestionterrestre.Camion;
-import gestionterrestre.Orden;
+import gestionterrestre.ordenes.Orden;
 import terminalgestionada.TerminalGestionada;
+import transporte.Camion;
 import warehouse.Warehouse;
 
 public abstract class GestorDeOperacion {
 	
-	GestionTerrestre gestionTerrestre;
+	GestionComercioExterior gestorComercio;
 	Warehouse warehouse;
 	
-	public GestorDeOperacion(GestionTerrestre gestionTerrestre, Warehouse warehouse) {
-		this.gestionTerrestre = gestionTerrestre;
+	public GestorDeOperacion(GestionComercioExterior gestionTerrestre, Warehouse warehouse) {
+		this.gestorComercio = gestionTerrestre;
 		this.warehouse = warehouse;
 	}
 	
@@ -25,7 +25,7 @@ public abstract class GestorDeOperacion {
 	
 	
 	protected boolean puedeRealizarOperacion(Orden orden, TerminalGestionada terminal) {
-		return gestionTerrestre.esCliente(orden.getCliente()) && this.esUnaOrdenValida(orden,terminal);
+		return gestorComercio.esCliente(orden.getCliente()) && this.esUnaOrdenValida(orden,terminal);
 	}
 	
 	protected void verificacionAdicional(Orden orden) {}

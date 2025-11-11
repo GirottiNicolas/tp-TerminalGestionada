@@ -1,4 +1,4 @@
-package gestionterrestre;
+package transporte;
 
 public class Ubicacion {
     public int x;

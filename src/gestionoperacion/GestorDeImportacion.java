@@ -2,17 +2,17 @@ package gestionoperacion;
 
 import java.time.LocalDateTime;
 
-import gestionterrestre.Camion;
-import gestionterrestre.Orden;
-import gestionterrestre.OrdenDeImportacion;
+import gestionterrestre.ordenes.Orden;
+import gestionterrestre.ordenes.OrdenDeImportacion;
 import terminalgestionada.TerminalGestionada;
+import transporte.Camion;
 import warehouse.ServicioAlmacenamiento;
 import warehouse.Warehouse;
 
 public class GestorDeImportacion extends GestorDeOperacion{
 
-	public GestorDeImportacion(GestionTerrestre gestionTerrestre, Warehouse warehouse) {
-		super(gestionTerrestre, warehouse);
+	public GestorDeImportacion(GestionComercioExterior gestorComercio, Warehouse warehouse) {
+		super(gestorComercio, warehouse);
 		
 	}
 
@@ -32,7 +32,7 @@ public class GestorDeImportacion extends GestorDeOperacion{
 	@Override
 	protected void procesarOrden(Orden orden) {
 		// El turno de la orden se setea al recibir la notificacion del buque
-		gestionTerrestre.agregarAImportaciones((OrdenDeImportacion) orden);
+		gestorComercio.agregarAImportaciones((OrdenDeImportacion) orden);
 	}
 	
 	public void retiroDeCarga(OrdenDeImportacion orden, Camion camion) {

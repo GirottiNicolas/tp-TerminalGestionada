@@ -1,22 +1,22 @@
 package terminalgestionada;
 
-import gestionoperacion.GestionTerrestre;
-import gestionterrestre.Ubicacion;
+import gestionoperacion.GestionComercioExterior;
 import logistica.Logistica;
+import transporte.Ubicacion;
 import warehouse.Buque;
 import warehouse.Warehouse;
 
 public class TerminalGestionada implements FachadaTerminal{
 	
 	Ubicacion posicionGeografica;
-	GestionTerrestre gestionTerrestre;
+	GestionComercioExterior gestorComercio;
 	Logistica logistica;
 	Warehouse warehouse;
 	
-	public TerminalGestionada(Ubicacion posicionGeografica,GestionTerrestre gestionTerrestre, Logistica logistica, Warehouse warehouse) {
+	public TerminalGestionada(Ubicacion posicionGeografica,GestionComercioExterior gestorComercio, Logistica logistica, Warehouse warehouse) {
 		this.logistica = logistica;
 		this.warehouse = warehouse;
-		this.gestionTerrestre = gestionTerrestre;
+		this.gestorComercio = gestorComercio;
 		this.posicionGeografica = posicionGeografica;
 	}
 

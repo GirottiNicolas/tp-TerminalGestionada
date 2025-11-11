@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import gestionterrestre.Ubicacion;
 import terminalgestionada.TerminalGestionada;
+import transporte.Ubicacion;
 import warehouse.Arrived;
 import warehouse.Buque;
 import warehouse.Departing;

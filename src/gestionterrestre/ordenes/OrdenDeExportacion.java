@@ -1,7 +1,9 @@
-package gestionterrestre;
+package gestionterrestre.ordenes;
 
 import gestionterrestre.dummies.Viaje;
 import terminalgestionada.TerminalGestionada;
+import transporte.Camion;
+import transporte.Cliente;
 import warehouse.Carga;
 
 

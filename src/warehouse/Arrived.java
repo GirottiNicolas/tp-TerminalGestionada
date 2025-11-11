@@ -1,6 +1,6 @@
 package warehouse;
 
-import gestionterrestre.Ubicacion;
+import transporte.Ubicacion;
 
 public class Arrived implements EstadoBuque{
 

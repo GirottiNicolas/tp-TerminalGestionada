@@ -1,6 +1,6 @@
 package warehouse;
 
-import gestionterrestre.Ubicacion;
+import transporte.Ubicacion;
 
 public class Departing implements EstadoBuque{
 
