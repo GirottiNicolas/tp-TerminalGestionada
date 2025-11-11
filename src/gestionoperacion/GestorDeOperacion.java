@@ -3,13 +3,16 @@ package gestionoperacion;
 import gestionterrestre.Camion;
 import gestionterrestre.Orden;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Warehouse;
 
 public abstract class GestorDeOperacion {
 	
 	GestionTerrestre gestionTerrestre;
+	Warehouse warehouse;
 	
-	public GestorDeOperacion(GestionTerrestre gestionTerrestre) {
+	public GestorDeOperacion(GestionTerrestre gestionTerrestre, Warehouse warehouse) {
 		this.gestionTerrestre = gestionTerrestre;
+		this.warehouse = warehouse;
 	}
 	
 	public final void ejecutarOperacion(Orden orden, TerminalGestionada terminal) {

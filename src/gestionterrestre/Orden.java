@@ -65,4 +65,6 @@ public abstract class Orden {
 	public Buque getBuqueDeViaje() {
 		return viaje.getBuque();
 	}
+	
+	public Carga getCarga() {return carga ;}
 }

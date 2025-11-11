@@ -6,16 +6,18 @@ import gestionterrestre.Camion;
 import gestionterrestre.Orden;
 import gestionterrestre.OrdenDeImportacion;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Warehouse;
 
 public class GestorDeImportacion extends GestorDeOperacion{
 
-	public GestorDeImportacion(GestionTerrestre gestionTerrestre) {
-		super(gestionTerrestre);
+	public GestorDeImportacion(GestionTerrestre gestionTerrestre, Warehouse warehouse) {
+		super(gestionTerrestre, warehouse);
 		
 	}
 
 	@Override
 	protected boolean esUnaOrdenValida(Orden orden, TerminalGestionada terminal) {
+		// Verifica que la importacion tenga como destino a la terminal
 		return terminal.esLaTerminal(orden.destino())  ;
 		
 	}
@@ -28,7 +30,8 @@ public class GestorDeImportacion extends GestorDeOperacion{
 
 	@Override
 	protected void procesarOrden(Orden orden) {
-		// TODO Auto-generated method stub
+		// El turno de la orden se setea al recibir la notificacion del buque
+		gestionTerrestre.agregarAImportaciones((OrdenDeImportacion) orden);
 	}
 	
 	public void retiroDeCarga(Orden orden, Camion camion) {

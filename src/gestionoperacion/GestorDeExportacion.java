@@ -6,11 +6,12 @@ import gestionterrestre.Camion;
 import gestionterrestre.Orden;
 import gestionterrestre.OrdenDeExportacion;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Warehouse;
 
 public class GestorDeExportacion extends GestorDeOperacion{
 
-	public GestorDeExportacion(GestionTerrestre gestionTerrestre) {
-		super(gestionTerrestre);
+	public GestorDeExportacion(GestionTerrestre gestionTerrestre, Warehouse warehouse) {
+		super(gestionTerrestre,warehouse);
 	
 	}
 
@@ -36,9 +37,7 @@ public class GestorDeExportacion extends GestorDeOperacion{
 	public void recibirCargaDeTransporte(OrdenDeExportacion ordenExportacion, Camion camion) {
 		this.verificarTransporte(camion, ordenExportacion);
 		gestionTerrestre.verificarTurno(ordenExportacion, LocalDateTime.now());
-		
-		// warehouse.registrarCarga(camion.getCarga());
-		
+		warehouse.registrarCarga(camion.getCarga());
 	}
 	
 	

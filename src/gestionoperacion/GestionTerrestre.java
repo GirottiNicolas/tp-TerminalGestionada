@@ -13,6 +13,7 @@ import gestionterrestre.Orden;
 import gestionterrestre.OrdenDeExportacion;
 import gestionterrestre.OrdenDeImportacion;
 import terminalgestionada.TerminalGestionada;
+import warehouse.ServicioAlmacenamiento;
 import warehouse.Warehouse;
 
 
@@ -31,8 +32,8 @@ public class GestionTerrestre {
 		this.clientes = new ArrayList<Cliente>();
 		this.exportaciones = new ArrayList<OrdenDeExportacion>();
 		this.transportistas = new ArrayList<EmpresaTransportista>();
-		this.gestorExportador = new GestorDeExportacion(this);
-		this.gestorImportador = new GestorDeImportacion(this);
+		this.gestorExportador = new GestorDeExportacion(this, warehouse);
+		this.gestorImportador = new GestorDeImportacion(this,warehouse);
 	}
 	
 	public void exportar(Orden ordenExportacion, TerminalGestionada terminalGestionada) {
@@ -44,9 +45,7 @@ public class GestionTerrestre {
 		
 	}
 	
-	protected void agregarAExportaciones(OrdenDeExportacion orden) {
-		exportaciones.add(orden);
-	}
+	
 	
 	
 	public void retirarCargaDeImportador(Camion camion, Orden orden) {
@@ -56,7 +55,7 @@ public class GestionTerrestre {
 
 	protected void verificarHorarioDeRetiro(Orden orden) {
 		if(!orden.cumpleHorario(LocalDateTime.now(), 24)) {
-			//warehouse.aplicarServicio("Almacenamiento Excedente", orden.getCarga());
+			warehouse.aplicarServicio(new ServicioAlmacenamiento((OrdenDeImportacion) orden, 300.0), orden.getCarga());
 		}
 	}
 	
@@ -96,7 +95,15 @@ public class GestionTerrestre {
 	public void eliminarCliente(Cliente cliente) {
 		clientes.remove(cliente);
 	}
+
+	protected void agregarAImportaciones(OrdenDeImportacion orden) {
+		importaciones.add(orden);
+		
+	}
 	
+	protected void agregarAExportaciones(OrdenDeExportacion orden) {
+		exportaciones.add(orden);
+	}
 	
 	
 	
