@@ -12,6 +12,10 @@ import warehouse.Carga;
 import warehouse.ServicioElectricidad;
 import warehouse.Reefer;
 import java.time.LocalDateTime;
+import warehouse.ServicioAlmacenamiento;
+import gestionterrestre.OrdenDeImportacion;
+import java.time.LocalDateTime;
+import warehouse.ServicioDesconsolidado;
 
 public class ServicioTest {
 	
@@ -20,6 +24,9 @@ public class ServicioTest {
 	private Carga cargaChica; // Mock
     private Carga cargaGrande; // Mock
     private IServicio servicioLavado;
+    
+    private OrdenDeImportacion ordenA_Tiempo; // Mock
+    private OrdenDeImportacion ordenDemorada;
 
     @BeforeEach
     public void setUp() {
@@ -34,6 +41,25 @@ public class ServicioTest {
         Mockito.when(cargaGrande.getVolumen()).thenReturn(71.0);
 
         this.servicioLavado = new ServicioLavado(cargaChica, 500.0, 1000.0);
+        
+        
+     // --- Setup para Almacenamiento ---
+        this.ordenA_Tiempo = Mockito.mock(OrdenDeImportacion.class);
+        this.ordenDemorada = Mockito.mock(OrdenDeImportacion.class);
+
+        // 1. Orden a tiempo
+        // Llega el 10 a las 8:00 AM. La tolerancia es 24hs (hasta el 11 a las 8:00 AM)
+        LocalDateTime fechaLlegada = LocalDateTime.of(2025, 11, 10, 8, 0); 
+        // Retira el 11 a las 7:00 AM (dentro de las 24hs)
+        LocalDateTime fechaRetiroATiempo = LocalDateTime.of(2025, 11, 11, 7, 0); 
+        Mockito.when(ordenA_Tiempo.getFechaLlegadaNotificada()).thenReturn(fechaLlegada);
+        Mockito.when(ordenA_Tiempo.getFechaRetiroEfectivo()).thenReturn(fechaRetiroATiempo);
+
+        // 2. Orden demorada
+        // Retira el 12 a las 9:00 AM (1 día y 1 hora tarde = 2 días de multa)
+        LocalDateTime fechaRetiroTarde = LocalDateTime.of(2025, 11, 12, 9, 0);
+        Mockito.when(ordenDemorada.getFechaLlegadaNotificada()).thenReturn(fechaLlegada);
+        Mockito.when(ordenDemorada.getFechaRetiroEfectivo()).thenReturn(fechaRetiroTarde);
     }
     
 
@@ -75,6 +101,29 @@ public class ServicioTest {
         servicioElec.desconectar(fin); // Estuvo conectado 2 horas
 
         assertEquals(1000.0, servicioElec.calcularCosto());
+    }
+    
+    @Test
+    public void test05_AlmacenamientoCobraCeroSiSeRetiraDentroDeLas24Hs() {
+
+        IServicio almacenamiento = new ServicioAlmacenamiento(ordenA_Tiempo, 5000.0);
+
+        assertEquals(0.0, almacenamiento.calcularCosto());
+    }
+
+    @Test
+    public void test06_AlmacenamientoCobraPorDiaExcedente() {
+        IServicio almacenamiento = new ServicioAlmacenamiento(ordenDemorada, 5000.0);
+
+        assertEquals(10000.0, almacenamiento.calcularCosto());
+    }
+    
+    @Test
+    public void test07_ServicioDesconsolidadoTieneUnCostoFijo() {
+        // Es un costo fijo, como el Pesado. Costo $3000
+        IServicio desconsolidado = new ServicioDesconsolidado(3000.0);
+
+        assertEquals(3000.0, desconsolidado.calcularCosto());
     }
     
 }

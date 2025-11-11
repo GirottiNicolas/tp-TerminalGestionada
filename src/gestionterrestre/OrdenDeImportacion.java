@@ -27,5 +27,14 @@ public class OrdenDeImportacion extends Orden {
 		return viaje.getDestinoViaje();
 	}
 	
+	// Agregado por nico
+	public LocalDateTime getFechaLlegadaNotificada() {
+        return null; 
+    }
+
+	// Agregado por nico
+    public LocalDateTime getFechaRetiroEfectivo() {
+        return null;
+    }
 	
 }
