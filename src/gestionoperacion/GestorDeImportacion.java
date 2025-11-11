@@ -17,7 +17,7 @@ public class GestorDeImportacion extends GestorDeOperacion{
 	}
 
 	@Override
-	protected boolean esUnaOrdenValida(Orden orden, TerminalGestionada terminal) {
+	public boolean esUnaOrdenValida(Orden orden, TerminalGestionada terminal) {
 		// Verifica que la importacion tenga como destino a la terminal
 		return terminal.esLaTerminal(orden.destino());
 		
