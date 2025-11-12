@@ -32,6 +32,7 @@ public class LogisticaTest {
     private TerminalGestionada terminalMock;
     private TerminalGestionada terminalMock2;
 
+
     @BeforeEach
     public void setUp() {
         estrategiaMock = mock(EstrategiaDeBusqueda.class);
@@ -48,8 +49,6 @@ public class LogisticaTest {
     @Test
     public void testRegistrarNaviera() {
         logistica.registrarNaviera(navieraMock);
-        // Accedemos por reflexión o agregamos un getter en Logistica
-        // Para simplificar, asumimos que hay un getter:
         assertTrue(logistica.getNavieras().contains(navieraMock));
     }
     
@@ -93,7 +92,4 @@ public class LogisticaTest {
         assertThrows(IllegalArgumentException.class,
             () -> logistica.primeraFechaDeBuque(LocalDate.now(), buqueMock, terminalMock));
     }
-
-
-
 }
