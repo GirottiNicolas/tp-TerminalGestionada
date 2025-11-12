@@ -26,8 +26,8 @@ public class Tramo {
 		return duracion;
 	}
 	
-	private Float validarValor(Float valor) {
-    if (valor == null || valor < 0) {
+	private float validarValor(float valor) {
+    if (valor <= 0) {
         throw new IllegalArgumentException("El valor debe ser mayor a cero.");
     	}
     return valor;
@@ -43,7 +43,7 @@ public class Tramo {
 	private TerminalGestionada validarTerminales(TerminalGestionada origen, TerminalGestionada destino) {
 	    Objects.requireNonNull(origen, "El origen no puede ser nulo.");
 	    Objects.requireNonNull(destino, "El destino no puede ser nulo.");
-	    if (origen.equals(destino)) {
+	    if (origen.esLaTerminal(destino)) {
 	        throw new IllegalArgumentException("El origen y el destino no pueden ser la misma terminal.");
 	    }
 	    return origen;
