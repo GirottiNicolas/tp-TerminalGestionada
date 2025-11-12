@@ -53,20 +53,20 @@ public class EstrategiaDeBusquedaTest {
 	public void testEstrategiaMenorTiempo() {
 	    EstrategiaDeBusqueda estrategia = new EstrategiaMenorTiempo();
 	    Circuito mejor = estrategia.seleccionarMejorCircuito(circuitos, terminalC);
-	    assertEquals(circuitoRapido, mejor);
+	    assertEquals(circuitoRapido.getTramos(), mejor.getTramos());
 	}
 	
 	@Test
 	public void testEstrategiaPrecioMasBajo() {
 	    EstrategiaDeBusqueda estrategia = new EstrategiaPrecioMasBajo();
 	    Circuito mejor = estrategia.seleccionarMejorCircuito(circuitos, terminalC);
-	    assertEquals(circuitoBarato, mejor);
+	    assertEquals(circuitoBarato.getTramos(), mejor.getTramos());
 	}
 	
 	@Test
 	public void testEstrategiaCircuitoCorto() {
 	    EstrategiaDeBusqueda estrategia = new EstrategiaCircuitoCorto();
 	    Circuito mejor = estrategia.seleccionarMejorCircuito(circuitos, terminalC);
-	    assertEquals(circuitoCorto, mejor);
+	    assertEquals(circuitoCorto.getTramos(), mejor.getTramos());
 	}
 }

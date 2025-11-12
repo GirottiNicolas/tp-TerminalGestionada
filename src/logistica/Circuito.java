@@ -20,7 +20,6 @@ public class Circuito {
 		return tramos.get(tramos.size() - 1).getOrigen();
     }
 	
-
     public List<TerminalGestionada> getTerminales() {
         List<TerminalGestionada> terminales = new ArrayList<>();
         for (Tramo tramo : tramos) {
