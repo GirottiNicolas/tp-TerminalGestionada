@@ -33,12 +33,12 @@ public class Circuito {
         List<Tramo> ruta = new ArrayList<>();
         boolean enRuta = false;
         for (Tramo tramo : tramos) {
-            if (tramo.getOrigen().equals(origen)) {
+            if (tramo.getOrigen().esLaTerminal(origen)) {
                 enRuta = true;
             }
             if (enRuta) {
                 ruta.add(tramo);
-                if (tramo.getDestino().equals(destino)) break;
+                if (tramo.getDestino().esLaTerminal(destino)) break;
             }
         }
         return ruta;
@@ -58,16 +58,16 @@ public class Circuito {
     
     private void completaCircuito(List<Tramo> tramos) {
     	 TerminalGestionada origen = tramos.get(0).getOrigen();
-    	    TerminalGestionada destinoFinal = tramos.get(tramos.size() - 1).getDestino();
+    	 TerminalGestionada destinoFinal = tramos.get(tramos.size() - 1).getDestino();
 
-    	    if (!destinoFinal.equals(origen)) {
+    	    if (!destinoFinal.esLaTerminal(origen)) {
     	        throw new IllegalArgumentException("El circuito debe cerrar: la última terminal debe conectar con la primera.");
     	    }
     	}
 
 	public Circuito(List<Tramo> tramos) {
-		this.tramos = new ArrayList<>(tramos);
 		this.completaCircuito(tramos);
+		this.tramos = new ArrayList<>(tramos);
 	}
     
     

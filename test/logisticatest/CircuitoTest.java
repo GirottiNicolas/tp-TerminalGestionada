@@ -1,12 +1,13 @@
 package logisticatest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
+import gestion.terrestre.Ubicacion;
 import logistica.Circuito;
 import logistica.Tramo;
 import terminalgestionada.TerminalGestionada;
@@ -20,12 +21,18 @@ public class CircuitoTest {
     private Tramo tramoBC;
     private Tramo tramoCA;
     private Circuito circuito;
+    private Ubicacion posicionA;
+    private Ubicacion posicionB;
+    private Ubicacion posicionC;
 
     @BeforeEach
     public void setUp() {
-    	terminalA = Mockito.mock(TerminalGestionada.class);
-    	terminalB = Mockito.mock(TerminalGestionada.class);
-    	terminalC = Mockito.mock(TerminalGestionada.class);
+    	posicionA = new Ubicacion(0, 0);
+    	posicionB = new Ubicacion(3, 1);
+    	posicionC = new Ubicacion(5, 2);
+    	terminalA = new TerminalGestionada(posicionA, null, null, null);
+    	terminalB = new TerminalGestionada(posicionB, null, null, null);
+    	terminalC = new TerminalGestionada(posicionC, null, null, null);
     	tramoAB = new Tramo(terminalA, terminalB, 100, 2);
     	tramoBC = new Tramo(terminalB, terminalC, 50.2f, 6);
     	tramoCA = new Tramo(terminalC, terminalA, 48, 10);
@@ -34,21 +41,18 @@ public class CircuitoTest {
 
     @Test
     public void testGetTramos() {
-        List<Tramo> tramos = circuito.getTramos();
-        assertEquals(3, tramos.size());
-        assertEquals(tramoAB, tramos.get(0));
-        assertEquals(tramoBC, tramos.get(1));
-        assertEquals(tramoCA, tramos.get(2));
+        assertEquals(3, circuito.getTramos().size());
+        assertEquals(List.of(tramoAB, tramoBC,tramoCA), circuito.getTramos());
     }
 
     @Test
     public void testGetTerminalOrigen() {
-        assertEquals(terminalA, circuito.getTerminalOrigen());
+        assertTrue(circuito.getTerminalOrigen().esLaTerminal(terminalA));
     }
 
     @Test
     public void testGetTerminalDestino() {
-        assertEquals(terminalC, circuito.getTerminalDestino());
+        assertTrue(circuito.getTerminalDestino().esLaTerminal(terminalC));
     }
 
     @Test

@@ -2,6 +2,7 @@ package logisticatest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,8 @@ public class TramoTest {
 
 	    Tramo tramo = new Tramo(terminalOrigen, terminalDestino, 200, 3);
 
-	    assertEquals(terminalOrigen, tramo.getOrigen());
-	    assertEquals(terminalDestino, tramo.getDestino());
+	    assertTrue(tramo.getOrigen().esLaTerminal(terminalOrigen));
+	    assertTrue(tramo.getDestino().esLaTerminal(terminalDestino));
 	    assertEquals(200, tramo.getValor(), 0.01);
 	    assertEquals(3, tramo.getDuracion());
 	}
