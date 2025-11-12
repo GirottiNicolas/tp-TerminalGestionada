@@ -71,19 +71,20 @@ public class Naviera {
     }
     
     public int tiempoDeViajeHasta(TerminalGestionada destino) {
-    	return viajes.stream()
-    	        .filter(v -> v.getCronograma().containsKey(destino))
-    	        .mapToInt(v -> {
-    	            int acumulado = 0;
-    	            for (Tramo tramo : v.getCircuito().getTramos()) {
-    	                acumulado += tramo.getDuracion();
-    	                if (tramo.getDestino().equals(destino)) {
-    	                    return acumulado;
-    	                }
-    	            }
-    	            return Integer.MAX_VALUE; // no llega
-    	        })
-    	        .min()
-    	        .orElseThrow(() -> new IllegalArgumentException("No hay viajes que lleguen a la terminal destino."));
+        return viajes.stream()
+            .filter(v -> v.getCronograma().containsKey(destino))
+            .mapToInt(v -> {
+                int acumulado = 0;
+                for (Tramo tramo : v.getCircuito().getTramos()) {
+                    acumulado += tramo.getDuracion();
+                    if (tramo.getDestino().equals(destino)) {
+                        return acumulado;
+                    }
+                }
+                throw new IllegalStateException("El cronograma decía que llegaba, pero no se encontró el tramo.");
+            })
+            .min()
+            .orElseThrow(() -> new IllegalArgumentException("No hay viajes que lleguen a la terminal destino."));
     }
+
 }
