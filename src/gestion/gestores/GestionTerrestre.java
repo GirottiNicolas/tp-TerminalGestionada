@@ -121,6 +121,7 @@ public class GestionTerrestre {
 		ordenes.stream().
 				filter(orden -> buque.esElBuque(orden.getBuqueDeViaje()))
 				.forEach(orden -> {
+					orden.setFechaDeNotificacion(LocalDateTime.now());
 					this.enviarMail( orden.getCliente());
 					orden.asignarTurno(LocalDateTime.now()); // Cambiar por el tiempo calculado del viaje
 				});

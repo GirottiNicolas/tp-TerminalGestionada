@@ -11,12 +11,13 @@ import warehouse.Buque;
 import warehouse.Carga;
 
 
-public class Orden implements OrdenDeComercio {
+public abstract class Orden implements OrdenDeComercio {
 	Carga carga;
 	Camion camion;
 	Cliente cliente;
 	LocalDateTime turno = null;
 	Viaje viaje;
+	LocalDateTime fechaNotificacion;
 	
 	public Orden(Viaje viaje,Carga carga,Camion camion, Cliente cliente) {
 		this.carga = carga;
@@ -94,6 +95,16 @@ public class Orden implements OrdenDeComercio {
 	
 	public Buque getBuqueDeViaje() {
 		return viaje.getBuque();
+	}
+	
+	// Agregado por nico
+	public LocalDateTime getFechaLlegadaNotificada() {
+	        return fechaNotificacion; 
+	}
+	
+	@Override
+	public void setFechaDeNotificacion(LocalDateTime fechaNotificacion) {
+		this.fechaNotificacion = fechaNotificacion;
 	}
 	
 	@Override

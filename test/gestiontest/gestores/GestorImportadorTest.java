@@ -1,4 +1,4 @@
-package gestionterrestretest;
+package gestiontest.gestores;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;

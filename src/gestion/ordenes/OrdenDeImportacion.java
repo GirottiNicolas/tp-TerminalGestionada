@@ -11,6 +11,7 @@ import warehouse.Carga;
 public class OrdenDeImportacion extends Orden {
 	
 	LocalDateTime turno;
+	
 	LocalDateTime fechaDeRetiro;
 	
 	public OrdenDeImportacion(Viaje viaje,Carga carga, Camion camion, Cliente cliente,LocalDateTime turno) {
@@ -23,11 +24,7 @@ public class OrdenDeImportacion extends Orden {
 		return viaje.getDestinoViaje();
 	}
 	
-	// Agregado por nico
-	public LocalDateTime getFechaLlegadaNotificada() {
-        return null; 
-    }
-
+	
 	
     public LocalDateTime getFechaRetiroEfectivo() {
         return fechaDeRetiro;
