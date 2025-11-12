@@ -16,20 +16,20 @@ public class GestorDeExportacion extends GestorDeOperacion{
 	}
 
 	@Override
-	protected void errorDeTransaccion() {
+	public void errorDeTransaccion() {
 		throw new RuntimeException("No puedes exportar");
 		
 	}
 
 	@Override
-	protected void procesarOrden(Orden orden) {
+	public void procesarOrden(Orden orden) {
 		orden.asignarTurno(LocalDateTime.now());
 		gestionTerrestre.agregarAExportaciones((OrdenDeExportacion) orden);
 		
 	}
 
 	@Override
-	protected boolean esUnaOrdenValida(Orden orden, TerminalGestionada terminal) {
+	public boolean esUnaOrdenValida(Orden orden, TerminalGestionada terminal) {
 		return terminal.esLaTerminal(orden.origen());
 	}
 	
@@ -40,7 +40,7 @@ public class GestorDeExportacion extends GestorDeOperacion{
 		warehouse.registrarCarga(camion.getCarga());
 	}
 	
-	protected void verificarTurno(OrdenDeExportacion orden, LocalDateTime horarioDelCamion) {
+	public void verificarTurno(OrdenDeExportacion orden, LocalDateTime horarioDelCamion) {
 		if (!orden.cumpleHorario(LocalDateTime.now(), 3)) {
 	        throw new RuntimeException("El camión no cumple con el horario permitido.");
 	    }

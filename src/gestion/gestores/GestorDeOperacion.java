@@ -36,13 +36,13 @@ public abstract class GestorDeOperacion {
 	
 	// Operaciones primitivas
 	
-	protected void verificacionAdicional(Orden orden) {}
+	protected void verificacionAdicional(Orden orden) {} // Posible hook, eliminar si no es necesario
 
-	protected abstract boolean esUnaOrdenValida(Orden orden, TerminalGestionada terminal);
+	public abstract boolean esUnaOrdenValida(Orden orden, TerminalGestionada terminal);
 
-	protected abstract void errorDeTransaccion();
+	public abstract void errorDeTransaccion();
 
-	protected abstract void procesarOrden(Orden orden);
+	public abstract void procesarOrden(Orden orden);
 
 	
 	

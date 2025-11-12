@@ -24,13 +24,13 @@ public class GestorDeImportacion extends GestorDeOperacion{
 	}
 
 	@Override
-	protected void errorDeTransaccion() {
+	public void errorDeTransaccion() {
 		throw new RuntimeException("No puedes importar!");
 		
 	}
 
 	@Override
-	protected void procesarOrden(Orden orden) {
+	public void procesarOrden(Orden orden) {
 		// El turno de la orden se setea al recibir la notificacion del buque
 		gestionTerrestre.agregarAImportaciones((OrdenDeImportacion) orden);
 	}
