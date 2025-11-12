@@ -14,7 +14,7 @@ public interface FachadaTerminal {
 	Ubicacion getPosicionGeografica();
 	boolean esLaTerminal(TerminalGestionada terminal);
 	void agregarCliente(Cliente cliente);
-	Circuito mejorCircuito();
+	Circuito mejorCircuito(TerminalGestionada terminal);
 	void registrarNaviera(Naviera naviera);
 	void importar(OrdenDeImportacion orden);
 	void exportar(OrdenDeExportacion orden);

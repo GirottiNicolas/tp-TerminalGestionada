@@ -21,6 +21,7 @@ public class UbicacionTest {
 	
 	@Test
 	public void distanciaEntreUbicaciones() {
-		assertEquals(2,ubicacion1.distanciaA(ubicacion2, 1.0));
+		
+		assertEquals(2.8284271247461903,ubicacion1.distanciaA(ubicacion2, 1.0));
 	}
 }

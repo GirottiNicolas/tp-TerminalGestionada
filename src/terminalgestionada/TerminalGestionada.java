@@ -38,14 +38,13 @@ public class TerminalGestionada implements FachadaTerminal{
 
 	
 	@Override
-	public Circuito mejorCircuito() {
-		// TODO Auto-generated method stub
-		return null;
+	public Circuito mejorCircuito(TerminalGestionada terminal) {
+		return logistica.mejorCircuito(terminal);
 	}
 
 	@Override
 	public void registrarNaviera(Naviera naviera) {
-		// TODO Auto-generated method stub
+		logistica.registrarNaviera(naviera);
 		
 	}
 
