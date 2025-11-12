@@ -5,8 +5,9 @@ import gestion.ordenes.OrdenDeImportacion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
 import gestion.terrestre.Ubicacion;
-import gestion.terrestre.dummies.Circuito;
-import gestion.terrestre.dummies.Naviera;
+import logistica.Circuito;
+import logistica.Naviera;
+
 
 
 public interface FachadaTerminal {
@@ -20,5 +21,5 @@ public interface FachadaTerminal {
 	void registrarEmpresaTransportista(EmpresaTransportista empresa);
 	//void setMejorEstrategiaParaCircuito(EstrategiaDeCircuito estrategia);
 	// LocalDateTime proximaFechaDePartida(Buque buque, Terminal destino);
-	
+	 
 }

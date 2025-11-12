@@ -41,7 +41,7 @@ public class GestorDeExportacion extends GestorDeOperacion{
 	}
 	
 	public void verificarTurno(OrdenDeExportacion orden, LocalDateTime horarioDelCamion) {
-		if (!orden.cumpleHorario(LocalDateTime.now(), 3)) {
+		if (!orden.cumpleHorario(horarioDelCamion, 3)) {
 	        throw new RuntimeException("El camión no cumple con el horario permitido.");
 	    }
 	}

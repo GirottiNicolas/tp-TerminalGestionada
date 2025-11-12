@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import gestion.interfaces.OrdenDeComercio;
+
 import gestion.ordenes.Orden;
 import gestion.ordenes.OrdenDeExportacion;
 import gestion.ordenes.OrdenDeImportacion;
@@ -23,16 +23,16 @@ public class GestionTerrestre {
 
 	List<Cliente> clientes;
 	List<EmpresaTransportista> transportistas;
-	List<OrdenDeComercio> exportaciones;
-	List<OrdenDeComercio> importaciones;
+	List<Orden> exportaciones;
+	List<Orden> importaciones;
 	Warehouse warehouse;
 	GestorDeExportacion gestorExportador;
 	GestorDeImportacion gestorImportador;
 	
 	public GestionTerrestre(Warehouse warehouse) {
 		this.clientes = new ArrayList<Cliente>();
-		this.exportaciones = new ArrayList<OrdenDeComercio>();
-		this.importaciones = new ArrayList<OrdenDeComercio>();
+		this.exportaciones = new ArrayList<Orden>();
+		this.importaciones = new ArrayList<Orden>();
 		this.transportistas = new ArrayList<EmpresaTransportista>();
 		this.gestorExportador = new GestorDeExportacion(this, warehouse);
 		this.gestorImportador = new GestorDeImportacion(this,warehouse);
@@ -91,7 +91,7 @@ public class GestionTerrestre {
 		exportaciones.add(orden);
 	}
 	
-	private List<OrdenDeComercio> ordenesDeComercioExterior() {
+	private List<Orden> ordenesDeComercioExterior() {
 		return Stream.concat(exportaciones.stream(), importaciones.stream())
 		          .toList();
 	}
@@ -117,9 +117,9 @@ public class GestionTerrestre {
 		this.notificar(importaciones, buque);	
 	}
 	
-	private void notificar(List<OrdenDeComercio> ordenes, Buque buque) {
+	private void notificar(List<Orden> ordenes, Buque buque) {
 		ordenes.stream().
-				filter(orden -> buque.esElBuque(orden.getBuqueDeViaje()))
+				filter(orden -> buque.esElBuque(orden.getBuque()))
 				.forEach(orden -> {
 					orden.setFechaDeNotificacion(LocalDateTime.now());
 					this.enviarMail( orden.getCliente());

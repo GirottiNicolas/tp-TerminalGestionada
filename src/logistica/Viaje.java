@@ -21,6 +21,14 @@ public class Viaje {
 		return this.fechaPartida;
 	}
 	
+	public TerminalGestionada getDestinoViaje() {
+		return circuitoDeViaje.getTerminalDestino();
+	}
+	
+	public Viaje getViaje() {
+		return this;
+	}
+	
 	public Buque getBuque() {
 		return buqueDeViaje;
 	}

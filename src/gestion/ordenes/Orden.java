@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import gestion.interfaces.OrdenDeComercio;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
-import gestion.terrestre.dummies.Viaje;
+import logistica.Viaje;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;
 import warehouse.Carga;
@@ -78,35 +78,34 @@ public abstract class Orden implements OrdenDeComercio {
 		turno = date;
 	}
 	
-	@Override
+	
 	public Viaje getViaje() {
 		return viaje;
 	}
 	
-	@Override
+
 	public TerminalGestionada origen() {
 		return viaje.getOrigenViaje();
 	}
 	
-	@Override
+
 	public TerminalGestionada destino() {
 		return viaje.getDestinoViaje();
 	}
 	
-	public Buque getBuqueDeViaje() {
+	public Buque getBuque() {
 		return viaje.getBuque();
 	}
 	
-	// Agregado por nico
 	public LocalDateTime getFechaLlegadaNotificada() {
 	        return fechaNotificacion; 
 	}
 	
-	@Override
+
 	public void setFechaDeNotificacion(LocalDateTime fechaNotificacion) {
 		this.fechaNotificacion = fechaNotificacion;
 	}
 	
-	@Override
+
 	public Carga getCarga() {return carga ;}
 }

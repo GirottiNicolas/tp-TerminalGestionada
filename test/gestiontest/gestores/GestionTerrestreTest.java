@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +19,11 @@ import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
 import gestion.terrestre.Ubicacion;
-import gestion.terrestre.dummies.Viaje;
+import logistica.Circuito;
+import logistica.Tramo;
+import logistica.Viaje;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Buque;
 import warehouse.Carga;
 import warehouse.Dry;
 import warehouse.Warehouse;
@@ -43,7 +49,11 @@ public class GestionTerrestreTest {
 	GestorDeExportacion gestorExportador;
 	Warehouse warehouse;
 	Carga carga;
-	
+	Circuito circuito1;
+	Circuito circuito2;
+	Tramo tramo1;
+	Tramo tramo2;
+	Buque buque;
 	
 	@BeforeEach
 	public void setUp() {
@@ -53,14 +63,20 @@ public class GestionTerrestreTest {
 		camion2 = new Camion("AZ 132 TT", "Sofia",null);
 		ubicacion = new Ubicacion(1,2);
 		ubicacionDestino = new Ubicacion(4,8);
-		
+		buque = new Buque(ubicacion, terminalGestionada);
 		cliente = new Cliente("nico@gmail.com");
 		gestion = new GestionTerrestre(warehouse);
 		terminalDestino = new TerminalGestionada(ubicacion,gestion,null, warehouse);
 		gestorExportador = new GestorDeExportacion(gestion, warehouse);
 		terminalGestionada = new TerminalGestionada(ubicacionDestino, gestion, null, warehouse);
-		viaje = new Viaje(terminalGestionada, terminalDestino,null);
-		viajeImportacion = new Viaje(terminalDestino, terminalGestionada,null);
+		tramo1 = new Tramo(terminalGestionada,terminalDestino,2,2);
+		tramo2 = new Tramo(terminalDestino,terminalGestionada,3,3);
+		List<Tramo> tramos1 = List.of(tramo1,tramo2);
+		List<Tramo> tramos2 = List.of(tramo2,tramo1);
+		circuito1 = new Circuito(tramos1);
+		circuito2 = new Circuito(tramos2);
+		viaje = new Viaje(buque,circuito1 ,LocalDate.now());
+		viajeImportacion = new Viaje(buque, circuito2,LocalDate.now());
 		empresaCamionera = new EmpresaTransportista();
 		ordenExportacion = new OrdenDeExportacion(viaje,null,camion1, cliente);
 		ordenDeImportacion = new OrdenDeImportacion(viajeImportacion, carga,camion1,cliente,null);
@@ -97,7 +113,7 @@ public class GestionTerrestreTest {
 	
 	@Test
 	public void exportacionConErrorPorTerminalOrigen() {
-		Viaje viaje = new Viaje(terminalDestino,terminalGestionada,null);
+
 		OrdenDeExportacion orden = new OrdenDeExportacion(viaje, null, camion1,null);
 		gestion.agregarCliente(cliente);
 		assertThrows(RuntimeException.class,() -> gestion.exportar(orden, terminalGestionada));

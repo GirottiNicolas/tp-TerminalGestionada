@@ -2,8 +2,9 @@ package gestion.ordenes;
 
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
-import gestion.terrestre.dummies.Viaje;
+import logistica.Viaje;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Buque;
 import warehouse.Carga;
 
 
@@ -21,5 +22,6 @@ public class OrdenDeExportacion extends Orden {
 	public boolean parteDeLaTerminal(TerminalGestionada terminalGestionada) {
 		return terminalGestionada.esLaTerminal(viaje.getOrigenViaje());
 	}
+
 	
 }

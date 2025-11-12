@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
-import gestion.terrestre.dummies.Viaje;
+import logistica.Viaje;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Buque;
 import warehouse.Carga;
 
 public class OrdenDeImportacion extends Orden {
@@ -35,7 +36,6 @@ public class OrdenDeImportacion extends Orden {
 		this.fechaDeRetiro = fechaDeRetiro;
 		
 	}
-
 	
 	
 }

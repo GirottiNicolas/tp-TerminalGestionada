@@ -6,9 +6,9 @@ import gestion.ordenes.OrdenDeImportacion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
 import gestion.terrestre.Ubicacion;
-import gestion.terrestre.dummies.Circuito;
-import gestion.terrestre.dummies.Naviera;
+import logistica.Circuito;
 import logistica.Logistica;
+import logistica.Naviera;
 import warehouse.Buque;
 import warehouse.Warehouse;
 

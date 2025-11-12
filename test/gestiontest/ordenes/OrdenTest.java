@@ -5,19 +5,22 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import gestion.ordenes.OrdenDeExportacion;
 import gestion.ordenes.OrdenDeImportacion;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.Ubicacion;
-import gestion.terrestre.dummies.Viaje;
+import logistica.Circuito;
+import logistica.Tramo;
+import logistica.Viaje;
 import terminalgestionada.TerminalGestionada;
+import warehouse.Buque;
 import warehouse.Carga;
 import warehouse.Dry;
 
@@ -34,6 +37,11 @@ public class OrdenTest {
 	Ubicacion ubicacionDestino;
 	TerminalGestionada terminalOrigen;
 	TerminalGestionada terminalDestino;
+	Circuito circuito1;
+	Circuito circuito2;
+	Tramo tramo1;
+	Tramo tramo2;
+	Buque buque;
 	
 	@BeforeEach
 	public void setUp() {
@@ -45,7 +53,13 @@ public class OrdenTest {
 		cliente = new Cliente("nico@gmail.com");
 		terminalOrigen = new TerminalGestionada(ubicacion,null,null, null);
 		terminalDestino = new TerminalGestionada(ubicacionDestino,null,null, null);
-		viaje = new Viaje(terminalOrigen, terminalDestino,null);
+		tramo1 = new Tramo(terminalOrigen,terminalDestino,2,2);
+		tramo2 = new Tramo(terminalDestino,terminalOrigen,3,3);
+		List<Tramo> tramos1 = List.of(tramo1,tramo2);
+		List<Tramo> tramos2 = List.of(tramo2,tramo1);
+		circuito1 = new Circuito(tramos1);
+		circuito2 = new Circuito(tramos2);
+		viaje = new Viaje(buque,circuito1 ,LocalDate.now());
 		ordenDeImportacion = new OrdenDeImportacion(viaje,carga,camion,cliente,null);
 		ordenExportacion = new OrdenDeExportacion(viaje,carga,camion,cliente);
 		
