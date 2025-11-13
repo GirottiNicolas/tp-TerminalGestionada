@@ -1,72 +1,135 @@
 package logisticatest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import logistica.Circuito;
 import logistica.EstrategiaCircuitoCorto;
-import logistica.EstrategiaDeBusqueda;
 import logistica.EstrategiaMenorTiempo;
 import logistica.EstrategiaPrecioMasBajo;
 import logistica.Tramo;
 import terminalgestionada.TerminalGestionada;
 
 public class EstrategiaDeBusquedaTest {
-	private TerminalGestionada terminalA;
-	private TerminalGestionada terminalB;
-	private TerminalGestionada terminalC;
-	private Tramo tramoAB;
-	private Tramo tramoBC;
-	private Tramo tramoCA;
-	private Tramo tramoAC;
-	private Tramo tramoAB2;
-	private Circuito circuitoRapido;
-	private Circuito circuitoBarato;
-	private Circuito circuitoCorto;
-	private List<Circuito> circuitos;
-	
-	@BeforeEach
-	public void setUp() {
-		terminalA = Mockito.mock(TerminalGestionada.class);
-		terminalB = Mockito.mock(TerminalGestionada.class);
-		terminalC = Mockito.mock(TerminalGestionada.class);
-		Mockito.when(terminalA.esLaTerminal(terminalA)).thenReturn(true);
-		Mockito.when(terminalB.esLaTerminal(terminalB)).thenReturn(true);
-		Mockito.when(terminalC.esLaTerminal(terminalC)).thenReturn(true);
-		tramoAB = new Tramo(terminalA,terminalB, 50,3);
-		tramoBC = new Tramo(terminalB,terminalC, 84,2);
-		tramoCA = new Tramo(terminalC,terminalA, 180,7);
-		tramoAC = new Tramo(terminalA,terminalC, 180,7);
-		tramoAB2 = new Tramo(terminalA,terminalB, 70,1);
-		circuitoRapido = new Circuito(List.of(tramoAB2,tramoBC,tramoCA));
-		circuitoBarato = new Circuito(List.of(tramoAB,tramoBC,tramoCA));
-		circuitoCorto = new Circuito(List.of(tramoAC,tramoCA));
-		circuitos = List.of(circuitoRapido,circuitoBarato,circuitoCorto);
-	}
-	
-	@Test
-	public void testEstrategiaMenorTiempo() {
-	    EstrategiaDeBusqueda estrategia = new EstrategiaMenorTiempo();
-	    Circuito mejor = estrategia.seleccionarMejorCircuito(circuitos, terminalC);
-	    assertEquals(circuitoRapido.getTramos(), mejor.getTramos());
-	}
-	
-	@Test
-	public void testEstrategiaPrecioMasBajo() {
-	    EstrategiaDeBusqueda estrategia = new EstrategiaPrecioMasBajo();
-	    Circuito mejor = estrategia.seleccionarMejorCircuito(circuitos, terminalC);
-	    assertEquals(circuitoBarato.getTramos(), mejor.getTramos());
-	}
-	
-	@Test
-	public void testEstrategiaCircuitoCorto() {
-	    EstrategiaDeBusqueda estrategia = new EstrategiaCircuitoCorto();
-	    Circuito mejor = estrategia.seleccionarMejorCircuito(circuitos, terminalC);
-	    assertEquals(circuitoCorto.getTramos(), mejor.getTramos());
-	}
+
+    private final TerminalGestionada origen = mock(TerminalGestionada.class);
+    private final TerminalGestionada destino = mock(TerminalGestionada.class);
+
+    @Test
+    void testEstrategiaCircuitoCorto() {
+        Circuito circuitoMock = mock(Circuito.class);
+        Tramo tramoOD = mock(Tramo.class);
+
+        when(tramoOD.getOrigen()).thenReturn(origen);
+        when(tramoOD.getDestino()).thenReturn(destino);
+
+        when(circuitoMock.getTerminales()).thenReturn(List.of(origen, destino));
+        when(circuitoMock.getTerminalOrigen()).thenReturn(origen);
+        when(circuitoMock.rutaEntre(origen, destino)).thenReturn(List.of(tramoOD));
+
+        EstrategiaCircuitoCorto estrategia = new EstrategiaCircuitoCorto();
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(circuitoMock), destino);
+
+        assertEquals(circuitoMock, resultado);
+    }
+
+    @Test
+    void testEstrategiaCircuitoCortoConComparacionDeRutas() {
+        Circuito c1 = mock(Circuito.class);
+        Circuito c2 = mock(Circuito.class);
+
+        Tramo t1 = mock(Tramo.class);
+        Tramo t2a = mock(Tramo.class);
+        Tramo t2b = mock(Tramo.class);
+
+        when(c1.getTerminales()).thenReturn(List.of(origen, destino));
+        when(c1.getTerminalOrigen()).thenReturn(origen);
+        when(c1.rutaEntre(origen, destino)).thenReturn(List.of(t1));
+
+        when(c2.getTerminales()).thenReturn(List.of(origen, destino));
+        when(c2.getTerminalOrigen()).thenReturn(origen);
+        when(c2.rutaEntre(origen, destino)).thenReturn(List.of(t2a, t2b));
+
+        EstrategiaCircuitoCorto estrategia = new EstrategiaCircuitoCorto();
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(c1, c2), destino);
+
+        assertEquals(c1, resultado);
+    }
+
+    @Test
+    void testEstrategiaMenorTiempo() {
+        Circuito circuitoMock = mock(Circuito.class);
+
+        when(circuitoMock.getTerminales()).thenReturn(List.of(origen, destino));
+        when(circuitoMock.getTerminalOrigen()).thenReturn(origen);
+        when(circuitoMock.tiempoTotalEntre(origen, destino)).thenReturn(5);
+
+        EstrategiaMenorTiempo estrategia = new EstrategiaMenorTiempo();
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(circuitoMock), destino);
+
+        assertEquals(circuitoMock, resultado);
+    }
+
+    @Test
+    void testEstrategiaMenorTiempoComparandoDosCircuitos() {
+        Circuito c1 = mock(Circuito.class);
+        Circuito c2 = mock(Circuito.class);
+
+        when(c1.getTerminales()).thenReturn(List.of(origen, destino));
+        when(c1.getTerminalOrigen()).thenReturn(origen);
+        when(c1.tiempoTotalEntre(origen, destino)).thenReturn(10);
+
+        when(c2.getTerminales()).thenReturn(List.of(origen, destino));
+        when(c2.getTerminalOrigen()).thenReturn(origen);
+        when(c2.tiempoTotalEntre(origen, destino)).thenReturn(6);
+
+        EstrategiaMenorTiempo estrategia = new EstrategiaMenorTiempo();
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(c1, c2), destino);
+
+        assertEquals(c2, resultado);
+    }
+
+    @Test
+    void testEstrategiaPrecioMasBajo() {
+        Circuito circuitoMock = mock(Circuito.class);
+
+        when(circuitoMock.getTerminales()).thenReturn(List.of(origen, destino));
+        when(circuitoMock.getTerminalOrigen()).thenReturn(origen);
+        when(circuitoMock.precioTotalEntre(origen, destino)).thenReturn(100.0);
+
+        EstrategiaPrecioMasBajo estrategia = new EstrategiaPrecioMasBajo();
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(circuitoMock), destino);
+
+        assertEquals(circuitoMock, resultado);
+    }
+
+    @Test
+    void testEstrategiaPrecioMasBajoComparandoDosCircuitos() {
+        Circuito c1 = mock(Circuito.class);
+        Circuito c2 = mock(Circuito.class);
+
+        when(c1.getTerminales()).thenReturn(List.of(origen, destino));
+        when(c1.getTerminalOrigen()).thenReturn(origen);
+        when(c1.precioTotalEntre(origen, destino)).thenReturn(250.0);
+
+        when(c2.getTerminales()).thenReturn(List.of(origen, destino));
+        when(c2.getTerminalOrigen()).thenReturn(origen);
+        when(c2.precioTotalEntre(origen, destino)).thenReturn(180.0);
+
+        EstrategiaPrecioMasBajo estrategia = new EstrategiaPrecioMasBajo();
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(c1, c2), destino);
+
+        assertEquals(c2, resultado);
+    }
+
+    @Test
+    void testEstrategiaSinCircuitos() {
+        EstrategiaCircuitoCorto estrategia = new EstrategiaCircuitoCorto();
+        assertThrows(IllegalArgumentException.class,
+            () -> estrategia.seleccionarMejorCircuito(List.of(), destino));
+    }
 }

@@ -3,7 +3,6 @@ package logistica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;
@@ -44,21 +43,18 @@ public class Naviera {
 
     public List<Viaje> viajesPorCircuito(Circuito circuito) {
         return viajes.stream()
-            .filter(v -> v.getCircuito().equals(circuito))
-            .collect(Collectors.toList());
+            .filter(v -> v.getCircuito().equals(circuito)).toList();
     }
 
     public List<Viaje> viajesDesde(TerminalGestionada origen) {
         return viajes.stream()
-            .filter(v -> v.getOrigenViaje().equals(origen))
-            .collect(Collectors.toList());
+            .filter(v -> v.getOrigenViaje().equals(origen)).toList();
     }
 
     public List<TerminalGestionada> terminalesVisitadas() {
         return circuitos.stream()
             .flatMap(c -> c.getTerminales().stream())
-            .distinct()
-            .collect(Collectors.toList());
+            .distinct().toList();
     }
     
     public LocalDate fechaDeViajeA(TerminalGestionada destino) {

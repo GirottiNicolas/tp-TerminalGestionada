@@ -45,7 +45,7 @@ public class TerminalGestionada implements FachadaTerminal{
 	
 	@Override
 	public Circuito mejorCircuito(TerminalGestionada terminal) {
-		return logistica.mejorCircuito(terminal);
+		return logistica.mejorCircuito(this, terminal);
 
 	}
 
@@ -96,7 +96,7 @@ public class TerminalGestionada implements FachadaTerminal{
 
 	@Override
 	public LocalDate proximaFechaDePartida(Buque buque, TerminalGestionada destino) {
-		return logistica.primeraFechaDeBuque(LocalDate.now(), buque, destino);
+		return logistica.primeraFechaBuque(LocalDate.now(), buque, this, destino);
 	}
 
 	@Override
@@ -115,4 +115,7 @@ public class TerminalGestionada implements FachadaTerminal{
         }
     }
 	
+	public int tiempoDeNavieraHasta(Naviera naviera, TerminalGestionada destino) {
+		return logistica.tiempoDeNavieraEntre(naviera, this, destino);
+	}
 }

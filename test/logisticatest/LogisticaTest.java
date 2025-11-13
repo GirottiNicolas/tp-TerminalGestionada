@@ -14,9 +14,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import logistica.Circuito;
-import logistica.EstrategiaDeBusqueda;
+import logistica.EstrategiaCircuitoCorto;
 import logistica.Logistica;
 import logistica.Naviera;
+import logistica.Tramo;
 import logistica.Viaje;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;
@@ -24,72 +25,137 @@ import warehouse.Buque;
 public class LogisticaTest {
 
     private Logistica logistica;
-    private EstrategiaDeBusqueda estrategiaMock;
     private Naviera navieraMock;
     private Circuito circuitoMock;
     private Viaje viajeMock;
     private Buque buqueMock;
-    private TerminalGestionada terminalMock;
-    private TerminalGestionada terminalMock2;
-
+    private Tramo tramoMock;
+    private TerminalGestionada terminalOrigen;
+    private TerminalGestionada terminalDestino;
 
     @BeforeEach
-    public void setUp() {
-        estrategiaMock = mock(EstrategiaDeBusqueda.class);
-        logistica = new Logistica(estrategiaMock);
-
+    void setUp() {
+        logistica = new Logistica(new EstrategiaCircuitoCorto());
         navieraMock = mock(Naviera.class);
         circuitoMock = mock(Circuito.class);
         viajeMock = mock(Viaje.class);
         buqueMock = mock(Buque.class);
-        terminalMock = mock(TerminalGestionada.class);
-        terminalMock2 = mock(TerminalGestionada.class);
+        terminalOrigen = mock(TerminalGestionada.class);
+        terminalDestino = mock(TerminalGestionada.class);
+        tramoMock = mock(Tramo.class);
+        when(tramoMock.getOrigen()).thenReturn(terminalOrigen);
+        when(tramoMock.getDestino()).thenReturn(terminalDestino);
     }
-    
+
     @Test
-    public void testRegistrarNaviera() {
+    void testRegistrarNaviera() {
         logistica.registrarNaviera(navieraMock);
         assertTrue(logistica.getNavieras().contains(navieraMock));
     }
-    
+
     @Test
-    public void testMejorCircuitoUsaEstrategia() {
-        logistica.registrarNaviera(navieraMock);
+    void testCircuitosQueIncluyenTerminal() {
         when(navieraMock.getCircuitos()).thenReturn(List.of(circuitoMock));
-        when(estrategiaMock.seleccionarMejorCircuito(anyList(), eq(terminalMock)))
-            .thenReturn(circuitoMock);
+        when(circuitoMock.contieneTerminal(terminalOrigen)).thenReturn(true);
 
-        Circuito resultado = logistica.mejorCircuito(terminalMock);
+        logistica.registrarNaviera(navieraMock);
 
-        assertEquals(circuitoMock, resultado);
-        verify(estrategiaMock).seleccionarMejorCircuito(anyList(), eq(terminalMock));
+        List<Circuito> resultado = logistica.getNavieras().stream()
+                .flatMap(n -> n.getCircuitos().stream())
+                .filter(c -> c.contieneTerminal(terminalOrigen))
+                .toList();
+
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains(circuitoMock));
+    }
+
+    @Test
+    void testMejorCircuitoConEstrategiaCircuitoCorto() {
+        when(navieraMock.getCircuitos()).thenReturn(List.of(circuitoMock));
+        when(circuitoMock.contieneTerminal(terminalOrigen)).thenReturn(true);
+        when(circuitoMock.getTerminales()).thenReturn(List.of(terminalOrigen, terminalDestino));
+        when(circuitoMock.getTerminalOrigen()).thenReturn(terminalOrigen);
+        when(circuitoMock.rutaEntre(terminalOrigen, terminalDestino)).thenReturn(List.of(tramoMock));
+
+        logistica.registrarNaviera(navieraMock);
+
+        Circuito mejor = logistica.mejorCircuito(terminalOrigen, terminalDestino);
+        assertNotNull(mejor);
+        assertEquals(circuitoMock, mejor);
     }
     
     @Test
-    public void testPrimeraFechaDeBuque() {
-        logistica.registrarNaviera(navieraMock);
+    void testPrimeraFechaDeBuque() {
+        LocalDate fechaActual = LocalDate.of(2023, 11, 1);
+        LocalDate fechaDestino = LocalDate.of(2023, 11, 10);
 
-        LocalDate base = LocalDate.of(2025, 11, 1);
-        LocalDate llegada1 = base.plusDays(3);
-        LocalDate llegada2 = base.plusDays(5);
-
-        when(navieraMock.getViajes()).thenReturn(List.of(viajeMock));
         when(viajeMock.getBuque()).thenReturn(buqueMock);
         when(buqueMock.esElBuque(buqueMock)).thenReturn(true);
-        when(viajeMock.getCronograma()).thenReturn(
-            Map.of(terminalMock, llegada1, terminalMock2, llegada2)
-        );
+        when(viajeMock.getCronograma()).thenReturn(Map.of(
+            terminalOrigen, LocalDate.of(2023, 11, 5),
+            terminalDestino, fechaDestino
+        ));
 
-        LocalDate resultado = logistica.primeraFechaDeBuque(base, buqueMock, terminalMock);
-        assertEquals(llegada1, resultado);
+        when(navieraMock.getViajes()).thenReturn(List.of(viajeMock));
+        logistica.registrarNaviera(navieraMock);
+
+        LocalDate resultado = logistica.primeraFechaBuque(fechaActual, buqueMock, terminalOrigen, terminalDestino);
+
+        assertEquals(fechaDestino, resultado);
+    }
+
+    @Test
+    void testFechaMasProximaDeBuqueSinResultados() {
+        LocalDate fechaActual = LocalDate.of(2023, 11, 1);
+
+        when(viajeMock.getBuque()).thenReturn(buqueMock);
+        when(buqueMock.esElBuque(buqueMock)).thenReturn(false);
+        when(navieraMock.getViajes()).thenReturn(List.of(viajeMock));
+
+        logistica.registrarNaviera(navieraMock);
+
+        assertThrows(IllegalArgumentException.class,
+            () -> logistica.primeraFechaBuque(fechaActual, buqueMock, terminalOrigen, terminalDestino));
     }
     
     @Test
-    public void testPrimeraFechaDeBuqueSinViajes() {
-        logistica.registrarNaviera(navieraMock);
-        when(navieraMock.getViajes()).thenReturn(List.of());
+    void testTiempoDeNavieraEntreConCircuitoValido() {
+        when(circuitoMock.getTerminales()).thenReturn(List.of(terminalOrigen, terminalDestino));
+        when(circuitoMock.tiempoTotalEntre(terminalOrigen, terminalDestino)).thenReturn(7);
+        when(navieraMock.getCircuitos()).thenReturn(List.of(circuitoMock));
+
+        int tiempo = logistica.tiempoDeNavieraEntre(navieraMock, terminalOrigen, terminalDestino);
+
+        assertEquals(7, tiempo);
+    }
+
+    @Test
+    void testTiempoDeNavieraEntreConMultiplesCircuitos() {
+        Circuito c1 = mock(Circuito.class);
+        Circuito c2 = mock(Circuito.class);
+
+        when(c1.getTerminales()).thenReturn(List.of(terminalOrigen, terminalDestino));
+        when(c1.tiempoTotalEntre(terminalOrigen, terminalDestino)).thenReturn(10);
+
+        when(c2.getTerminales()).thenReturn(List.of(terminalOrigen, terminalDestino));
+        when(c2.tiempoTotalEntre(terminalOrigen, terminalDestino)).thenReturn(6);
+
+        when(navieraMock.getCircuitos()).thenReturn(List.of(c1, c2));
+
+        int tiempo = logistica.tiempoDeNavieraEntre(navieraMock, terminalOrigen, terminalDestino);
+
+        assertEquals(6, tiempo);
+    }
+
+    @Test
+    void testTiempoDeNavieraEntreSinCircuitosValidos() {
+        when(navieraMock.getCircuitos()).thenReturn(List.of(circuitoMock));
+        when(circuitoMock.getTerminales()).thenReturn(List.of(terminalOrigen));
 
         assertThrows(IllegalArgumentException.class,
-            () -> logistica.primeraFechaDeBuque(LocalDate.now(), buqueMock, terminalMock));
+            () -> logistica.tiempoDeNavieraEntre(navieraMock, terminalOrigen, terminalDestino));
     }
 }
+
+
+

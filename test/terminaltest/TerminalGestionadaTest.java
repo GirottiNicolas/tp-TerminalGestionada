@@ -1,5 +1,6 @@
 package terminaltest;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,6 +25,7 @@ import logistica.EstrategiaCircuitoCorto;
 import logistica.EstrategiaDeBusqueda;
 import logistica.EstrategiaMenorTiempo;
 import logistica.Logistica;
+import logistica.Naviera;
 import logistica.Tramo;
 import logistica.Viaje;
 import terminalgestionada.TerminalGestionada;
@@ -88,6 +90,7 @@ public class TerminalGestionadaTest {
     	tramoCA = new Tramo(terminalC, terminalA, 48, 10);
         circuito1 = new Circuito(List.of(tramoAB, tramoBC,tramoCA));
         circuito2 = new Circuito(List.of(tramoAB, tramoCA));
+        buque = new Buque(ubicacion, null, null);
         viaje = new Viaje(buque,circuito1 ,LocalDate.now());
         camion = new Camion("AAA 222 EE", "Juan",carga);
         ordenDeImportacion = new OrdenDeImportacion(viaje,carga,camion,cliente,null);
@@ -155,12 +158,27 @@ public class TerminalGestionadaTest {
 	
 	@Test
 	public void mejorCircuito() {
-		
+		Naviera naviera = new Naviera();
+        naviera.agregarCircuito(circuito1);
+        naviera.agregarCircuito(circuito2);
+        naviera.agregarViaje(viaje);
+
+        terminalA.registrarNaviera(naviera);
+		Circuito mejor = terminalA.mejorCircuito(terminalC);
+        // EstrategiaMenorTiempo en logisticaA → debería elegir circuito1 (8 días) sobre circuito2 (10 días)
+        assertEquals(circuito1, mejor);
 	}
 	
 	@Test 
 	public void proximaFechaDePartida() {
-		
+		Naviera naviera = new Naviera();
+        naviera.agregarCircuito(circuito1);
+        naviera.agregarCircuito(circuito2);
+        naviera.agregarViaje(viaje);
+
+        terminalA.registrarNaviera(naviera);
+		 LocalDate fecha = terminalA.proximaFechaDePartida(buque, terminalC);
+	        assertEquals(viaje.getCronograma().get(terminalC), fecha);
 	}
 	
 	@Test
@@ -208,5 +226,13 @@ public class TerminalGestionadaTest {
 	    verify(warehouseMock, never()).aplicarServicio(servicioMock, cargaMock);
 	}
 	
-	
+	@Test
+    void TiempoDeNavieraHasta() {
+		Naviera naviera = new Naviera();
+        naviera.agregarCircuito(circuito1);
+        naviera.agregarCircuito(circuito2);
+        naviera.agregarViaje(viaje);
+        int tiempo = terminalA.tiempoDeNavieraHasta(naviera, terminalC);
+        assertEquals(8, tiempo);
+    }
 }

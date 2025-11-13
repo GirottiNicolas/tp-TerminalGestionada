@@ -68,6 +68,13 @@ public class Circuito {
 		this.completaCircuito(tramos);
 		this.tramos = new ArrayList<>(tramos);
 	}
+
+	public boolean contieneTerminal(TerminalGestionada terminal) {
+	    return tramos.stream().anyMatch(tramo ->
+	        tramo.getOrigen().esLaTerminal(terminal) || tramo.getDestino().esLaTerminal(terminal)
+	    );
+	}
+
     
     
 }
