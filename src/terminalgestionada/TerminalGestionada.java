@@ -87,14 +87,13 @@ public class TerminalGestionada implements FachadaTerminal{
 
 	@Override
 	public void setMejorEstrategiaParaCircuito(EstrategiaDeBusqueda estrategia) {
-		// TODO Auto-generated method stub
+		logistica.setMejorCircuito(estrategia);
 		
 	}
 
 	@Override
 	public LocalDate proximaFechaDePartida(Buque buque, TerminalGestionada destino) {
-		// TODO Auto-generated method stub
-		return null;
+		return logistica.primeraFechaDeBuque(null, buque, destino);
 	}
 	
 }
