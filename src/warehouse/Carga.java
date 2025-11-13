@@ -3,9 +3,6 @@ package warehouse;
 import java.util.ArrayList;
 import java.util.List;
 
-import warehouse.IElementoVisitable;
-import warehouse.IVisitorReporte;
-
 public abstract class Carga implements IElementoVisitable{
 	
 	private double ancho;

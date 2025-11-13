@@ -9,11 +9,12 @@ import org.mockito.Mockito;
 import warehouse.Buque;
 import warehouse.Carga;
 import warehouse.IVisitorReporte;
+import warehouse.ReporteAduana;
 import warehouse.ReporteMuelle;
+import warehouse.ReporteBuque;
 
 // Fechas
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List; 
 
 public class ReporteVisitorTest {
@@ -65,6 +66,68 @@ public class ReporteVisitorTest {
             "Contenedores Operados: 2";
 
         assertEquals(esperado, resultado.trim());
+    }
+    
+    @Test
+    public void test02_ReporteAduanaGeneraHTMLConListaDeCargas() {
+        // SETUP
+        when(cargaMock1.getID()).thenReturn("DRY777");
+        when(cargaMock1.getTipo()).thenReturn("Dry");
+
+        when(cargaMock2.getID()).thenReturn("REEF123");
+        when(cargaMock2.getTipo()).thenReturn("Reefer");
+
+        when(buqueMock.getContainersDescargados()).thenReturn(List.of(cargaMock1));
+        when(buqueMock.getContainersCargados()).thenReturn(List.of(cargaMock2));
+
+        IVisitorReporte reporteAduana = new ReporteAduana();
+        reporteAduana.visitBuque(buqueMock);
+
+        String resultado = reporteAduana.getReporte();
+
+        // Verificamos que el HTML se generó
+
+        assertTrue(resultado.contains("<html>"));
+        assertTrue(resultado.contains("Buque: El Neptuno"));
+        assertTrue(resultado.contains("Arribo: 10-11-2025 08:00"));
+        assertTrue(resultado.contains("Partida: 11-11-2025 14:00"));
+
+        assertTrue(resultado.contains("DRY777 (Dry)"));
+        assertTrue(resultado.contains("REEF123 (Reefer)"));
+        assertTrue(resultado.contains("</html>"));
+    }
+    
+    @Test
+    public void test03_ReporteBuqueGeneraXMLConListasDeCargas() {
+        // SETUP
+        when(cargaMock1.getID()).thenReturn("merk1234567"); 
+
+        when(cargaMock2.getID()).thenReturn("green7654321");
+
+        when(buqueMock.getContainersDescargados()).thenReturn(List.of(cargaMock1));
+        // La lista de exportación es 'containersCargados'
+        when(buqueMock.getContainersCargados()).thenReturn(List.of(cargaMock2));
+
+        // Creamos el visitante y lo mandamos al buque
+        IVisitorReporte reporteBuque = new ReporteBuque();
+        reporteBuque.visitBuque(buqueMock);
+
+        String resultado = reporteBuque.getReporte();
+
+        // 3. VERIFICACIÓN: Verificamos que el XML se generó
+        String resultadoLimpio = resultado.replaceAll("\\s+", "");
+
+        String esperado = 
+            "<report>" +
+                "<import>" +
+                    "<item>merk1234567</item>" +
+                "</import>" +
+                "<export>" +
+                    "<item>green7654321</item>" +
+                "</export>" +
+            "</report>";
+
+        assertEquals(esperado, resultadoLimpio);
     }
     
 }

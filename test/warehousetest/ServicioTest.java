@@ -15,7 +15,6 @@ import warehouse.Reefer;
 import java.time.LocalDateTime;
 import warehouse.ServicioAlmacenamiento;
 
-import java.time.LocalDateTime;
 import warehouse.ServicioDesconsolidado;
 
 public class ServicioTest {

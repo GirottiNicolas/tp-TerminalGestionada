@@ -2,8 +2,6 @@ package warehouse;
 
 import gestion.terrestre.Ubicacion;
 import terminalgestionada.TerminalGestionada;
-import warehouse.IVisitorReporte;
-import warehouse.IElementoVisitable;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,8 +1,5 @@
 package warehouse;
 
-import warehouse.Buque;
-import warehouse.Carga;
-
 public interface IVisitorReporte {
 	
 	public void visitBuque(Buque buque);

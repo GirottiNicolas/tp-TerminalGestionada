@@ -13,7 +13,6 @@ import warehouse.BillOfLading;
 import warehouse.BLCompuesto;
 import warehouse.BLSimple;
 import warehouse.IServicio;
-import warehouse.IElementoVisitable;
 import warehouse.IVisitorReporte;
 
 public class CargaTest {

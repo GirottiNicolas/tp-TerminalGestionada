@@ -1,7 +1,5 @@
 package warehouse;
 
-import warehouse.Buque;
-import warehouse.Carga;
 import java.time.format.DateTimeFormatter;
 
 public class ReporteMuelle implements IVisitorReporte {
