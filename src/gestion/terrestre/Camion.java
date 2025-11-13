@@ -10,7 +10,7 @@ public class Camion {
 	public Camion(String patente, String chofer, Carga carga) {
 		this.patente = patente;
 		this.setChofer(chofer);
-		this.setCargaEnCamion(carga);
+		this.asignarCarga(carga);
 	}
 
 	public void setChofer(String chofer) {
@@ -25,7 +25,7 @@ public class Camion {
 		return this.getPatente().equals(c.getPatente()) && this.getChofer().equals(c.getChofer());
 	}
 
-	private String getChofer() {
+	public String getChofer() {
 		return chofer;
 	}
 
@@ -33,9 +33,7 @@ public class Camion {
 		return carga;
 	}
 	
-	public void setCargaEnCamion(Carga carga) {
-		this.carga = carga;
-	}
+
 	
 	public void asignarCarga(Carga carga) {
 		this.carga = carga;
