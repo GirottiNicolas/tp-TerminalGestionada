@@ -129,15 +129,16 @@ public class GestionTerrestre {
 	}
 
 	public void agregarCamion(EmpresaTransportista empresa, Camion camion) {
-		if(transportistas.contains(empresa)) {
-			empresa.agregarCamion(camion);
-		}
-		else {
-			throw new IllegalArgumentException("No existe la empresa dada");
-		}
+		this.verificarEmpresa(empresa);
+		empresa.agregarCamion(camion);
 		
 	}
 	
+	private void verificarEmpresa(EmpresaTransportista empresaARegistrar) {
+		if(!transportistas.contains(empresaARegistrar)) {
+			throw new IllegalArgumentException("No existe la empresa dada");
+		}
+	}
 	
 
 }

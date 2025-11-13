@@ -160,6 +160,11 @@ public class GestionTerrestreTest {
 		assertDoesNotThrow(() -> gestion.importar(ordenDeImportacion, terminalGestionada));
 	}
 	
+	@Test
+	public void registroDeCamionConExcepcion() {
+		assertThrows(IllegalArgumentException.class,() -> gestion.agregarCamion(empresaCamionera,camion1));
+	}
+	
 	
 	
 	
