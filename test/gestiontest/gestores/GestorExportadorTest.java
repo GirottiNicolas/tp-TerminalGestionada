@@ -57,7 +57,7 @@ public class GestorExportadorTest {
 	
 	@BeforeEach
 	public void setUp() {
-		carga = new Dry(0.0,0.0,0.0,0.0,null);
+		carga = new Dry(0.0,0.0,0.0,0.0,null, null);
 		warehouse = new Warehouse();
 		camion1 = new Camion("AZ 132 TT", "Javier",null);
 		camion2 = new Camion("AZ 132 TT", "Sofia",null);
@@ -76,7 +76,7 @@ public class GestorExportadorTest {
         circuito = new Circuito(List.of(tramoAB, tramoBC,tramoCA));
 		
 		viaje = new Viaje(buque, circuito, LocalDate.now());	
-		buque = new Buque(new Ubicacion(2,3), terminalA);
+		buque = new Buque(new Ubicacion(2,3), terminalA, null);
 		gestorExportador = new GestorDeExportacion(gestion, warehouse);
 		
 		ordenExportacion = new OrdenDeExportacion(viaje,null,camion1, cliente);

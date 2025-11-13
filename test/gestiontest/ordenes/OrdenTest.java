@@ -48,7 +48,7 @@ public class OrdenTest {
 		ubicacion = new Ubicacion(1,2);
 		ubicacionDestino = new Ubicacion(4,8);
 		cliente = new Cliente("nico@gmail.com");
-		carga = new Dry(1.0,1.0,1.0,1.0,null);
+		carga = new Dry(1.0,1.0,1.0,1.0,null, null);
 		camion = new Camion("AAA 222 EE", "Juan",carga);
 		cliente = new Cliente("nico@gmail.com");
 		terminalOrigen = new TerminalGestionada(ubicacion,null,null, null);

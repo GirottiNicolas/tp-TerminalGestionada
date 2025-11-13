@@ -13,6 +13,8 @@ import warehouse.BillOfLading;
 import warehouse.BLCompuesto;
 import warehouse.BLSimple;
 import warehouse.IServicio;
+import warehouse.IElementoVisitable;
+import warehouse.IVisitorReporte;
 
 public class CargaTest {
 
@@ -23,7 +25,7 @@ public class CargaTest {
     public void setUp() {
     	this.blMock = Mockito.mock(BillOfLading.class);
 
-        this.containerDry = new Dry(10.0, 5.0, 5.0, 2000.0, blMock);
+        this.containerDry = new Dry(10.0, 5.0, 5.0, 2000.0, blMock, "DRY_SETUP_ID");
     }
 
     @Test
@@ -44,7 +46,7 @@ public class CargaTest {
     @Test
     public void test03_UnContainerReeferConoceSuConsumo() {
         // Creamos un Reefer con un consumo de 150 kw/hora
-        Reefer containerReefer = new Reefer(10.0, 5.0, 5.0, 2000.0, 150.0, blMock);
+        Reefer containerReefer = new Reefer(10.0, 5.0, 5.0, 2000.0, 150.0, blMock, "68950HJ");
 
         assertEquals(2000.0, containerReefer.getPesoTotal());
         assertEquals(250.0, containerReefer.getVolumen());
@@ -55,7 +57,7 @@ public class CargaTest {
     @Test
     public void test04_UnContainerTanqueSeCreaCorrectamente() {
         
-    	Carga containerTanque = new Tanque(15.0, 4.0, 4.0, 3000.0, blMock);
+    	Carga containerTanque = new Tanque(15.0, 4.0, 4.0, 3000.0, blMock, "68950HJ");
 
         // Verificamos los atributos heredados
         assertEquals(15.0, containerTanque.getAncho());
@@ -72,7 +74,7 @@ public class CargaTest {
 
         // Verificamos que construir un Reefer con un BLCompuesto lanza una excepción
         assertThrows(IllegalArgumentException.class, () -> {
-            new Reefer(10.0, 5.0, 5.0, 2000.0, 150.0, blCompuesto);
+            new Reefer(10.0, 5.0, 5.0, 2000.0, 150.0, blCompuesto, "68950HJ");
         });
     }
 
@@ -80,7 +82,7 @@ public class CargaTest {
     public void test06_UnReeferSiPuedeTenerUnBLSimple() {
         BillOfLading blSimple = new BLSimple("Medicamentos", 500.0);
 
-        Reefer containerReefer = new Reefer(10.0, 5.0, 5.0, 2000.0, 150.0, blSimple);
+        Reefer containerReefer = new Reefer(10.0, 5.0, 5.0, 2000.0, 150.0, blSimple, "68950HJ");
 
         assertEquals(blSimple, containerReefer.getBillOfLading());
     }
@@ -89,7 +91,7 @@ public class CargaTest {
     public void test09_UnDrySiPuedeTenerUnBLCompuesto() {
         BillOfLading blCompuesto = new BLCompuesto();
 
-        Dry containerDry = new Dry(10.0, 5.0, 5.0, 2000.0, blCompuesto);
+        Dry containerDry = new Dry(10.0, 5.0, 5.0, 2000.0, blCompuesto, "68950HJ");
 
         assertEquals(blCompuesto, containerDry.getBillOfLading());
         // No se lanza ninguna excepción 
@@ -104,6 +106,31 @@ public class CargaTest {
         containerDry.agregarServicio(servicioMock);
 
         assertTrue(containerDry.getServiciosAplicados().contains(servicioMock));
+    }
+    
+    @Test
+    public void test11_CargaPuedeAceptarUnVisitor() {
+        // SETUP
+        IVisitorReporte visitorMock = Mockito.mock(IVisitorReporte.class);
+
+        containerDry.accept(visitorMock);
+
+        Mockito.verify(visitorMock, Mockito.times(1)).visitCarga(containerDry);
+    }
+    
+    @Test
+    public void test12_CargaConoceSuIDyTipo() {
+        // SETUP
+        Carga dryConID = new Dry(10, 5, 5, 2000, blMock, "DRY777");
+
+        Carga reeferConID = new Reefer(10, 5, 5, 2000, 150, blMock, "REEF123");
+
+        // VERIFICACIÓN
+        assertEquals("DRY777", dryConID.getID());
+        assertEquals("REEF123", reeferConID.getID());
+
+        assertEquals("Dry", dryConID.getTipo());
+        assertEquals("Reefer", reeferConID.getTipo());
     }
     
 }

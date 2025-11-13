@@ -46,7 +46,7 @@ public class NavieraTest {
         tramoCA = new Tramo(terminalC, terminalA, 48, 10);
 
         circuito = new Circuito(List.of(tramoAB, tramoBC, tramoCA));
-        buque = new Buque(null, terminalA);
+        buque = new Buque(null, terminalA, null);
         fechaPartida = LocalDate.of(2025, 11, 1);
 
         naviera.agregarCircuito(circuito);

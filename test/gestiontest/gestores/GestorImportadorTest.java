@@ -63,13 +63,13 @@ public class GestorImportadorTest {
 		@BeforeEach
 		public void setUp() {
 			
-			carga = new Dry(0.0,0.0,0.0,0.0,null);
+			carga = new Dry(0.0,0.0,0.0,0.0,null, null);
 			warehouse = new Warehouse();
 			camion1 = new Camion("AZ 132 TT", "Javier",null);
 			camion2 = new Camion("AZ 132 TT", "Sofia",null);
 			cliente = new Cliente("nico@gmail.com");
 			gestion = new GestionTerrestre(warehouse);
-			buque = new Buque(new Ubicacion(2,3), terminalA);
+			buque = new Buque(new Ubicacion(2,3), terminalA, null);
 			gestorExportador = new GestorDeExportacion(gestion, warehouse);
 			
 			posicionA = new Ubicacion(0, 0);

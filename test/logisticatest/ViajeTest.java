@@ -44,7 +44,7 @@ public class ViajeTest {
     	tramoBC = new Tramo(terminalB, terminalC, 60, 3);
     	tramoCA = new Tramo(terminalC, terminalA, 90, 7);
     	circuito = new Circuito(List.of(tramoAB, tramoBC, tramoCA));
-    	buque = new Buque(ubiBuque, null);
+    	buque = new Buque(ubiBuque, null, null);
     	fechaPartida = LocalDate.of(2025, 9, 12);
     	viaje = new Viaje(buque, circuito, fechaPartida);
     }

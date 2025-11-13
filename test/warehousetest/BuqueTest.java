@@ -1,6 +1,8 @@
 package warehousetest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,10 +12,12 @@ import gestion.terrestre.Ubicacion;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Arrived;
 import warehouse.Buque;
+import warehouse.Carga;
 import warehouse.Departing;
 import warehouse.Inbound;
 import warehouse.Outbound;
 import warehouse.Working;
+import warehouse.IVisitorReporte;
 
 public class BuqueTest {
 
@@ -36,7 +40,7 @@ public class BuqueTest {
         
         // 4. Creamos el Buque (empieza lejos, a 100km)
         Ubicacion posicionInicialLejana = new Ubicacion(100, 0); 
-        this.buque = new Buque(posicionInicialLejana, terminal);
+        this.buque = new Buque(posicionInicialLejana, terminal, "BarcoDePrueba");
 	}
 
     @Test
@@ -69,12 +73,10 @@ public class BuqueTest {
         assertEquals(Inbound.class, buque.getFase().getClass()); // Verificamos que está en Inbound
 
         // 2. Ejecución: El buque sigue avanzando y actualiza su posición
-        // Ahora está un poco más cerca, pero sin llegar
         buque.actualizarPosicion(new Ubicacion(10, 0));
         assertEquals(Inbound.class, buque.getFase().getClass()); // Sigue en Inbound
 
         // 3. Ejecución: El buque llega al puerto
-        // Le pasamos la posición exacta de la terminal (que definimos en el setUp)
         buque.actualizarPosicion(this.posicionTerminal);
 
         // 4. Verificación: El estado debe cambiar a Arrived
@@ -130,11 +132,8 @@ public class BuqueTest {
         buque.actualizarPosicion(this.posicionTerminal);     // Arrived
         assertEquals(Arrived.class, buque.getFase().getClass()); // Verificamos
 
-        
-        // 2. EJECUCIÓN: Intentamos dar la orden "depart"
         buque.depart();
 
-        // 3. VERIFICACIÓN: El estado NO debe cambiar
         assertEquals(Arrived.class, buque.getFase().getClass());
     }
     
@@ -181,9 +180,44 @@ public class BuqueTest {
         buque.actualizarPosicion(new Ubicacion(2, 0));
         assertEquals(Outbound.class, buque.getFase().getClass()); // Verificamos
 
-        // 3. VERIFICACIÓN (¡NUEVO!):
         // Verificamos que se llamó al método 'notificarPartida' 
         Mockito.verify(terminal, Mockito.times(1)).notificarPartida(buque);
+    }
+    
+    @Test
+    public void test11_BuquePuedeAceptarUnVisitor() {
+        // Setup
+        IVisitorReporte visitorMock = Mockito.mock(IVisitorReporte.class);
+
+        buque.accept(visitorMock);
+
+        Mockito.verify(visitorMock, Mockito.times(1)).visitBuque(buque);
+    }
+    
+    @Test
+    public void test12_BuqueAlmacenaSusCargasYFechasParaReportes() {
+        // Setup
+        Carga cargaImp = Mockito.mock(Carga.class);
+        Carga cargaExp = Mockito.mock(Carga.class);
+        LocalDateTime fechaTest = LocalDateTime.now();
+
+        // Ejecución
+        buque.setFechaArribo(fechaTest);
+        buque.setFechaPartida(fechaTest);
+        buque.registrarCargaImportacion(cargaImp); 
+        buque.registrarCargaExportacion(cargaExp); 
+
+        // Verificación
+        assertEquals(fechaTest, buque.getFechaArribo());
+        assertEquals(fechaTest, buque.getFechaPartida());
+        assertTrue(buque.getContainersDescargados().contains(cargaImp));
+        assertTrue(buque.getContainersCargados().contains(cargaExp));
+    }
+    
+    @Test
+    public void test13_UnBuqueTieneUnNombre() {
+        
+        assertEquals("BarcoDePrueba", buque.getNombre());
     }
     
 }

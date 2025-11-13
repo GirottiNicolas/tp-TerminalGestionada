@@ -57,13 +57,13 @@ public class GestionTerrestreTest {
 	
 	@BeforeEach
 	public void setUp() {
-		carga = new Dry(0.0,0.0,0.0,0.0,null);
+		carga = new Dry(0.0,0.0,0.0,0.0,null, null);
 		warehouse = new Warehouse();
 		camion1 = new Camion("AZ 132 TT", "Javier",null);
 		camion2 = new Camion("AZ 132 TT", "Sofia",null);
 		ubicacion = new Ubicacion(1,2);
 		ubicacionDestino = new Ubicacion(4,8);
-		buque = new Buque(ubicacion, terminalGestionada);
+		buque = new Buque(ubicacion, terminalGestionada, null);
 		cliente = new Cliente("nico@gmail.com");
 		gestion = new GestionTerrestre(warehouse);
 		terminalDestino = new TerminalGestionada(ubicacion,gestion,null, warehouse);
