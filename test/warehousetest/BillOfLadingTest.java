@@ -3,6 +3,7 @@ package warehousetest;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import warehouse.BillOfLading;
 import warehouse.BLSimple;
@@ -54,6 +55,15 @@ public class BillOfLadingTest {
         assertEquals(2, productos.size());
         assertTrue(productos.contains("Trigo"));
         assertTrue(productos.contains("Maiz"));
+    }
+    
+    @Test
+    public void testBLSimpleLanzaExcepcionAlIntentarAgregarUnHijo() {
+        BillOfLading otroBL = Mockito.mock(BillOfLading.class); 
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            blSimple.agregarBL(otroBL);
+        });
     }
     
     

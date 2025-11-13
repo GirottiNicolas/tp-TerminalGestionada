@@ -58,5 +58,21 @@ public class WarehouseTest {
         verify(cargaFantasma, never()).agregarServicio(servicioMock);
     }
 	
+    
+    @Test
+    public void testContieneCargaDevuelveTrueSiLaCargaEstaRegistrada() {
+        warehouse.registrarCarga(cargaMock); 
+
+        // VERIFICACIÓN
+        assertTrue(warehouse.contieneCarga(cargaMock));
+    }
+
+    @Test
+    public void testContieneCargaDevuelveFalseSiLaCargaNoEstaRegistrada() {
+        // No se agrega la carga
+
+        // VERIFICACIÓN
+        assertFalse(warehouse.contieneCarga(cargaMock));
+    }
 	
 }

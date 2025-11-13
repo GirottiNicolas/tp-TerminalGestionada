@@ -33,4 +33,8 @@ public class Warehouse {
     	cargasAlmacenadas.remove(carga);
     }
 	
+    public boolean contieneCarga(Carga carga) {
+        return this.cargasAlmacenadas.contains(carga);
+    }
+    
 }

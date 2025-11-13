@@ -3,12 +3,14 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import gestion.gestores.GestionTerrestre;
 import gestion.ordenes.OrdenDeExportacion;
@@ -28,6 +30,7 @@ import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;
 import warehouse.Carga;
 import warehouse.Dry;
+import warehouse.IServicio;
 import warehouse.Warehouse;
 
 public class TerminalGestionadaTest {
@@ -158,6 +161,51 @@ public class TerminalGestionadaTest {
 	@Test 
 	public void proximaFechaDePartida() {
 		
+	}
+	
+	@Test
+    public void testTerminalDelegaLaAplicacionDeServicioAlWarehouse() {
+        // 1. SETUP LOCAL
+        Warehouse warehouseMock = Mockito.mock(Warehouse.class);
+        Logistica logisticaMock = Mockito.mock(Logistica.class);
+        GestionTerrestre gestionTerrestreMock = Mockito.mock(GestionTerrestre.class);
+        Ubicacion ubicacionMock = Mockito.mock(Ubicacion.class);
+        
+        Carga cargaMock = Mockito.mock(Carga.class);
+        IServicio servicioMock = Mockito.mock(IServicio.class);
+        
+        // Creamos la Terminal con los mocks
+        TerminalGestionada terminal = new TerminalGestionada(ubicacionMock, gestionTerrestreMock, logisticaMock, warehouseMock);
+        
+        when(warehouseMock.contieneCarga(cargaMock)).thenReturn(true);
+
+        terminal.solicitarServicio(servicioMock, cargaMock);
+
+        verify(warehouseMock, times(1)).aplicarServicio(servicioMock, cargaMock);
+    }
+	
+	@Test
+	public void testTerminalNoDelegaSiWarehouseNoTieneLaCarga() {
+		// 1. SETUP LOCAL
+        Warehouse warehouseMock = Mockito.mock(Warehouse.class);
+        Logistica logisticaMock = Mockito.mock(Logistica.class);
+        GestionTerrestre gestionTerrestreMock = Mockito.mock(GestionTerrestre.class);
+        Ubicacion ubicacionMock = Mockito.mock(Ubicacion.class);
+        
+        Carga cargaMock = Mockito.mock(Carga.class);
+        IServicio servicioMock = Mockito.mock(IServicio.class);
+        
+        // Creamos la Terminal con los mocks
+        TerminalGestionada terminal = new TerminalGestionada(ubicacionMock, gestionTerrestreMock, logisticaMock, warehouseMock);
+        
+	    when(warehouseMock.contieneCarga(cargaMock)).thenReturn(false);
+
+	    assertThrows(IllegalArgumentException.class, () -> {
+	        terminal.solicitarServicio(servicioMock, cargaMock);
+	    });
+
+	    // Verificamos que no se llamó a aplicarServicio
+	    verify(warehouseMock, never()).aplicarServicio(servicioMock, cargaMock);
 	}
 	
 	

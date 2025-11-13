@@ -15,6 +15,8 @@ import logistica.Logistica;
 import logistica.Naviera;
 import warehouse.Buque;
 import warehouse.Warehouse;
+import warehouse.Carga;
+import warehouse.IServicio;
 
 public class TerminalGestionada implements FachadaTerminal{
 	
@@ -102,5 +104,15 @@ public class TerminalGestionada implements FachadaTerminal{
 		gestionTerrestre.agregarCamion(empresa, camion);
 		
 	}
+	
+	public void solicitarServicio(IServicio servicio, Carga carga) {
+
+        if (this.warehouse.contieneCarga(carga)) {
+            // Delego a Warehouse
+            this.warehouse.aplicarServicio(servicio, carga);
+        } else {
+            throw new IllegalArgumentException("La carga no se encuentra en la terminal.");
+        }
+    }
 	
 }
