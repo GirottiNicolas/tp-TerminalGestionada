@@ -1,5 +1,7 @@
 package terminalgestionada;
 
+import java.time.LocalDate;
+
 import gestion.gestores.GestionTerrestre;
 import gestion.ordenes.OrdenDeExportacion;
 import gestion.ordenes.OrdenDeImportacion;
@@ -7,6 +9,7 @@ import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
 import gestion.terrestre.Ubicacion;
 import logistica.Circuito;
+import logistica.EstrategiaDeBusqueda;
 import logistica.Logistica;
 import logistica.Naviera;
 import warehouse.Buque;
@@ -38,7 +41,7 @@ public class TerminalGestionada implements FachadaTerminal{
 
 	
 	@Override
-	public Circuito mejorCircuito() {
+	public Circuito mejorCircuito(TerminalGestionada destino) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -80,6 +83,18 @@ public class TerminalGestionada implements FachadaTerminal{
 	public void notificarPartida(Buque buque) {
         // La terminal se encarga de la lógica de enviar emails a los shippers cuando sale un buque con carga de la terminal
 		gestionTerrestre.notificarShippers(buque);
+	}
+
+	@Override
+	public void setMejorEstrategiaParaCircuito(EstrategiaDeBusqueda estrategia) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public LocalDate proximaFechaDePartida(Buque buque, TerminalGestionada destino) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
