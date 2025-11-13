@@ -77,7 +77,7 @@ public class GestionTerrestreTest {
 		circuito2 = new Circuito(tramos2);
 		viaje = new Viaje(buque,circuito1 ,LocalDate.now());
 		viajeImportacion = new Viaje(buque, circuito2,LocalDate.now());
-		empresaCamionera = new EmpresaTransportista();
+		empresaCamionera = new EmpresaTransportista("Don atilio");
 		ordenExportacion = new OrdenDeExportacion(viaje,null,camion1, cliente);
 		ordenDeImportacion = new OrdenDeImportacion(viajeImportacion, carga,camion1,cliente,null);
 	}

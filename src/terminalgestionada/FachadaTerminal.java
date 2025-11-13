@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import gestion.ordenes.OrdenDeExportacion;
 import gestion.ordenes.OrdenDeImportacion;
+import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
 import gestion.terrestre.Ubicacion;
@@ -25,5 +26,6 @@ public interface FachadaTerminal {
 	void registrarEmpresaTransportista(EmpresaTransportista empresa);
 	void setMejorEstrategiaParaCircuito(EstrategiaDeBusqueda estrategia);
 	LocalDate proximaFechaDePartida(Buque buque, TerminalGestionada destino);
+	void agregarCamion(EmpresaTransportista empresa, Camion camion);
 	 
 }

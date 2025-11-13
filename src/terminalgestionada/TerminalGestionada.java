@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import gestion.gestores.GestionTerrestre;
 import gestion.ordenes.OrdenDeExportacion;
 import gestion.ordenes.OrdenDeImportacion;
+import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
 import gestion.terrestre.Ubicacion;
@@ -93,7 +94,13 @@ public class TerminalGestionada implements FachadaTerminal{
 
 	@Override
 	public LocalDate proximaFechaDePartida(Buque buque, TerminalGestionada destino) {
-		return logistica.primeraFechaDeBuque(null, buque, destino);
+		return logistica.primeraFechaDeBuque(LocalDate.now(), buque, destino);
+	}
+
+	@Override
+	public void agregarCamion(EmpresaTransportista empresa, Camion camion) {
+		gestionTerrestre.agregarCamion(empresa, camion);
+		
 	}
 	
 }

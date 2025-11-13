@@ -86,7 +86,7 @@ public class GestorImportadorTest {
 			viaje = new Viaje(buque, circuito, LocalDate.now());
 			
 			
-			empresaCamionera = new EmpresaTransportista();
+			empresaCamionera = new EmpresaTransportista("Giusepe");
 			ordenExportacion = new OrdenDeExportacion(viaje,null,camion1, cliente);
 			ordenDeImportacion = new OrdenDeImportacion(viaje, carga,camion1,cliente,null);
 			gestorImportador = new GestorDeImportacion(gestion,warehouse);
