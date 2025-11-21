@@ -63,7 +63,6 @@ public class Naviera {
     		    .map(v -> v.getCronograma().get(destino))
     		    .min(LocalDate::compareTo)
     		    .orElseThrow(() -> new IllegalArgumentException("No hay viajes a la terminal destino."));
-
     }
     
     public int tiempoDeViajeHasta(TerminalGestionada destino) {

@@ -4,11 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import warehouse.BillOfLading;
 import warehouse.BLSimple;
 import warehouse.BLCompuesto;
-
 import java.util.List;
 
 public class BillOfLadingTest {
@@ -21,14 +19,10 @@ public class BillOfLadingTest {
 
     @BeforeEach
     public void setUp() {
-        // BL simple 
         this.blSimple = new BLSimple("Soja", 500.0);
-
-        // BL Compuesto
         this.blCompuesto = new BLCompuesto();
         this.blHijo1 = new BLSimple("Trigo", 100.0);
         this.blHijo2 = new BLSimple("Maiz", 200.0);
-
         this.blCompuesto.agregarBL(blHijo1);
         this.blCompuesto.agregarBL(blHijo2);
     }

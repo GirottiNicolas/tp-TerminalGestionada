@@ -165,7 +165,7 @@ public class TerminalGestionadaTest {
 
         terminalA.registrarNaviera(naviera);
 		Circuito mejor = terminalA.mejorCircuito(terminalC);
-        // EstrategiaMenorTiempo en logisticaA → debería elegir circuito1 (8 días) sobre circuito2 (10 días)
+
         assertEquals(circuito1, mejor);
 	}
 	
@@ -192,7 +192,7 @@ public class TerminalGestionadaTest {
         Carga cargaMock = Mockito.mock(Carga.class);
         IServicio servicioMock = Mockito.mock(IServicio.class);
         
-        // Creamos la Terminal con los mocks
+
         TerminalGestionada terminal = new TerminalGestionada(ubicacionMock, gestionTerrestreMock, logisticaMock, warehouseMock);
         
         when(warehouseMock.contieneCarga(cargaMock)).thenReturn(true);
@@ -222,7 +222,7 @@ public class TerminalGestionadaTest {
 	        terminal.solicitarServicio(servicioMock, cargaMock);
 	    });
 
-	    // Verificamos que no se llamó a aplicarServicio
+
 	    verify(warehouseMock, never()).aplicarServicio(servicioMock, cargaMock);
 	}
 	

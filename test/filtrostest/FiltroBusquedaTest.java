@@ -3,16 +3,12 @@ package filtrostest;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.mockito.Mockito.*;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import filtros.FiltroAND;
 import filtros.FiltroBusqueda;
 import filtros.FiltroFechaLlegada;
@@ -45,7 +41,7 @@ public class FiltroBusquedaTest {
 
     @Test
     public void testFiltroPuertoDestino() {
-        // Setup
+
         FiltroBusqueda filtro = new FiltroPuertoDestino(puertoDestino);
 
         when(circuitoMock.getTerminalDestino()).thenReturn(puertoDestino);
@@ -110,19 +106,15 @@ public class FiltroBusquedaTest {
         when(fTrue.cumple(any())).thenReturn(true);
         when(fFalse.cumple(any())).thenReturn(false);
 
-        // Caso: TRUE OR FALSE = TRUE
         FiltroBusqueda or1 = new FiltroOR(fTrue, fFalse);
         assertTrue(or1.cumple(viajeCumple));
 
-        // Caso: FALSE OR FALSE = FALSE
         FiltroBusqueda or2 = new FiltroOR(fFalse, fFalse);
         assertFalse(or2.cumple(viajeCumple));
     }
     
     @Test
     public void testFiltroComplejoOREnAND() {
-        // CASO: Buscar viajes que vayan al Puerto A O al Puerto B, 
-        // PERO que salgan SI O SI en la fecha buscada.
         
         LocalDate fechaBuscada = LocalDate.of(2025, 1, 1);
         
@@ -136,7 +128,6 @@ public class FiltroBusquedaTest {
         
         when(circuitoMock.getTerminalDestino()).thenReturn(puertoDestino);
         when(viajeCumple.getFechaPartida()).thenReturn(fechaBuscada);
-        // DEBE PASAR
         assertTrue(filtroFinal.cumple(viajeCumple)); 
         
         Viaje viajePuertoB = Mockito.mock(Viaje.class);
@@ -144,7 +135,6 @@ public class FiltroBusquedaTest {
         when(viajePuertoB.getCircuito()).thenReturn(circuitoB);
         when(circuitoB.getTerminalDestino()).thenReturn(otroPuerto); // Puerto B
         when(viajePuertoB.getFechaPartida()).thenReturn(fechaBuscada);
-        // DEBE PASAR
         assertTrue(filtroFinal.cumple(viajePuertoB));
         
         Viaje viajeFechaMal = Mockito.mock(Viaje.class);
