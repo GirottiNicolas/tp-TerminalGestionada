@@ -1,7 +1,10 @@
 package terminalgestionada;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import filtros.FiltroBusqueda;
 import gestion.gestores.GestionTerrestre;
 import gestion.ordenes.OrdenDeExportacion;
 import gestion.ordenes.OrdenDeImportacion;
@@ -13,6 +16,7 @@ import logistica.Circuito;
 import logistica.EstrategiaDeBusqueda;
 import logistica.Logistica;
 import logistica.Naviera;
+import logistica.Viaje;
 import warehouse.Buque;
 import warehouse.Warehouse;
 import warehouse.Carga;
@@ -118,4 +122,14 @@ public class TerminalGestionada implements FachadaTerminal{
 	public int tiempoDeNavieraHasta(Naviera naviera, TerminalGestionada destino) {
 		return logistica.tiempoDeNavieraEntre(naviera, this, destino);
 	}
+	
+	
+	public List<Viaje> buscarViajes(FiltroBusqueda filtro) {
+        List<Viaje> todosLosViajes = this.logistica.getViajes();
+        
+        return todosLosViajes.stream()
+                .filter(viaje -> filtro.cumple(viaje))
+                .collect(Collectors.toList());
+    }
+	
 }

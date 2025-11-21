@@ -3,6 +3,8 @@ package logistica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import terminalgestionada.TerminalGestionada;
 import warehouse.Buque;
 
@@ -55,4 +57,11 @@ public class Logistica {
 				.mapToInt(c -> c.tiempoTotalEntre(origen, destino))
 				.min().orElseThrow(() -> new IllegalArgumentException("La naviera no tiene circuitos que conecten origen y destino."));
 		}
+	
+	public List<Viaje> getViajes() {
+        return this.navieras.stream()
+                .flatMap(naviera -> naviera.getViajes().stream())
+                .collect(Collectors.toList());
+	}
+	
 }
