@@ -62,4 +62,8 @@ public class Viaje {
 		this.cronograma = this.calcularCronograma();
 	}
 	
+	public LocalDate getFechaLlegadaA(TerminalGestionada terminal) {
+        return this.cronograma.get(terminal);
+    }
+	
 }
