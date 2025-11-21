@@ -2,11 +2,9 @@ package warehousetest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import warehouse.Warehouse;
 import warehouse.Carga;
 import warehouse.IServicio;
@@ -26,7 +24,6 @@ public class WarehouseTest {
 	
     @Test
     public void test01_UnWarehouseNuevoEstaVacio() {
-        // Un warehouse nuevo no debe tener cargas ni transportes
         assertTrue(warehouse.getCargasAlmacenadas().isEmpty());
     }
     
@@ -48,7 +45,6 @@ public class WarehouseTest {
 
     @Test
     public void test04_WarehouseLanzaExcepcionSiAplicaServicioACargaNoRegistrada() {
-
         Carga cargaFantasma = Mockito.mock(Carga.class);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -63,15 +59,13 @@ public class WarehouseTest {
     public void testContieneCargaDevuelveTrueSiLaCargaEstaRegistrada() {
         warehouse.registrarCarga(cargaMock); 
 
-        // VERIFICACIÓN
         assertTrue(warehouse.contieneCarga(cargaMock));
     }
 
     @Test
     public void testContieneCargaDevuelveFalseSiLaCargaNoEstaRegistrada() {
-        // No se agrega la carga
 
-        // VERIFICACIÓN
+
         assertFalse(warehouse.contieneCarga(cargaMock));
     }
 	

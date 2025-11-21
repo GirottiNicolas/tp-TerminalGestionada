@@ -12,7 +12,6 @@ import java.util.List;
 public class BillOfLadingTest {
 	
 	private BillOfLading blSimple;
-	
 	private BillOfLading blCompuesto;
     private BillOfLading blHijo1;
     private BillOfLading blHijo2;
@@ -30,7 +29,6 @@ public class BillOfLadingTest {
     @Test
     public void test01_UnBLSimpleConoceSuPesoYProducto() {
         assertEquals(500.0, blSimple.getPesoTotal());
-
         List<String> productos = blSimple.getTiposDeProducto();
         assertEquals(1, productos.size());
         assertTrue(productos.contains("Soja"));
@@ -38,14 +36,12 @@ public class BillOfLadingTest {
     
     @Test
     public void test02_UnBLCompuestoSumaElPesoDeSusHijos() {
-        // El peso total debe ser 100.0 + 200.0
         assertEquals(300.0, blCompuesto.getPesoTotal());
     }
 
     @Test
     public void test03_UnBLCompuestoAgregaLosProductosDeSusHijos() {
         List<String> productos = blCompuesto.getTiposDeProducto();
-
         assertEquals(2, productos.size());
         assertTrue(productos.contains("Trigo"));
         assertTrue(productos.contains("Maiz"));
@@ -54,7 +50,6 @@ public class BillOfLadingTest {
     @Test
     public void testBLSimpleLanzaExcepcionAlIntentarAgregarUnHijo() {
         BillOfLading otroBL = Mockito.mock(BillOfLading.class); 
-
         assertThrows(UnsupportedOperationException.class, () -> {
             blSimple.agregarBL(otroBL);
         });

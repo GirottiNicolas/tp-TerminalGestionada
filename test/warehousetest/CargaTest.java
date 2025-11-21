@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import warehouse.Carga;
 import warehouse.Dry;
 import warehouse.Reefer;
@@ -38,13 +37,11 @@ public class CargaTest {
 
     @Test
     public void test02_UnContainerConoceSuVolumen() {
-        // El volumen es ancho * largo * altura
         assertEquals(250.0, containerDry.getVolumen()); // 10*5*5
     }
     
     @Test
     public void test03_UnContainerReeferConoceSuConsumo() {
-        // Creamos un Reefer con un consumo de 150 kw/hora
         Reefer containerReefer = new Reefer(10.0, 5.0, 5.0, 2000.0, 150.0, blMock, "68950HJ");
 
         assertEquals(2000.0, containerReefer.getPesoTotal());
@@ -58,7 +55,6 @@ public class CargaTest {
         
     	Carga containerTanque = new Tanque(15.0, 4.0, 4.0, 3000.0, blMock, "68950HJ");
 
-        // Verificamos los atributos heredados
         assertEquals(15.0, containerTanque.getAncho());
         assertEquals(4.0, containerTanque.getLargo());
         assertEquals(4.0, containerTanque.getAltura());
@@ -71,7 +67,6 @@ public class CargaTest {
     public void test05_UnReeferNoPuedeTenerUnBLCompuesto() {
         BillOfLading blCompuesto = new BLCompuesto();
 
-        // Verificamos que construir un Reefer con un BLCompuesto lanza una excepción
         assertThrows(IllegalArgumentException.class, () -> {
             new Reefer(10.0, 5.0, 5.0, 2000.0, 150.0, blCompuesto, "68950HJ");
         });
@@ -89,18 +84,14 @@ public class CargaTest {
     @Test
     public void test09_UnDrySiPuedeTenerUnBLCompuesto() {
         BillOfLading blCompuesto = new BLCompuesto();
-
         Dry containerDry = new Dry(10.0, 5.0, 5.0, 2000.0, blCompuesto, "68950HJ");
 
         assertEquals(blCompuesto, containerDry.getBillOfLading());
-        // No se lanza ninguna excepción 
     }
     
     @Test
     public void test10_UnaCargaPuedeRegistrarServicios() {
-
         IServicio servicioMock = Mockito.mock(IServicio.class);
-
         assertTrue(containerDry.getServiciosAplicados().isEmpty());
         containerDry.agregarServicio(servicioMock);
 
@@ -109,9 +100,7 @@ public class CargaTest {
     
     @Test
     public void test11_CargaPuedeAceptarUnVisitor() {
-        // SETUP
         IVisitorReporte visitorMock = Mockito.mock(IVisitorReporte.class);
-
         containerDry.accept(visitorMock);
 
         Mockito.verify(visitorMock, Mockito.times(1)).visitCarga(containerDry);
@@ -119,15 +108,12 @@ public class CargaTest {
     
     @Test
     public void test12_CargaConoceSuIDyTipo() {
-        // SETUP
         Carga dryConID = new Dry(10, 5, 5, 2000, blMock, "DRY777");
 
         Carga reeferConID = new Reefer(10, 5, 5, 2000, 150, blMock, "REEF123");
 
-        // VERIFICACIÓN
         assertEquals("DRY777", dryConID.getID());
         assertEquals("REEF123", reeferConID.getID());
-
         assertEquals("Dry", dryConID.getTipo());
         assertEquals("Reefer", reeferConID.getTipo());
     }
