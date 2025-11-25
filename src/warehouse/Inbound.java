@@ -14,6 +14,7 @@ public class Inbound implements EstadoBuque{
         } else if (distancia >= 50) {
         	buque.setFase(new Outbound());
          	}
+        
     }
 
 	@Override

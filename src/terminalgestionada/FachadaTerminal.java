@@ -1,7 +1,9 @@
 package terminalgestionada;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import filtros.FiltroBusqueda;
 import gestion.ordenes.OrdenDeExportacion;
 import gestion.ordenes.OrdenDeImportacion;
 import gestion.terrestre.Camion;
@@ -11,6 +13,7 @@ import gestion.terrestre.Ubicacion;
 import logistica.Circuito;
 import logistica.EstrategiaDeBusqueda;
 import logistica.Naviera;
+import logistica.Viaje;
 import warehouse.Buque;
 
 
@@ -27,5 +30,7 @@ public interface FachadaTerminal {
 	void setMejorEstrategiaParaCircuito(EstrategiaDeBusqueda estrategia);
 	LocalDate proximaFechaDePartida(Buque buque, TerminalGestionada destino);
 	void agregarCamion(EmpresaTransportista empresa, Camion camion);
+	List<Viaje> buscarViajes(FiltroBusqueda filtro);
+	int tiempoDeNavieraEntre(Naviera naviera, TerminalGestionada origen, TerminalGestionada destino);
 	 
 }

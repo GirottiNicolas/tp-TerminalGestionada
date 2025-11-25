@@ -4,6 +4,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
@@ -39,9 +42,13 @@ public class FiltroBusquedaTest {
         when(viajeNoCumple.getCircuito()).thenReturn(circuitoMock);
     }
 
+    
+    
+    
+    
     @Test
     public void testFiltroPuertoDestino() {
-
+    	
         FiltroBusqueda filtro = new FiltroPuertoDestino(puertoDestino);
 
         when(circuitoMock.getTerminalDestino()).thenReturn(puertoDestino);
@@ -91,10 +98,15 @@ public class FiltroBusquedaTest {
         when(fTrue.cumple(any())).thenReturn(true);
         when(fFalse.cumple(any())).thenReturn(false);
 
-        FiltroBusqueda and1 = new FiltroAND(fTrue, fTrue);
+        List<FiltroBusqueda> filtrosQueCumplen = new ArrayList<FiltroBusqueda>();
+        List<FiltroBusqueda> filtrosQueNoCumplen = new ArrayList<FiltroBusqueda>();
+        filtrosQueCumplen.add(fTrue);
+        filtrosQueNoCumplen.add(fFalse);
+        
+        FiltroBusqueda and1 = new FiltroAND(filtrosQueCumplen);
         assertTrue(and1.cumple(viajeCumple));
 
-        FiltroBusqueda and2 = new FiltroAND(fTrue, fFalse);
+        FiltroBusqueda and2 = new FiltroAND(filtrosQueNoCumplen);
         assertFalse(and2.cumple(viajeCumple));
     }
 
@@ -103,13 +115,18 @@ public class FiltroBusquedaTest {
         FiltroBusqueda fTrue = mock(FiltroBusqueda.class);
         FiltroBusqueda fFalse = mock(FiltroBusqueda.class);
         
+        List<FiltroBusqueda> filtrosConUnoQueCumple = new ArrayList<FiltroBusqueda>();
+        List<FiltroBusqueda> filtrosQueNoCumple = new ArrayList<FiltroBusqueda>();
+        filtrosConUnoQueCumple.add(fFalse);
+        filtrosConUnoQueCumple.add(fTrue);
+        filtrosQueNoCumple.add(fFalse);
         when(fTrue.cumple(any())).thenReturn(true);
         when(fFalse.cumple(any())).thenReturn(false);
 
-        FiltroBusqueda or1 = new FiltroOR(fTrue, fFalse);
+        FiltroBusqueda or1 = new FiltroOR(filtrosConUnoQueCumple);
         assertTrue(or1.cumple(viajeCumple));
 
-        FiltroBusqueda or2 = new FiltroOR(fFalse, fFalse);
+        FiltroBusqueda or2 = new FiltroOR(filtrosQueNoCumple);
         assertFalse(or2.cumple(viajeCumple));
     }
     
@@ -121,10 +138,19 @@ public class FiltroBusquedaTest {
         FiltroBusqueda filtroPuertoA = new FiltroPuertoDestino(puertoDestino); // Puerto A
         FiltroBusqueda filtroPuertoB = new FiltroPuertoDestino(otroPuerto);    // Puerto B
         FiltroBusqueda filtroFecha = new FiltroFechaSalida(fechaBuscada);
-        
-        FiltroBusqueda opcionPuertos = new FiltroOR(filtroPuertoA, filtroPuertoB);
+        List<FiltroBusqueda> filtrosDePuertos = new ArrayList<FiltroBusqueda>();
+        filtrosDePuertos.add(filtroPuertoA);
+        filtrosDePuertos.add(filtroPuertoB);
+        FiltroBusqueda opcionPuertos = new FiltroOR(filtrosDePuertos);
 
-        FiltroBusqueda filtroFinal = new FiltroAND(opcionPuertos, filtroFecha);
+        List<FiltroBusqueda> filtroPuertos = new ArrayList<FiltroBusqueda>();
+        
+        filtroPuertos.add(opcionPuertos);
+        filtroPuertos.add(filtroFecha);
+        
+        FiltroBusqueda filtroFinal = new FiltroAND(filtroPuertos);
+        
+        
         
         when(circuitoMock.getTerminalDestino()).thenReturn(puertoDestino);
         when(viajeCumple.getFechaPartida()).thenReturn(fechaBuscada);

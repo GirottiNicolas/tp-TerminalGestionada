@@ -20,8 +20,7 @@ public class Buque implements IElementoVisitable{
 
     public Buque(Ubicacion posicion, TerminalGestionada terminal, String nombre) {
         this.posicion = posicion;
-        this.terminal = terminal;
-        // la fase inicial es Outbound 
+        this.terminal = terminal;         // la fase inicial es Outbound 
         this.fase = new Outbound();
         this.nombre = nombre;
     }

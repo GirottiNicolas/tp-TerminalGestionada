@@ -1,21 +1,21 @@
 package filtros;
 
+import java.util.List;
+
 import logistica.Viaje;
 
 public class FiltroAND implements FiltroBusqueda{
 
-	private FiltroBusqueda filtro1;
-    private FiltroBusqueda filtro2;
+	 List<FiltroBusqueda> filtros;
 
-    public FiltroAND(FiltroBusqueda f1, FiltroBusqueda f2) {
-        this.filtro1 = f1;
-        this.filtro2 = f2;
-    }
+	    public FiltroAND(List<FiltroBusqueda> filtros) {
+	        this.filtros = filtros; 
+	    }
 
-    @Override
-    public boolean cumple(Viaje viaje) {
-        // Cumple si AMBOS cumplen
-        return filtro1.cumple(viaje) && filtro2.cumple(viaje);
-    }
-	
+	    @Override
+	    public boolean cumple(Viaje viaje) {
+	        // Cumple si ALGUNO cumple
+	        return filtros.stream().allMatch(filtro -> filtro.cumple(viaje));
+	    }
+	// (cumple1 && cumple2) || cumple3
 }

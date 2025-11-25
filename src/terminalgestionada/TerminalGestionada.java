@@ -132,4 +132,11 @@ public class TerminalGestionada implements FachadaTerminal{
                 .collect(Collectors.toList());
     }
 	
+	
+	@Override
+	public int tiempoDeNavieraEntre(Naviera naviera, TerminalGestionada origen, TerminalGestionada destino) {
+		return logistica.tiempoDeNavieraEntre(naviera, this, destino);
+	}
+	
+	
 }
