@@ -2,7 +2,7 @@ package gestion.ordenes;
 
 import java.time.LocalDateTime;
 
-import gestion.interfaces.OrdenDeComercio;
+
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import logistica.Viaje;
@@ -11,7 +11,7 @@ import warehouse.Buque;
 import warehouse.Carga;
 
 
-public abstract class Orden implements OrdenDeComercio {
+public abstract class Orden {
 	Carga carga;
 	Camion camion;
 	Cliente cliente;
@@ -28,7 +28,6 @@ public abstract class Orden implements OrdenDeComercio {
 		
 	}
 	
-	@Override
 	public boolean cumpleHorario(LocalDateTime now, int limiteDeTiempo) {
 		this.verificarTurno();
 	    LocalDateTime turno = this.getTurno();
@@ -38,29 +37,29 @@ public abstract class Orden implements OrdenDeComercio {
 	    return diferenciaHoras <= limiteDeTiempo;
 	}
 	
-	@Override
+
 	public void verificarTurno() {
 		if(!this.tieneTurnoAsignado()) {
 			throw new RuntimeException("No tienes un turno asignado!");
 		}
 	}
 	
-	@Override
+	
 	public boolean tieneTurnoAsignado() {
 		return this.getTurno() != null;
 	}
 	
-	@Override
+	
 	public Camion getCamion() {
 		return camion;
 	}
 	
-	@Override
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
 	
-	@Override
+	
 	public boolean esOrden(Orden orden) {
 		// Dos ordenes pueden ser iguales unicamente si su fecha fue seteada 
 		//por la GestionTerrestre, caso contrario dara false.
@@ -68,12 +67,12 @@ public abstract class Orden implements OrdenDeComercio {
 		return turno != null && turno.equals(orden.getTurno());
 	}
 	
-	@Override
+	
 	public LocalDateTime getTurno() {
 		return turno;
 	}
 	
-	@Override
+	
 	public void asignarTurno(LocalDateTime date) {
 		turno = date;
 	}
