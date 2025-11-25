@@ -65,9 +65,7 @@ public class Buque implements IElementoVisitable{
     
 	@Override
     public void accept(IVisitorReporte visitor) {
-
         visitor.visitBuque(this);
-
     }
 	
 	public void setFechaArribo(LocalDateTime fecha) { 
@@ -104,7 +102,6 @@ public class Buque implements IElementoVisitable{
     
     public List<Carga> getContainersCargados() { 
     	return this.containersCargados; 
-    	
     }
 }
 	

@@ -18,36 +18,11 @@ public class Departing implements EstadoBuque{
 	@Override
 	public void iniciarTrabajo(Buque buque) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
     public void depart(Buque buque) {
         // Ya está saliendo, no hace nada
     }
-	
-	// h
-		// h
-		
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-	
 	
 }

@@ -15,21 +15,17 @@ public class ReporteAduana implements IVisitorReporte {
         sb.append("<h2>Buque: ").append(buque.getNombre()).append("</h2>\n");
         sb.append("<p>Arribo: ").append(buque.getFechaArribo().format(fmt)).append("</p>\n");
         sb.append("<p>Partida: ").append(buque.getFechaPartida().format(fmt)).append("</p>\n");
-
         // 2. El visitante pide las listas de cargas
         sb.append("<h3>Contenedores Operados:</h3>\n<ul>\n");
-
         // Itera sobre las cargas descargadas
         for (Carga carga : buque.getContainersDescargados()) {
             // Llama a un helper para no repetir código
             generarItemHTML(carga); 
         }
-
         // Itera sobre las cargas cargadas
         for (Carga carga : buque.getContainersCargados()) {
             generarItemHTML(carga);
         }
-
         sb.append("</ul>\n");
     }
 

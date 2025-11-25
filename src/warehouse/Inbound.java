@@ -26,50 +26,5 @@ public class Inbound implements EstadoBuque{
 	public void depart(Buque buque) {
 		// TODO Auto-generated method stub
 	}
-	// h
-	// h
-	
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-	// h
-		// h
-		
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-	
 	
 }

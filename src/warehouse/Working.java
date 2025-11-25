@@ -7,7 +7,6 @@ public class Working implements EstadoBuque{
 	@Override
 	public void actualizarPosicion(Buque buque, Ubicacion nuevaPosicion) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
@@ -19,32 +18,5 @@ public class Working implements EstadoBuque{
 	public void depart(Buque buque) {
 		buque.setFase(new Departing());
 	}
-	
-	
-	
-	// h
-		// h
-		
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-	
-	
 	
 }

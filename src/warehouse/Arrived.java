@@ -7,7 +7,6 @@ public class Arrived implements EstadoBuque{
 	@Override
 	public void actualizarPosicion(Buque buque, Ubicacion nuevaPosicion) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -20,26 +19,5 @@ public class Arrived implements EstadoBuque{
 		// TODO Auto-generated method stub
 		
 	}
-	// h
-		// h
-		
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
-		// h
+
 }

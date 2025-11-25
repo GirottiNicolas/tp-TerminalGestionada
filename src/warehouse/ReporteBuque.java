@@ -15,7 +15,6 @@ public class ReporteBuque implements IVisitorReporte {
             this.visitCarga(carga); 
         }
         sb.append("\t</import>\n");
-
         // 2. Sección de Exportación (containersCargados)
         sb.append("\t<export>\n");
         for (Carga carga : buque.getContainersCargados()) {
@@ -28,9 +27,7 @@ public class ReporteBuque implements IVisitorReporte {
 
     @Override
     public void visitCarga(Carga carga) {
-
         sb.append("\t\t<item>").append(carga.getID()).append("</item>\n");
-        
     }
 
     @Override

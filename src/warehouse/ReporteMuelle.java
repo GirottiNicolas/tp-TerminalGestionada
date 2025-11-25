@@ -3,12 +3,9 @@ package warehouse;
 import java.time.format.DateTimeFormatter;
 
 public class ReporteMuelle implements IVisitorReporte {
-
-	
 	// Tiene las variables estas porque hay que generar un texto plano 
 	// Un StringBuilder para construir el reporte
     private StringBuilder sb = new StringBuilder();
-
     // El formato de fecha que definimos en el test
     private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
@@ -22,14 +19,12 @@ public class ReporteMuelle implements IVisitorReporte {
         // 2. Calcula el total de contenedores
         int total = buque.getContainersCargados().size() + 
                     buque.getContainersDescargados().size();
-
         sb.append("Contenedores Operados: ").append(total);
     }
 
     @Override
     public void visitCarga(Carga carga) {
-        // El reporte de Muelle NO necesita visitar cada carga,
-        // así que este método se deja vacío.
+        // El reporte de Muelle NO necesita visitar cada carga,así que este método se deja vacío.
     }
 
     @Override
