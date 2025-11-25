@@ -26,4 +26,28 @@ public class Departing implements EstadoBuque{
         // Ya está saliendo, no hace nada
     }
 	
+	// h
+		// h
+		
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+	
+	
 }

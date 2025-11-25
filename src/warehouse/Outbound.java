@@ -26,4 +26,27 @@ public class Outbound implements EstadoBuque{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	// h
+		// h
+		
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
 }

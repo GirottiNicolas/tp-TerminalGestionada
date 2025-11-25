@@ -20,4 +20,31 @@ public class Working implements EstadoBuque{
 		buque.setFase(new Departing());
 	}
 	
+	
+	
+	// h
+		// h
+		
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+		// h
+	
+	
+	
 }
