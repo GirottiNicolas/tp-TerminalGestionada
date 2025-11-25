@@ -20,13 +20,11 @@ public class Inbound implements EstadoBuque{
 	@Override
 	public void iniciarTrabajo(Buque buque) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void depart(Buque buque) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	
