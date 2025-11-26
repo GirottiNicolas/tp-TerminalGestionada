@@ -21,7 +21,7 @@ public class Logistica {
 	}
 	
 	public Circuito mejorCircuito(TerminalGestionada origen, TerminalGestionada destino) {
-		return estrategia.seleccionarMejorCircuito(this.circuitosQueIncluyen(origen), destino);
+		return estrategia.seleccionarMejorCircuito(this.circuitosQueIncluyen(origen), origen, destino);
 	}
 	
 	public LocalDate primeraFechaBuque(LocalDate fechaActual, Buque buque, TerminalGestionada origen, TerminalGestionada destino) {
@@ -52,10 +52,7 @@ public class Logistica {
 	}
 	
 	public int tiempoDeNavieraEntre(Naviera naviera, TerminalGestionada origen, TerminalGestionada destino) {
-		return naviera.getCircuitos().stream()
-				.filter(c -> c.getTerminales().contains(origen) && c.getTerminales().contains(destino))
-				.mapToInt(c -> c.tiempoTotalEntre(origen, destino))
-				.min().orElseThrow(() -> new IllegalArgumentException("La naviera no tiene circuitos que conecten origen y destino."));
+		return naviera.tiempoDeRecorrido(origen, destino);
 		}
 	
 	public List<Viaje> getViajes() {

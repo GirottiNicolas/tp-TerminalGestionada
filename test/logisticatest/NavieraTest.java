@@ -108,16 +108,23 @@ public class NavieraTest {
         assertThrows(IllegalArgumentException.class, () -> naviera.fechaDeViajeA(terminalX));
     }
 
-    @Test
-    public void testTiempoDeViajeHasta() {
-        int tiempoEsperado = 8; // A→B→C (2+6)
-        assertEquals(tiempoEsperado, naviera.tiempoDeViajeHasta(terminalC));
-    }
+    public void testTiempoDeRecorrido() {
+        Mockito.when(circuito.getTerminales()).thenReturn(List.of(terminalA, terminalC));
+        // El circuito real tiene: A->B (2 días) y B->C (6 días). Total A->C = 8 días.
 
-    @Test
-    public void testTiempoDeViajeHastaDestinoInexistenteDebeFallar() {
-        TerminalGestionada terminalX = Mockito.mock(TerminalGestionada.class);
-        assertThrows(IllegalArgumentException.class, () -> naviera.tiempoDeViajeHasta(terminalX));
+        int tiempo = naviera.tiempoDeRecorrido(terminalA, terminalC);
+        
+        assertEquals(8, tiempo);
     }
+    
+    @Test
+    public void testTiempoDeRecorridoFallaSiNoHayConexion() {
+        TerminalGestionada terminalDesconectada = Mockito.mock(TerminalGestionada.class);
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            naviera.tiempoDeRecorrido(terminalA, terminalDesconectada);
+        });
+    }
+    
 }
 

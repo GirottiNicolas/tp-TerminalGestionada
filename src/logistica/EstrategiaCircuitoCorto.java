@@ -7,12 +7,12 @@ import terminalgestionada.TerminalGestionada;
 
 public class EstrategiaCircuitoCorto implements EstrategiaDeBusqueda {
 
-	@Override
-	public Circuito seleccionarMejorCircuito(List<Circuito> circuitos, TerminalGestionada destino) {
-		return circuitos.stream()
-	            .filter(c -> c.getTerminales().contains(destino))
-	            .min(Comparator.comparingInt(c -> c.rutaEntre(c.getTerminalOrigen(), destino).size()))
-	            .orElseThrow(() -> new IllegalArgumentException("No hay circuitos que lleguen al destino."));
-	}
+    @Override
+    public Circuito seleccionarMejorCircuito(List<Circuito> circuitos, TerminalGestionada origen, TerminalGestionada destino) {
+        return circuitos.stream()
+                .filter(c -> c.contieneTerminal(origen) && c.contieneTerminal(destino))
+                .min(Comparator.comparingInt(c -> c.rutaEntre(origen, destino).size()))
+                .orElseThrow(() -> new IllegalArgumentException("No hay circuitos que conecten el origen con el destino."));
+    }
 
 }

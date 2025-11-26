@@ -6,11 +6,12 @@ import java.util.List;
 import terminalgestionada.TerminalGestionada;
 
 public class EstrategiaMenorTiempo implements EstrategiaDeBusqueda {
-	@Override
-	 public Circuito seleccionarMejorCircuito(List<Circuito> circuitos, TerminalGestionada destino) {
+
+    @Override
+    public Circuito seleccionarMejorCircuito(List<Circuito> circuitos, TerminalGestionada origen, TerminalGestionada destino) {
         return circuitos.stream()
-            .filter(c -> c.getTerminales().contains(destino))
-            .min(Comparator.comparingInt(c -> c.tiempoTotalEntre(c.getTerminalOrigen(), destino)))
-            .orElseThrow(() -> new IllegalArgumentException("No hay circuitos que lleguen al destino."));
+            .filter(c -> c.contieneTerminal(origen) && c.contieneTerminal(destino))
+            .min(Comparator.comparingInt(c -> c.tiempoTotalEntre(origen, destino)))
+            .orElseThrow(() -> new IllegalArgumentException("No hay circuitos que conecten el origen con el destino."));
     }
 }

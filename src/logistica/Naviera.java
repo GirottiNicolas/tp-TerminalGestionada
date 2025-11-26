@@ -65,21 +65,11 @@ public class Naviera {
     		    .orElseThrow(() -> new IllegalArgumentException("No hay viajes a la terminal destino."));
     }
     
-    public int tiempoDeViajeHasta(TerminalGestionada destino) {
-        return viajes.stream()
-            .filter(v -> v.getCronograma().containsKey(destino))
-            .mapToInt(v -> {
-                int acumulado = 0;
-                for (Tramo tramo : v.getCircuito().getTramos()) {
-                    acumulado += tramo.getDuracion();
-                    if (tramo.getDestino().equals(destino)) {
-                        return acumulado;
-                    }
-                }
-                throw new IllegalStateException("El cronograma decía que llegaba, pero no se encontró el tramo.");
-            })
-            .min()
-            .orElseThrow(() -> new IllegalArgumentException("No hay viajes que lleguen a la terminal destino."));
+    public int tiempoDeRecorrido(TerminalGestionada origen, TerminalGestionada destino) {
+        return this.circuitos.stream()
+            .filter(c -> c.getTerminales().contains(origen) && c.getTerminales().contains(destino))
+            .mapToInt(c -> c.tiempoTotalEntre(origen, destino)).min()
+            .orElseThrow(() -> new IllegalArgumentException("La naviera no tiene circuitos que conecten el origen con el destino."));
     }
 
 }

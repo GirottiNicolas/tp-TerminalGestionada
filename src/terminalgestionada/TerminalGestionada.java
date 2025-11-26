@@ -36,6 +36,7 @@ public class TerminalGestionada implements FachadaTerminal{
 		this.posicionGeografica = posicionGeografica;
 	}
 	
+	
 	@Override
 	public boolean esLaTerminal(TerminalGestionada terminal) {
 		return posicionGeografica.esLaUbicacion(terminal.getPosicionGeografica());
@@ -50,7 +51,6 @@ public class TerminalGestionada implements FachadaTerminal{
 	@Override
 	public Circuito mejorCircuito(TerminalGestionada terminal) {
 		return logistica.mejorCircuito(this, terminal);
-
 	}
 
 	@Override

@@ -26,13 +26,15 @@ public class EstrategiaDeBusquedaTest {
 
         when(tramoOD.getOrigen()).thenReturn(origen);
         when(tramoOD.getDestino()).thenReturn(destino);
+        when(circuitoMock.contieneTerminal(origen)).thenReturn(true);
+        when(circuitoMock.contieneTerminal(destino)).thenReturn(true);
 
         when(circuitoMock.getTerminales()).thenReturn(List.of(origen, destino));
         when(circuitoMock.getTerminalOrigen()).thenReturn(origen);
         when(circuitoMock.rutaEntre(origen, destino)).thenReturn(List.of(tramoOD));
 
         EstrategiaCircuitoCorto estrategia = new EstrategiaCircuitoCorto();
-        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(circuitoMock), destino);
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(circuitoMock), origen, destino);
 
         assertEquals(circuitoMock, resultado);
     }
@@ -49,13 +51,17 @@ public class EstrategiaDeBusquedaTest {
         when(c1.getTerminales()).thenReturn(List.of(origen, destino));
         when(c1.getTerminalOrigen()).thenReturn(origen);
         when(c1.rutaEntre(origen, destino)).thenReturn(List.of(t1));
+        when(c1.contieneTerminal(origen)).thenReturn(true);
+        when(c1.contieneTerminal(destino)).thenReturn(true);
+        when(c2.contieneTerminal(origen)).thenReturn(true);
+        when(c2.contieneTerminal(destino)).thenReturn(true);
 
         when(c2.getTerminales()).thenReturn(List.of(origen, destino));
         when(c2.getTerminalOrigen()).thenReturn(origen);
         when(c2.rutaEntre(origen, destino)).thenReturn(List.of(t2a, t2b));
 
         EstrategiaCircuitoCorto estrategia = new EstrategiaCircuitoCorto();
-        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(c1, c2), destino);
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(c1, c2), origen, destino);
 
         assertEquals(c1, resultado);
     }
@@ -67,9 +73,11 @@ public class EstrategiaDeBusquedaTest {
         when(circuitoMock.getTerminales()).thenReturn(List.of(origen, destino));
         when(circuitoMock.getTerminalOrigen()).thenReturn(origen);
         when(circuitoMock.tiempoTotalEntre(origen, destino)).thenReturn(5);
-
+        when(circuitoMock.contieneTerminal(origen)).thenReturn(true);
+        when(circuitoMock.contieneTerminal(destino)).thenReturn(true);
+        
         EstrategiaMenorTiempo estrategia = new EstrategiaMenorTiempo();
-        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(circuitoMock), destino);
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(circuitoMock), origen, destino);
 
         assertEquals(circuitoMock, resultado);
     }
@@ -82,13 +90,17 @@ public class EstrategiaDeBusquedaTest {
         when(c1.getTerminales()).thenReturn(List.of(origen, destino));
         when(c1.getTerminalOrigen()).thenReturn(origen);
         when(c1.tiempoTotalEntre(origen, destino)).thenReturn(10);
+        when(c1.contieneTerminal(origen)).thenReturn(true);
+        when(c1.contieneTerminal(destino)).thenReturn(true);
+        when(c2.contieneTerminal(origen)).thenReturn(true);
+        when(c2.contieneTerminal(destino)).thenReturn(true);
 
         when(c2.getTerminales()).thenReturn(List.of(origen, destino));
         when(c2.getTerminalOrigen()).thenReturn(origen);
         when(c2.tiempoTotalEntre(origen, destino)).thenReturn(6);
 
         EstrategiaMenorTiempo estrategia = new EstrategiaMenorTiempo();
-        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(c1, c2), destino);
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(c1, c2), origen, destino);
 
         assertEquals(c2, resultado);
     }
@@ -100,9 +112,11 @@ public class EstrategiaDeBusquedaTest {
         when(circuitoMock.getTerminales()).thenReturn(List.of(origen, destino));
         when(circuitoMock.getTerminalOrigen()).thenReturn(origen);
         when(circuitoMock.precioTotalEntre(origen, destino)).thenReturn(100.0);
+        when(circuitoMock.contieneTerminal(origen)).thenReturn(true);
+        when(circuitoMock.contieneTerminal(destino)).thenReturn(true);
 
         EstrategiaPrecioMasBajo estrategia = new EstrategiaPrecioMasBajo();
-        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(circuitoMock), destino);
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(circuitoMock), origen, destino);
 
         assertEquals(circuitoMock, resultado);
     }
@@ -115,13 +129,17 @@ public class EstrategiaDeBusquedaTest {
         when(c1.getTerminales()).thenReturn(List.of(origen, destino));
         when(c1.getTerminalOrigen()).thenReturn(origen);
         when(c1.precioTotalEntre(origen, destino)).thenReturn(250.0);
+        when(c1.contieneTerminal(origen)).thenReturn(true);
+        when(c1.contieneTerminal(destino)).thenReturn(true);
+        when(c2.contieneTerminal(origen)).thenReturn(true);
+        when(c2.contieneTerminal(destino)).thenReturn(true);
 
         when(c2.getTerminales()).thenReturn(List.of(origen, destino));
         when(c2.getTerminalOrigen()).thenReturn(origen);
         when(c2.precioTotalEntre(origen, destino)).thenReturn(180.0);
 
         EstrategiaPrecioMasBajo estrategia = new EstrategiaPrecioMasBajo();
-        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(c1, c2), destino);
+        Circuito resultado = estrategia.seleccionarMejorCircuito(List.of(c1, c2), origen, destino);
 
         assertEquals(c2, resultado);
     }
@@ -130,6 +148,6 @@ public class EstrategiaDeBusquedaTest {
     void testEstrategiaSinCircuitos() {
         EstrategiaCircuitoCorto estrategia = new EstrategiaCircuitoCorto();
         assertThrows(IllegalArgumentException.class,
-            () -> estrategia.seleccionarMejorCircuito(List.of(), destino));
+            () -> estrategia.seleccionarMejorCircuito(List.of(), origen, destino));
     }
 }

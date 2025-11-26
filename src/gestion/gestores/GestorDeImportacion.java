@@ -38,9 +38,9 @@ public class GestorDeImportacion extends GestorDeOperacion{
 	public void retiroDeCarga(OrdenDeImportacion orden, Camion camion) {
 		this.verificarTransporte(camion, orden);
 		this.verificarHorarioDeRetiro(orden);
-		orden.setFechaRetiroEfectivo(LocalDateTime.now());
 		camion.asignarCarga(orden.getCarga());
 		warehouse.retirarCarga(orden.getCarga());
+		orden.setFechaRetiroEfectivo(LocalDateTime.now());
 	}
 	
 	

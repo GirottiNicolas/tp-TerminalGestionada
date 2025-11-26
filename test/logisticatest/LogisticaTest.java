@@ -76,6 +76,8 @@ public class LogisticaTest {
         when(circuitoMock.getTerminales()).thenReturn(List.of(terminalOrigen, terminalDestino));
         when(circuitoMock.getTerminalOrigen()).thenReturn(terminalOrigen);
         when(circuitoMock.rutaEntre(terminalOrigen, terminalDestino)).thenReturn(List.of(tramoMock));
+        when(circuitoMock.contieneTerminal(terminalOrigen)).thenReturn(true);
+        when(circuitoMock.contieneTerminal(terminalDestino)).thenReturn(true);
 
         logistica.registrarNaviera(navieraMock);
 
@@ -121,36 +123,19 @@ public class LogisticaTest {
     @Test
     void testTiempoDeNavieraEntreConCircuitoValido() {
         when(circuitoMock.getTerminales()).thenReturn(List.of(terminalOrigen, terminalDestino));
-        when(circuitoMock.tiempoTotalEntre(terminalOrigen, terminalDestino)).thenReturn(7);
-        when(navieraMock.getCircuitos()).thenReturn(List.of(circuitoMock));
 
+        when(navieraMock.tiempoDeRecorrido(terminalOrigen, terminalDestino)).thenReturn(7);
         int tiempo = logistica.tiempoDeNavieraEntre(navieraMock, terminalOrigen, terminalDestino);
 
         assertEquals(7, tiempo);
+        verify(navieraMock).tiempoDeRecorrido(terminalOrigen, terminalDestino);
     }
 
-    @Test
-    void testTiempoDeNavieraEntreConMultiplesCircuitos() {
-        Circuito c1 = mock(Circuito.class);
-        Circuito c2 = mock(Circuito.class);
-
-        when(c1.getTerminales()).thenReturn(List.of(terminalOrigen, terminalDestino));
-        when(c1.tiempoTotalEntre(terminalOrigen, terminalDestino)).thenReturn(10);
-
-        when(c2.getTerminales()).thenReturn(List.of(terminalOrigen, terminalDestino));
-        when(c2.tiempoTotalEntre(terminalOrigen, terminalDestino)).thenReturn(6);
-
-        when(navieraMock.getCircuitos()).thenReturn(List.of(c1, c2));
-
-        int tiempo = logistica.tiempoDeNavieraEntre(navieraMock, terminalOrigen, terminalDestino);
-
-        assertEquals(6, tiempo);
-    }
 
     @Test
     void testTiempoDeNavieraEntreSinCircuitosValidos() {
-        when(navieraMock.getCircuitos()).thenReturn(List.of(circuitoMock));
-        when(circuitoMock.getTerminales()).thenReturn(List.of(terminalOrigen));
+        when(navieraMock.tiempoDeRecorrido(terminalOrigen, terminalDestino))
+            .thenThrow(new IllegalArgumentException("No hay circuitos..."));
 
         assertThrows(IllegalArgumentException.class,
             () -> logistica.tiempoDeNavieraEntre(navieraMock, terminalOrigen, terminalDestino));

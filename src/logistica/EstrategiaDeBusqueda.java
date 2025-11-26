@@ -5,5 +5,5 @@ import java.util.List;
 import terminalgestionada.TerminalGestionada;
 
 public interface EstrategiaDeBusqueda {
-	Circuito seleccionarMejorCircuito(List<Circuito> circuitos, TerminalGestionada destino);
+	Circuito seleccionarMejorCircuito(List<Circuito> circuitos, TerminalGestionada origen, TerminalGestionada destino);
 }
