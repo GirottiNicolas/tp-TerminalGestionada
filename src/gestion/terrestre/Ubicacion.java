@@ -3,14 +3,12 @@ package gestion.terrestre;
 public class Ubicacion {
     public int x;
     public int y;
-	double metricaUtilizada;
 
     public Ubicacion(int x, int y) {
         this.x = x;
         this.y = y;
     
     }
-
 
     public double distanciaA(Ubicacion ubicacionDestino,double metricaDeDistancia) {
         int distanciaX = ubicacionDestino.x - this.x;
