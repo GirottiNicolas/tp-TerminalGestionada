@@ -11,13 +11,6 @@ public class Ubicacion {
     
     }
 
-    public int getX() { 
-    	return x; 
-    }
-    public int getY() { 
-    	return y; 
-    }
-
 
     public double distanciaA(Ubicacion ubicacionDestino,double metricaDeDistancia) {
         int distanciaX = ubicacionDestino.x - this.x;
