@@ -11,8 +11,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import gestion.ordenes.OrdenDeExportacion;
-import gestion.ordenes.OrdenDeImportacion;
+
+import gestion.gestores.exportacion.OrdenDeExportacion;
+import gestion.gestores.importacion.OrdenDeImportacion;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.Ubicacion;

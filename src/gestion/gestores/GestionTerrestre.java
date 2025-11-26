@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-
-import gestion.ordenes.Orden;
-import gestion.ordenes.OrdenDeExportacion;
-import gestion.ordenes.OrdenDeImportacion;
+import gestion.gestores.exportacion.GestorDeExportacion;
+import gestion.gestores.exportacion.OrdenDeExportacion;
+import gestion.gestores.importacion.GestorDeImportacion;
+import gestion.gestores.importacion.OrdenDeImportacion;
+import gestion.gestores.ordenes.Orden;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
@@ -82,12 +83,12 @@ public class GestionTerrestre {
 		clientes.remove(cliente);
 	}
 
-	protected void agregarAImportaciones(OrdenDeImportacion orden) {
+	public void agregarAImportaciones(OrdenDeImportacion orden) {
 		importaciones.add(orden);
 		
 	}
 	
-	protected void agregarAExportaciones(OrdenDeExportacion orden) {
+	public void agregarAExportaciones(OrdenDeExportacion orden) {
 		exportaciones.add(orden);
 	}
 	
@@ -123,7 +124,7 @@ public class GestionTerrestre {
 				.forEach(orden -> {
 					orden.setFechaDeNotificacion(LocalDateTime.now());
 					this.enviarMail( orden.getCliente());
-					orden.asignarTurno(LocalDateTime.now()); // Cambiar por el tiempo calculado del viaje
+					orden.asignarTurno(LocalDateTime.now()); // No se profundiza en la gestion del turno, por lo tanto, la fecha es estimada.
 				});
 		
 	}

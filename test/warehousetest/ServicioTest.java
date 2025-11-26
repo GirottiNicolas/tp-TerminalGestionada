@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import gestion.ordenes.OrdenDeImportacion;
+
+import gestion.gestores.importacion.OrdenDeImportacion;
 import warehouse.IServicio;
 import warehouse.ServicioLavado;
 import warehouse.ServicioPesado;

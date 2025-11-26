@@ -1,10 +1,11 @@
-package gestion.ordenes;
+package gestion.gestores.exportacion;
 
+import gestion.gestores.ordenes.Orden;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import logistica.Viaje;
 import terminalgestionada.TerminalGestionada;
-import warehouse.Buque;
+
 import warehouse.Carga;
 
 

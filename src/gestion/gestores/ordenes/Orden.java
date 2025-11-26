@@ -1,4 +1,4 @@
-package gestion.ordenes;
+package gestion.gestores.ordenes;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +16,7 @@ public abstract class Orden {
 	Camion camion;
 	Cliente cliente;
 	LocalDateTime turno = null;
-	Viaje viaje;
+	protected Viaje viaje;
 	LocalDateTime fechaNotificacion;
 	
 	public Orden(Viaje viaje,Carga carga,Camion camion, Cliente cliente) {
@@ -101,7 +101,7 @@ public abstract class Orden {
 	}
 	
 
-	public void setFechaDeNotificacion(LocalDateTime fechaNotificacion) {
+	public void setFechaDeNotificacion(LocalDateTime fechaNotificacion) { // Podria ser protected para mejorar la encapsulacion
 		this.fechaNotificacion = fechaNotificacion;
 	}
 	
