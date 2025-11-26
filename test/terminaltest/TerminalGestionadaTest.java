@@ -14,8 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import gestion.gestores.GestionTerrestre;
-import gestion.ordenes.OrdenDeExportacion;
-import gestion.ordenes.OrdenDeImportacion;
+import gestion.gestores.exportacion.OrdenDeExportacion;
+import gestion.gestores.importacion.OrdenDeImportacion;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;

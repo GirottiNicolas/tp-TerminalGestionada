@@ -13,10 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import gestion.gestores.GestionTerrestre;
-import gestion.gestores.GestorDeExportacion;
-import gestion.gestores.GestorDeImportacion;
-import gestion.ordenes.OrdenDeExportacion;
-import gestion.ordenes.OrdenDeImportacion;
+import gestion.gestores.exportacion.GestorDeExportacion;
+import gestion.gestores.exportacion.OrdenDeExportacion;
+import gestion.gestores.importacion.GestorDeImportacion;
+import gestion.gestores.importacion.OrdenDeImportacion;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;

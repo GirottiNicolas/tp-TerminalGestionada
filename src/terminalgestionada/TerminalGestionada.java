@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import filtros.FiltroBusqueda;
 import gestion.gestores.GestionTerrestre;
-import gestion.ordenes.OrdenDeExportacion;
-import gestion.ordenes.OrdenDeImportacion;
+import gestion.gestores.exportacion.OrdenDeExportacion;
+import gestion.gestores.importacion.OrdenDeImportacion;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import gestion.terrestre.EmpresaTransportista;
@@ -22,7 +22,7 @@ import warehouse.Warehouse;
 import warehouse.Carga;
 import warehouse.IServicio;
 
-public class TerminalGestionada implements FachadaTerminal{
+public class TerminalGestionada {
 	
 	Ubicacion posicionGeografica;
 	GestionTerrestre gestionTerrestre;
@@ -36,48 +36,43 @@ public class TerminalGestionada implements FachadaTerminal{
 		this.posicionGeografica = posicionGeografica;
 	}
 	
-	
-	@Override
+
 	public boolean esLaTerminal(TerminalGestionada terminal) {
 		return posicionGeografica.esLaUbicacion(terminal.getPosicionGeografica());
 	}
-	
-	@Override
+
 	public Ubicacion getPosicionGeografica() {
 		return posicionGeografica;
 	}
 
-	
-	@Override
+
 	public Circuito mejorCircuito(TerminalGestionada terminal) {
 		return logistica.mejorCircuito(this, terminal);
 	}
 
-	@Override
+
 	public void registrarNaviera(Naviera naviera) {
 		logistica.registrarNaviera(naviera);
 		
 	}
 
-	@Override
+
 	public void importar(OrdenDeImportacion orden) {
 		gestionTerrestre.importar(orden, this);
 		
 	}
 
-	@Override
 	public void exportar(OrdenDeExportacion orden) {
 		gestionTerrestre.exportar(orden, this);
 		
 	}
 
-	@Override
+
 	public void registrarEmpresaTransportista(EmpresaTransportista empresa) {
 		gestionTerrestre.registrarEmpresaTransporte(empresa);
 		
 	}
-	
-	@Override
+
 	public void agregarCliente(Cliente cliente) {
 		gestionTerrestre.agregarCliente(cliente);
 		
@@ -92,18 +87,17 @@ public class TerminalGestionada implements FachadaTerminal{
 		gestionTerrestre.notificarShippers(buque);
 	}
 
-	@Override
+
 	public void setMejorEstrategiaParaCircuito(EstrategiaDeBusqueda estrategia) {
 		logistica.setMejorCircuito(estrategia);
 		
 	}
 
-	@Override
+
 	public LocalDate proximaFechaDePartida(Buque buque, TerminalGestionada destino) {
 		return logistica.primeraFechaBuque(LocalDate.now(), buque, this, destino);
 	}
 
-	@Override
 	public void agregarCamion(EmpresaTransportista empresa, Camion camion) {
 		gestionTerrestre.agregarCamion(empresa, camion);
 		
@@ -132,8 +126,7 @@ public class TerminalGestionada implements FachadaTerminal{
                 .collect(Collectors.toList());
     }
 	
-	
-	@Override
+
 	public int tiempoDeNavieraEntre(Naviera naviera, TerminalGestionada origen, TerminalGestionada destino) {
 		return logistica.tiempoDeNavieraEntre(naviera, this, destino);
 	}

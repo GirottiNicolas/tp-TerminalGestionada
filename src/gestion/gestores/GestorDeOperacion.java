@@ -1,14 +1,14 @@
 package gestion.gestores;
 
-import gestion.ordenes.Orden;
+import gestion.gestores.ordenes.Orden;
 import gestion.terrestre.Camion;
 import terminalgestionada.TerminalGestionada;
 import warehouse.Warehouse;
 
 public abstract class GestorDeOperacion {
 	
-	GestionTerrestre gestionTerrestre;
-	Warehouse warehouse;
+	protected GestionTerrestre gestionTerrestre;
+	protected Warehouse warehouse;
 	
 	public GestorDeOperacion(GestionTerrestre gestionTerrestre, Warehouse warehouse) {
 		this.gestionTerrestre = gestionTerrestre;

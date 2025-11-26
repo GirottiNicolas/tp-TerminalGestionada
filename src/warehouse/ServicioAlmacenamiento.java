@@ -3,7 +3,7 @@ package warehouse;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import gestion.ordenes.OrdenDeImportacion;
+import gestion.gestores.importacion.OrdenDeImportacion;
 
 public class ServicioAlmacenamiento implements IServicio{
 

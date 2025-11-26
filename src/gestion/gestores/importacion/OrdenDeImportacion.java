@@ -1,7 +1,8 @@
-package gestion.ordenes;
+package gestion.gestores.importacion;
 
 import java.time.LocalDateTime;
 
+import gestion.gestores.ordenes.Orden;
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import logistica.Viaje;
@@ -33,6 +34,7 @@ public class OrdenDeImportacion extends Orden {
 
 
 	public void setFechaRetiroEfectivo(LocalDateTime fechaDeRetiro) {
+		// Este metodo deberia ser protected, pero por cuestiones de testeo y simplicidad se mantuvo de esta manera.
 		this.fechaDeRetiro = fechaDeRetiro;
 		
 	}
