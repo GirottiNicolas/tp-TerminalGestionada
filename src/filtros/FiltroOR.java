@@ -4,9 +4,9 @@ import java.util.List;
 
 import logistica.Viaje;
 
-public class FiltroOR implements FiltroBusqueda{
+public class FiltroOR extends FiltroLogico{
 
-    List<FiltroBusqueda> filtros;
+
 
     public FiltroOR(List<FiltroBusqueda> filtros) {
         this.filtros = filtros; 

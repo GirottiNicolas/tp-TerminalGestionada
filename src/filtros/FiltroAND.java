@@ -4,9 +4,9 @@ import java.util.List;
 
 import logistica.Viaje;
 
-public class FiltroAND implements FiltroBusqueda{
+public class FiltroAND extends FiltroLogico{
 
-	 List<FiltroBusqueda> filtros;
+
 
 	    public FiltroAND(List<FiltroBusqueda> filtros) {
 	        this.filtros = filtros; 
@@ -14,8 +14,8 @@ public class FiltroAND implements FiltroBusqueda{
 
 	    @Override
 	    public boolean cumple(Viaje viaje) {
-	        // Cumple si ALGUNO cumple
+	        // Cumple si TODOS cumplen
 	        return filtros.stream().allMatch(filtro -> filtro.cumple(viaje));
 	    }
-	// (cumple1 && cumple2) || cumple3
+	
 }
