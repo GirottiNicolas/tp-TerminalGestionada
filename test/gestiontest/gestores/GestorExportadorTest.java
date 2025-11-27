@@ -15,11 +15,10 @@ import org.junit.jupiter.api.Test;
 import gestion.gestores.GestionTerrestre;
 import gestion.gestores.exportacion.GestorDeExportacion;
 import gestion.gestores.exportacion.OrdenDeExportacion;
-import gestion.gestores.importacion.GestorDeImportacion;
-import gestion.gestores.importacion.OrdenDeImportacion;
+
 import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
-import gestion.terrestre.EmpresaTransportista;
+
 import gestion.terrestre.Ubicacion;
 import logistica.Circuito;
 import logistica.Tramo;

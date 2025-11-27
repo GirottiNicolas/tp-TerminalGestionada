@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
-import org.mockito.Mockito.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 import filtros.FiltroAND;
 import filtros.FiltroBusqueda;

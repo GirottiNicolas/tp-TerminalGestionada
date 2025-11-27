@@ -7,7 +7,7 @@ import gestion.terrestre.Camion;
 import gestion.terrestre.Cliente;
 import logistica.Viaje;
 import terminalgestionada.TerminalGestionada;
-import warehouse.Buque;
+
 import warehouse.Carga;
 
 public class OrdenDeImportacion extends Orden {

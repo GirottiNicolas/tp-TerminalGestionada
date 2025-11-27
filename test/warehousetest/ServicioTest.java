@@ -18,10 +18,12 @@ import warehouse.ServicioDesconsolidado;
 
 public class ServicioTest {
 	
+	@SuppressWarnings("unused")
 	private IServicio servicioPesado;
 	private Carga cargaChica; // Mock
     private Carga cargaGrande; // Mock
-    private IServicio servicioLavado;
+    @SuppressWarnings("unused")
+	private IServicio servicioLavado;
     private OrdenDeImportacion ordenA_Tiempo; // Mock
     private OrdenDeImportacion ordenDemorada;
 
